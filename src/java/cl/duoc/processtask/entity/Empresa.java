@@ -7,8 +7,6 @@
 package cl.duoc.processtask.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,11 +15,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.ParameterMode;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -29,51 +30,110 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "EMPRESA")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Empresa.findAll", query = "SELECT e FROM Empresa e"),
     @NamedQuery(name = "Empresa.findByIdempresa", query = "SELECT e FROM Empresa e WHERE e.idempresa = :idempresa"),
+    @NamedQuery(name = "Empresa.findByDgrut", query = "SELECT e FROM Empresa e WHERE e.dgrut = :dgrut"),
+    @NamedQuery(name = "Empresa.findByDgdireccion", query = "SELECT e FROM Empresa e WHERE e.dgdireccion = :dgdireccion"),
+    @NamedQuery(name = "Empresa.findByDgnombreempresa", query = "SELECT e FROM Empresa e WHERE e.dgnombreempresa = :dgnombreempresa"),
     @NamedQuery(name = "Empresa.findByDgcontacto", query = "SELECT e FROM Empresa e WHERE e.dgcontacto = :dgcontacto"),
     @NamedQuery(name = "Empresa.findByDgcorreo", query = "SELECT e FROM Empresa e WHERE e.dgcorreo = :dgcorreo"),
-    @NamedQuery(name = "Empresa.findByDgdireccion", query = "SELECT e FROM Empresa e WHERE e.dgdireccion = :dgdireccion"),
-    @NamedQuery(name = "Empresa.findByDgrut", query = "SELECT e FROM Empresa e WHERE e.dgrut = :dgrut")})
+    @NamedQuery(name = "Empresa.findByBlvigente", query = "SELECT e FROM Empresa e WHERE e.blvigente = :blvigente")})
+    @NamedStoredProcedureQuery(
+    name = "INGRESAREMPRESA",
+            procedureName = "PT_USER.INGRESAREMPRESA",
+            parameters = {
+                @StoredProcedureParameter(name = "DGRUT",type = String.class,mode = ParameterMode.IN),
+                @StoredProcedureParameter(name = "DGDIRECCION",type = String.class,mode = ParameterMode.IN),
+                @StoredProcedureParameter(name = "DGNOMBREEMPRESA",type = String.class,mode = ParameterMode.IN),
+                @StoredProcedureParameter(name = "DGCONTACTO",type = String.class,mode = ParameterMode.IN),
+                @StoredProcedureParameter(name = "DGCORREO",type = String.class,mode = ParameterMode.IN),
+                @StoredProcedureParameter(name = "BLVIGENTE",type = Long.class,mode = ParameterMode.IN)
+            })
 public class Empresa implements Serializable {
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "EMPRESA_SEQ")
-    @SequenceGenerator(sequenceName = "EMPRESA_SECUENCE",allocationSize = 1,name = "EMPRESA_SEQ")
+    @SequenceGenerator(sequenceName = "EMPRESA_SEQ",allocationSize = 1,name = "EMPRESA_SEQ")
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDEMPRESA")
-    private BigDecimal idempresa;
-    @Size(max = 255)
-    @Column(name = "DGCONTACTO")
-    private String dgcontacto;
-    @Size(max = 255)
-    @Column(name = "DGCORREO")
-    private String dgcorreo;
-    @Size(max = 255)
-    @Column(name = "DGDIRECCION")
-    private String dgdireccion;
-    @Size(max = 255)
+    private Long idempresa;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
     @Column(name = "DGRUT")
     private String dgrut;
-    @OneToMany(mappedBy = "idempresaCliente")
-    private Collection<Cliente> clienteCollection;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
+    @Column(name = "DGDIRECCION")
+    private String dgdireccion;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
+    @Column(name = "DGNOMBREEMPRESA")
+    private String dgnombreempresa;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
+    @Column(name = "DGCONTACTO")
+    private String dgcontacto;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
+    @Column(name = "DGCORREO")
+    private String dgcorreo;
+    @Column(name = "BLVIGENTE")
+    private Long blvigente;
 
     public Empresa() {
     }
 
-    public Empresa(BigDecimal idempresa) {
+    public Empresa(Long idempresa) {
         this.idempresa = idempresa;
     }
 
-    public BigDecimal getIdempresa() {
+    public Empresa(Long idempresa, String dgrut, String dgdireccion, String dgnombreempresa, String dgcontacto, String dgcorreo) {
+        this.idempresa = idempresa;
+        this.dgrut = dgrut;
+        this.dgdireccion = dgdireccion;
+        this.dgnombreempresa = dgnombreempresa;
+        this.dgcontacto = dgcontacto;
+        this.dgcorreo = dgcorreo;
+    }
+
+    public Long getIdempresa() {
         return idempresa;
     }
 
-    public void setIdempresa(BigDecimal idempresa) {
+    public void setIdempresa(Long idempresa) {
         this.idempresa = idempresa;
+    }
+
+    public String getDgrut() {
+        return dgrut;
+    }
+
+    public void setDgrut(String dgrut) {
+        this.dgrut = dgrut;
+    }
+
+    public String getDgdireccion() {
+        return dgdireccion;
+    }
+
+    public void setDgdireccion(String dgdireccion) {
+        this.dgdireccion = dgdireccion;
+    }
+
+    public String getDgnombreempresa() {
+        return dgnombreempresa;
+    }
+
+    public void setDgnombreempresa(String dgnombreempresa) {
+        this.dgnombreempresa = dgnombreempresa;
     }
 
     public String getDgcontacto() {
@@ -92,28 +152,12 @@ public class Empresa implements Serializable {
         this.dgcorreo = dgcorreo;
     }
 
-    public String getDgdireccion() {
-        return dgdireccion;
+    public Long getBlvigente() {
+        return blvigente;
     }
 
-    public void setDgdireccion(String dgdireccion) {
-        this.dgdireccion = dgdireccion;
-    }
-
-    public String getDgrut() {
-        return dgrut;
-    }
-
-    public void setDgrut(String dgrut) {
-        this.dgrut = dgrut;
-    }
-
-    public Collection<Cliente> getClienteCollection() {
-        return clienteCollection;
-    }
-
-    public void setClienteCollection(Collection<Cliente> clienteCollection) {
-        this.clienteCollection = clienteCollection;
+    public void setBlvigente(Long blvigente) {
+        this.blvigente = blvigente;
     }
 
     @Override
@@ -136,14 +180,9 @@ public class Empresa implements Serializable {
         return true;
     }
 
-//    }
-
-//    @Override
-//    public String toString() {
-//        return "cl.duoc.processtask.entity.Empresa[ idempresa=" + idempresa + " ]";
     @Override
     public String toString() {
-        return "Empresa{" + "idempresa=" + idempresa + ", dgcontacto=" + dgcontacto + ", dgcorreo=" + dgcorreo + ", dgdireccion=" + dgdireccion + ", dgrut=" + dgrut + ", clienteCollection=" + clienteCollection + '}';
+        return "cl.duoc.processtask.entity.Empresa[ idempresa=" + idempresa + " ]";
     }
     
 }

@@ -8,10 +8,10 @@ package cl.duoc.processtask.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,6 +25,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,82 +34,108 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "FLUJOTAREA")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Flujotarea.findAll", query = "SELECT f FROM Flujotarea f"),
     @NamedQuery(name = "Flujotarea.findByIdflujotarea", query = "SELECT f FROM Flujotarea f WHERE f.idflujotarea = :idflujotarea"),
-    @NamedQuery(name = "Flujotarea.findByBlestadoavance", query = "SELECT f FROM Flujotarea f WHERE f.blestadoavance = :blestadoavance"),
-    @NamedQuery(name = "Flujotarea.findByBlvigente", query = "SELECT f FROM Flujotarea f WHERE f.blvigente = :blvigente"),
+    @NamedQuery(name = "Flujotarea.findByIdreporteFlujotarea", query = "SELECT f FROM Flujotarea f WHERE f.idreporteFlujotarea = :idreporteFlujotarea"),
+    @NamedQuery(name = "Flujotarea.findByGnombreflujotarea", query = "SELECT f FROM Flujotarea f WHERE f.gnombreflujotarea = :gnombreflujotarea"),
     @NamedQuery(name = "Flujotarea.findByDcfechacreacion", query = "SELECT f FROM Flujotarea f WHERE f.dcfechacreacion = :dcfechacreacion"),
     @NamedQuery(name = "Flujotarea.findByDcfechaemision", query = "SELECT f FROM Flujotarea f WHERE f.dcfechaemision = :dcfechaemision"),
     @NamedQuery(name = "Flujotarea.findByDcfechatermino", query = "SELECT f FROM Flujotarea f WHERE f.dcfechatermino = :dcfechatermino"),
     @NamedQuery(name = "Flujotarea.findByDcporcentajeavance", query = "SELECT f FROM Flujotarea f WHERE f.dcporcentajeavance = :dcporcentajeavance"),
-    @NamedQuery(name = "Flujotarea.findByGnombreflujotarea", query = "SELECT f FROM Flujotarea f WHERE f.gnombreflujotarea = :gnombreflujotarea"),
-    @NamedQuery(name = "Flujotarea.findByIdreporteFlujotarea", query = "SELECT f FROM Flujotarea f WHERE f.idreporteFlujotarea = :idreporteFlujotarea")})
+    @NamedQuery(name = "Flujotarea.findByBlestadoavance", query = "SELECT f FROM Flujotarea f WHERE f.blestadoavance = :blestadoavance"),
+    @NamedQuery(name = "Flujotarea.findByBlvigente", query = "SELECT f FROM Flujotarea f WHERE f.blvigente = :blvigente")})
 public class Flujotarea implements Serializable {
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDFLUJOTAREA")
-    private BigDecimal idflujotarea;
-    @Column(name = "BLESTADOAVANCE")
-    private Character blestadoavance;
-    @Column(name = "BLVIGENTE")
-    private Character blvigente;
+    private Long idflujotarea;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "IDREPORTE_FLUJOTAREA")
+    private long idreporteFlujotarea;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
+    @Column(name = "GNOMBREFLUJOTAREA")
+    private String gnombreflujotarea;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "DCFECHACREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dcfechacreacion;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "DCFECHAEMISION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dcfechaemision;
     @Column(name = "DCFECHATERMINO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dcfechatermino;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "DCPORCENTAJEAVANCE")
-    private BigInteger dcporcentajeavance;
-    @Size(max = 255)
-    @Column(name = "GNOMBREFLUJOTAREA")
-    private String gnombreflujotarea;
-    @Column(name = "IDREPORTE_FLUJOTAREA")
-    private BigInteger idreporteFlujotarea;
-    @OneToMany(mappedBy = "idflujotareaTarea")
+    private BigDecimal dcporcentajeavance;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "BLESTADOAVANCE")
+    private short blestadoavance;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "BLVIGENTE")
+    private short blvigente;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idflujotareaTarea")
     private Collection<Tarea> tareaCollection;
-    @OneToMany(mappedBy = "idflujotareaFlujotareacliente")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idflujotareaFlujotareacliente")
     private Collection<Flujotareacliente> flujotareaclienteCollection;
     @JoinColumn(name = "IDUSUARIO_FLUJOTAREA", referencedColumnName = "IDUSUARIO")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Usuario idusuarioFlujotarea;
 
     public Flujotarea() {
     }
 
-    public Flujotarea(BigDecimal idflujotarea) {
+    public Flujotarea(Long idflujotarea) {
         this.idflujotarea = idflujotarea;
     }
 
-    public BigDecimal getIdflujotarea() {
+    public Flujotarea(Long idflujotarea, long idreporteFlujotarea, String gnombreflujotarea, Date dcfechacreacion, Date dcfechaemision, BigDecimal dcporcentajeavance, short blestadoavance, short blvigente) {
+        this.idflujotarea = idflujotarea;
+        this.idreporteFlujotarea = idreporteFlujotarea;
+        this.gnombreflujotarea = gnombreflujotarea;
+        this.dcfechacreacion = dcfechacreacion;
+        this.dcfechaemision = dcfechaemision;
+        this.dcporcentajeavance = dcporcentajeavance;
+        this.blestadoavance = blestadoavance;
+        this.blvigente = blvigente;
+    }
+
+    public Long getIdflujotarea() {
         return idflujotarea;
     }
 
-    public void setIdflujotarea(BigDecimal idflujotarea) {
+    public void setIdflujotarea(Long idflujotarea) {
         this.idflujotarea = idflujotarea;
     }
 
-    public Character getBlestadoavance() {
-        return blestadoavance;
+    public long getIdreporteFlujotarea() {
+        return idreporteFlujotarea;
     }
 
-    public void setBlestadoavance(Character blestadoavance) {
-        this.blestadoavance = blestadoavance;
+    public void setIdreporteFlujotarea(long idreporteFlujotarea) {
+        this.idreporteFlujotarea = idreporteFlujotarea;
     }
 
-    public Character getBlvigente() {
-        return blvigente;
+    public String getGnombreflujotarea() {
+        return gnombreflujotarea;
     }
 
-    public void setBlvigente(Character blvigente) {
-        this.blvigente = blvigente;
+    public void setGnombreflujotarea(String gnombreflujotarea) {
+        this.gnombreflujotarea = gnombreflujotarea;
     }
 
     public Date getDcfechacreacion() {
@@ -134,30 +162,31 @@ public class Flujotarea implements Serializable {
         this.dcfechatermino = dcfechatermino;
     }
 
-    public BigInteger getDcporcentajeavance() {
+    public BigDecimal getDcporcentajeavance() {
         return dcporcentajeavance;
     }
 
-    public void setDcporcentajeavance(BigInteger dcporcentajeavance) {
+    public void setDcporcentajeavance(BigDecimal dcporcentajeavance) {
         this.dcporcentajeavance = dcporcentajeavance;
     }
 
-    public String getGnombreflujotarea() {
-        return gnombreflujotarea;
+    public short getBlestadoavance() {
+        return blestadoavance;
     }
 
-    public void setGnombreflujotarea(String gnombreflujotarea) {
-        this.gnombreflujotarea = gnombreflujotarea;
+    public void setBlestadoavance(short blestadoavance) {
+        this.blestadoavance = blestadoavance;
     }
 
-    public BigInteger getIdreporteFlujotarea() {
-        return idreporteFlujotarea;
+    public short getBlvigente() {
+        return blvigente;
     }
 
-    public void setIdreporteFlujotarea(BigInteger idreporteFlujotarea) {
-        this.idreporteFlujotarea = idreporteFlujotarea;
+    public void setBlvigente(short blvigente) {
+        this.blvigente = blvigente;
     }
 
+    @XmlTransient
     public Collection<Tarea> getTareaCollection() {
         return tareaCollection;
     }
@@ -166,6 +195,7 @@ public class Flujotarea implements Serializable {
         this.tareaCollection = tareaCollection;
     }
 
+    @XmlTransient
     public Collection<Flujotareacliente> getFlujotareaclienteCollection() {
         return flujotareaclienteCollection;
     }

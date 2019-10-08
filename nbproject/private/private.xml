@@ -5,10 +5,13 @@
         <group>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/eis/EmpresaDaoImpl.java</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/entity/Empresa.java</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/web/WEB-INF/web.xml</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/test/prueba.java</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/nbproject/build-impl.xml</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/nbproject/jax-ws.xml</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/servicio/EmpresaServiceImpl.java</file>
-            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/servicio/EmpresaServiceWS.java</file>
-            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/servicio/EmpresaService.java</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/src/conf/persistence.xml</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/setup/glassfish-resources.xml</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/eis/EmpresaDao.java</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/ws/wsEmpresa.java</file>
         </group>

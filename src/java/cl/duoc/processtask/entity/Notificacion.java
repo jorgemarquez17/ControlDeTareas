@@ -27,59 +27,59 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author jorge
  */
 @Entity
-@Table(name = "TIPOROL")
+@Table(name = "NOTIFICACION")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tiporol.findAll", query = "SELECT t FROM Tiporol t"),
-    @NamedQuery(name = "Tiporol.findByIdtiporol", query = "SELECT t FROM Tiporol t WHERE t.idtiporol = :idtiporol"),
-    @NamedQuery(name = "Tiporol.findByDgnombretiporol", query = "SELECT t FROM Tiporol t WHERE t.dgnombretiporol = :dgnombretiporol"),
-    @NamedQuery(name = "Tiporol.findByBlvigente", query = "SELECT t FROM Tiporol t WHERE t.blvigente = :blvigente")})
-public class Tiporol implements Serializable {
+    @NamedQuery(name = "Notificacion.findAll", query = "SELECT n FROM Notificacion n"),
+    @NamedQuery(name = "Notificacion.findByIdnotificacion", query = "SELECT n FROM Notificacion n WHERE n.idnotificacion = :idnotificacion"),
+    @NamedQuery(name = "Notificacion.findByDgnombrenotificacion", query = "SELECT n FROM Notificacion n WHERE n.dgnombrenotificacion = :dgnombrenotificacion"),
+    @NamedQuery(name = "Notificacion.findByBlvigente", query = "SELECT n FROM Notificacion n WHERE n.blvigente = :blvigente")})
+public class Notificacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "IDTIPOROL")
-    private Long idtiporol;
+    @Column(name = "IDNOTIFICACION")
+    private Long idnotificacion;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
-    @Column(name = "DGNOMBRETIPOROL")
-    private String dgnombretiporol;
+    @Column(name = "DGNOMBRENOTIFICACION")
+    private String dgnombrenotificacion;
     @Basic(optional = false)
     @NotNull
     @Column(name = "BLVIGENTE")
     private short blvigente;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtiporolUsuario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idnotificacionUsuario")
     private Collection<Usuario> usuarioCollection;
 
-    public Tiporol() {
+    public Notificacion() {
     }
 
-    public Tiporol(Long idtiporol) {
-        this.idtiporol = idtiporol;
+    public Notificacion(Long idnotificacion) {
+        this.idnotificacion = idnotificacion;
     }
 
-    public Tiporol(Long idtiporol, String dgnombretiporol, short blvigente) {
-        this.idtiporol = idtiporol;
-        this.dgnombretiporol = dgnombretiporol;
+    public Notificacion(Long idnotificacion, String dgnombrenotificacion, short blvigente) {
+        this.idnotificacion = idnotificacion;
+        this.dgnombrenotificacion = dgnombrenotificacion;
         this.blvigente = blvigente;
     }
 
-    public Long getIdtiporol() {
-        return idtiporol;
+    public Long getIdnotificacion() {
+        return idnotificacion;
     }
 
-    public void setIdtiporol(Long idtiporol) {
-        this.idtiporol = idtiporol;
+    public void setIdnotificacion(Long idnotificacion) {
+        this.idnotificacion = idnotificacion;
     }
 
-    public String getDgnombretiporol() {
-        return dgnombretiporol;
+    public String getDgnombrenotificacion() {
+        return dgnombrenotificacion;
     }
 
-    public void setDgnombretiporol(String dgnombretiporol) {
-        this.dgnombretiporol = dgnombretiporol;
+    public void setDgnombrenotificacion(String dgnombrenotificacion) {
+        this.dgnombrenotificacion = dgnombrenotificacion;
     }
 
     public short getBlvigente() {
@@ -102,18 +102,18 @@ public class Tiporol implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idtiporol != null ? idtiporol.hashCode() : 0);
+        hash += (idnotificacion != null ? idnotificacion.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tiporol)) {
+        if (!(object instanceof Notificacion)) {
             return false;
         }
-        Tiporol other = (Tiporol) object;
-        if ((this.idtiporol == null && other.idtiporol != null) || (this.idtiporol != null && !this.idtiporol.equals(other.idtiporol))) {
+        Notificacion other = (Notificacion) object;
+        if ((this.idnotificacion == null && other.idnotificacion != null) || (this.idnotificacion != null && !this.idnotificacion.equals(other.idnotificacion))) {
             return false;
         }
         return true;
@@ -121,7 +121,7 @@ public class Tiporol implements Serializable {
 
     @Override
     public String toString() {
-        return "cl.duoc.processtask.entity.Tiporol[ idtiporol=" + idtiporol + " ]";
+        return "cl.duoc.processtask.entity.Notificacion[ idnotificacion=" + idnotificacion + " ]";
     }
     
 }

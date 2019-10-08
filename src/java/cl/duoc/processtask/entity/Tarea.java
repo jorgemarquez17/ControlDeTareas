@@ -7,11 +7,10 @@
 package cl.duoc.processtask.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,6 +24,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,32 +33,37 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "TAREA")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tarea.findAll", query = "SELECT t FROM Tarea t"),
     @NamedQuery(name = "Tarea.findByIdtarea", query = "SELECT t FROM Tarea t WHERE t.idtarea = :idtarea"),
-    @NamedQuery(name = "Tarea.findByBlestado", query = "SELECT t FROM Tarea t WHERE t.blestado = :blestado"),
-    @NamedQuery(name = "Tarea.findByBlrechazado", query = "SELECT t FROM Tarea t WHERE t.blrechazado = :blrechazado"),
-    @NamedQuery(name = "Tarea.findByBlvigente", query = "SELECT t FROM Tarea t WHERE t.blvigente = :blvigente"),
+    @NamedQuery(name = "Tarea.findByDgnombretarea", query = "SELECT t FROM Tarea t WHERE t.dgnombretarea = :dgnombretarea"),
+    @NamedQuery(name = "Tarea.findByDcporccompletado", query = "SELECT t FROM Tarea t WHERE t.dcporccompletado = :dcporccompletado"),
     @NamedQuery(name = "Tarea.findByDcfechacreacion", query = "SELECT t FROM Tarea t WHERE t.dcfechacreacion = :dcfechacreacion"),
     @NamedQuery(name = "Tarea.findByDcfechaemision", query = "SELECT t FROM Tarea t WHERE t.dcfechaemision = :dcfechaemision"),
     @NamedQuery(name = "Tarea.findByDcfechatermino", query = "SELECT t FROM Tarea t WHERE t.dcfechatermino = :dcfechatermino"),
-    @NamedQuery(name = "Tarea.findByDcporccompletado", query = "SELECT t FROM Tarea t WHERE t.dcporccompletado = :dcporccompletado"),
     @NamedQuery(name = "Tarea.findByDgjustificacion", query = "SELECT t FROM Tarea t WHERE t.dgjustificacion = :dgjustificacion"),
-    @NamedQuery(name = "Tarea.findByDgnombretarea", query = "SELECT t FROM Tarea t WHERE t.dgnombretarea = :dgnombretarea")})
+    @NamedQuery(name = "Tarea.findByBlrechazado", query = "SELECT t FROM Tarea t WHERE t.blrechazado = :blrechazado"),
+    @NamedQuery(name = "Tarea.findByBlestado", query = "SELECT t FROM Tarea t WHERE t.blestado = :blestado"),
+    @NamedQuery(name = "Tarea.findByBlvigente", query = "SELECT t FROM Tarea t WHERE t.blvigente = :blvigente")})
 public class Tarea implements Serializable {
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDTAREA")
-    private BigDecimal idtarea;
-    @Column(name = "BLESTADO")
-    private Character blestado;
-    @Column(name = "BLRECHAZADO")
-    private Character blrechazado;
-    @Column(name = "BLVIGENTE")
-    private Character blvigente;
+    private Long idtarea;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
+    @Column(name = "DGNOMBRETAREA")
+    private String dgnombretarea;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "DCPORCCOMPLETADO")
+    private long dcporccompletado;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "DCFECHACREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dcfechacreacion;
@@ -67,60 +73,72 @@ public class Tarea implements Serializable {
     @Column(name = "DCFECHATERMINO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dcfechatermino;
-    @Column(name = "DCPORCCOMPLETADO")
-    private BigInteger dcporccompletado;
-    @Size(max = 255)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
     @Column(name = "DGJUSTIFICACION")
     private String dgjustificacion;
-    @Size(max = 255)
-    @Column(name = "DGNOMBRETAREA")
-    private String dgnombretarea;
-    @JoinColumn(name = "IDRESPONSABLETAREA_TAREA", referencedColumnName = "IDRESPONSABLETAREA")
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "BLRECHAZADO")
+    private short blrechazado;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "BLESTADO")
+    private short blestado;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "BLVIGENTE")
+    private short blvigente;
+    @JoinColumn(name = "IDRESPONSABLETAREA_USUARIO", referencedColumnName = "IDUSUARIO")
     @ManyToOne
-    private Responsabletarea idresponsabletareaTarea;
+    private Usuario idresponsabletareaUsuario;
     @JoinColumn(name = "IDFLUJOTAREA_TAREA", referencedColumnName = "IDFLUJOTAREA")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Flujotarea idflujotareaTarea;
-    @OneToMany(mappedBy = "idtareaSubtarea")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtareaSubtarea")
     private Collection<Subtarea> subtareaCollection;
 
     public Tarea() {
     }
 
-    public Tarea(BigDecimal idtarea) {
+    public Tarea(Long idtarea) {
         this.idtarea = idtarea;
     }
 
-    public BigDecimal getIdtarea() {
+    public Tarea(Long idtarea, String dgnombretarea, long dcporccompletado, Date dcfechacreacion, String dgjustificacion, short blrechazado, short blestado, short blvigente) {
+        this.idtarea = idtarea;
+        this.dgnombretarea = dgnombretarea;
+        this.dcporccompletado = dcporccompletado;
+        this.dcfechacreacion = dcfechacreacion;
+        this.dgjustificacion = dgjustificacion;
+        this.blrechazado = blrechazado;
+        this.blestado = blestado;
+        this.blvigente = blvigente;
+    }
+
+    public Long getIdtarea() {
         return idtarea;
     }
 
-    public void setIdtarea(BigDecimal idtarea) {
+    public void setIdtarea(Long idtarea) {
         this.idtarea = idtarea;
     }
 
-    public Character getBlestado() {
-        return blestado;
+    public String getDgnombretarea() {
+        return dgnombretarea;
     }
 
-    public void setBlestado(Character blestado) {
-        this.blestado = blestado;
+    public void setDgnombretarea(String dgnombretarea) {
+        this.dgnombretarea = dgnombretarea;
     }
 
-    public Character getBlrechazado() {
-        return blrechazado;
+    public long getDcporccompletado() {
+        return dcporccompletado;
     }
 
-    public void setBlrechazado(Character blrechazado) {
-        this.blrechazado = blrechazado;
-    }
-
-    public Character getBlvigente() {
-        return blvigente;
-    }
-
-    public void setBlvigente(Character blvigente) {
-        this.blvigente = blvigente;
+    public void setDcporccompletado(long dcporccompletado) {
+        this.dcporccompletado = dcporccompletado;
     }
 
     public Date getDcfechacreacion() {
@@ -147,14 +165,6 @@ public class Tarea implements Serializable {
         this.dcfechatermino = dcfechatermino;
     }
 
-    public BigInteger getDcporccompletado() {
-        return dcporccompletado;
-    }
-
-    public void setDcporccompletado(BigInteger dcporccompletado) {
-        this.dcporccompletado = dcporccompletado;
-    }
-
     public String getDgjustificacion() {
         return dgjustificacion;
     }
@@ -163,20 +173,36 @@ public class Tarea implements Serializable {
         this.dgjustificacion = dgjustificacion;
     }
 
-    public String getDgnombretarea() {
-        return dgnombretarea;
+    public short getBlrechazado() {
+        return blrechazado;
     }
 
-    public void setDgnombretarea(String dgnombretarea) {
-        this.dgnombretarea = dgnombretarea;
+    public void setBlrechazado(short blrechazado) {
+        this.blrechazado = blrechazado;
     }
 
-    public Responsabletarea getIdresponsabletareaTarea() {
-        return idresponsabletareaTarea;
+    public short getBlestado() {
+        return blestado;
     }
 
-    public void setIdresponsabletareaTarea(Responsabletarea idresponsabletareaTarea) {
-        this.idresponsabletareaTarea = idresponsabletareaTarea;
+    public void setBlestado(short blestado) {
+        this.blestado = blestado;
+    }
+
+    public short getBlvigente() {
+        return blvigente;
+    }
+
+    public void setBlvigente(short blvigente) {
+        this.blvigente = blvigente;
+    }
+
+    public Usuario getIdresponsabletareaUsuario() {
+        return idresponsabletareaUsuario;
+    }
+
+    public void setIdresponsabletareaUsuario(Usuario idresponsabletareaUsuario) {
+        this.idresponsabletareaUsuario = idresponsabletareaUsuario;
     }
 
     public Flujotarea getIdflujotareaTarea() {
@@ -187,6 +213,7 @@ public class Tarea implements Serializable {
         this.idflujotareaTarea = idflujotareaTarea;
     }
 
+    @XmlTransient
     public Collection<Subtarea> getSubtareaCollection() {
         return subtareaCollection;
     }

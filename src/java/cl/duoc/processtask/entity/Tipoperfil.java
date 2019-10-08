@@ -7,9 +7,9 @@
 package cl.duoc.processtask.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,48 +28,50 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "TIPOPERFIL")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tipoperfil.findAll", query = "SELECT t FROM Tipoperfil t"),
     @NamedQuery(name = "Tipoperfil.findByIdtipoperfil", query = "SELECT t FROM Tipoperfil t WHERE t.idtipoperfil = :idtipoperfil"),
-    @NamedQuery(name = "Tipoperfil.findByBlvigente", query = "SELECT t FROM Tipoperfil t WHERE t.blvigente = :blvigente"),
-    @NamedQuery(name = "Tipoperfil.findByDgnombretipoperfil", query = "SELECT t FROM Tipoperfil t WHERE t.dgnombretipoperfil = :dgnombretipoperfil")})
+    @NamedQuery(name = "Tipoperfil.findByDgnombretipoperfil", query = "SELECT t FROM Tipoperfil t WHERE t.dgnombretipoperfil = :dgnombretipoperfil"),
+    @NamedQuery(name = "Tipoperfil.findByBlvigente", query = "SELECT t FROM Tipoperfil t WHERE t.blvigente = :blvigente")})
 public class Tipoperfil implements Serializable {
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDTIPOPERFIL")
-    private BigDecimal idtipoperfil;
-    @Column(name = "BLVIGENTE")
-    private Character blvigente;
-    @Size(max = 255)
+    private Long idtipoperfil;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
     @Column(name = "DGNOMBRETIPOPERFIL")
     private String dgnombretipoperfil;
-    @OneToMany(mappedBy = "idtipoperfilUsuario")
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "BLVIGENTE")
+    private short blvigente;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtipoperfilUsuario")
     private Collection<Usuario> usuarioCollection;
 
     public Tipoperfil() {
     }
 
-    public Tipoperfil(BigDecimal idtipoperfil) {
+    public Tipoperfil(Long idtipoperfil) {
         this.idtipoperfil = idtipoperfil;
     }
 
-    public BigDecimal getIdtipoperfil() {
+    public Tipoperfil(Long idtipoperfil, String dgnombretipoperfil, short blvigente) {
+        this.idtipoperfil = idtipoperfil;
+        this.dgnombretipoperfil = dgnombretipoperfil;
+        this.blvigente = blvigente;
+    }
+
+    public Long getIdtipoperfil() {
         return idtipoperfil;
     }
 
-    public void setIdtipoperfil(BigDecimal idtipoperfil) {
+    public void setIdtipoperfil(Long idtipoperfil) {
         this.idtipoperfil = idtipoperfil;
-    }
-
-    public Character getBlvigente() {
-        return blvigente;
-    }
-
-    public void setBlvigente(Character blvigente) {
-        this.blvigente = blvigente;
     }
 
     public String getDgnombretipoperfil() {
@@ -78,6 +82,15 @@ public class Tipoperfil implements Serializable {
         this.dgnombretipoperfil = dgnombretipoperfil;
     }
 
+    public short getBlvigente() {
+        return blvigente;
+    }
+
+    public void setBlvigente(short blvigente) {
+        this.blvigente = blvigente;
+    }
+
+    @XmlTransient
     public Collection<Usuario> getUsuarioCollection() {
         return usuarioCollection;
     }

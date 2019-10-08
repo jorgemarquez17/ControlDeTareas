@@ -6,7 +6,6 @@
 package cl.duoc.processtask.servicio;
 
 import cl.duoc.processtask.entity.Empresa;
-import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -26,4 +25,6 @@ public interface EmpresaService {
     public void modificarEmpresa(Empresa empresa);
     
     public void eliminarEmpresa(Empresa empresa);
+
+    public void registrarEmpresa2(Empresa empresa);
 }

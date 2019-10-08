@@ -7,9 +7,9 @@
 package cl.duoc.processtask.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,6 +21,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,63 +30,82 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "CLIENTE")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
     @NamedQuery(name = "Cliente.findByIdcliente", query = "SELECT c FROM Cliente c WHERE c.idcliente = :idcliente"),
-    @NamedQuery(name = "Cliente.findByBlvigente", query = "SELECT c FROM Cliente c WHERE c.blvigente = :blvigente"),
+    @NamedQuery(name = "Cliente.findByDgnombre", query = "SELECT c FROM Cliente c WHERE c.dgnombre = :dgnombre"),
     @NamedQuery(name = "Cliente.findByDgapellido", query = "SELECT c FROM Cliente c WHERE c.dgapellido = :dgapellido"),
     @NamedQuery(name = "Cliente.findByDgcontacto", query = "SELECT c FROM Cliente c WHERE c.dgcontacto = :dgcontacto"),
     @NamedQuery(name = "Cliente.findByDgcorreo", query = "SELECT c FROM Cliente c WHERE c.dgcorreo = :dgcorreo"),
-    @NamedQuery(name = "Cliente.findByDgnombre", query = "SELECT c FROM Cliente c WHERE c.dgnombre = :dgnombre")})
+    @NamedQuery(name = "Cliente.findByBlvigente", query = "SELECT c FROM Cliente c WHERE c.blvigente = :blvigente")})
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDCLIENTE")
-    private BigDecimal idcliente;
-    @Column(name = "BLVIGENTE")
-    private Character blvigente;
-    @Size(max = 255)
-    @Column(name = "DGAPELLIDO")
-    private String dgapellido;
-    @Size(max = 255)
-    @Column(name = "DGCONTACTO")
-    private String dgcontacto;
-    @Size(max = 255)
-    @Column(name = "DGCORREO")
-    private String dgcorreo;
-    @Size(max = 255)
+    private Long idcliente;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
     @Column(name = "DGNOMBRE")
     private String dgnombre;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
+    @Column(name = "DGAPELLIDO")
+    private String dgapellido;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
+    @Column(name = "DGCONTACTO")
+    private String dgcontacto;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
+    @Column(name = "DGCORREO")
+    private String dgcorreo;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "BLVIGENTE")
+    private short blvigente;
     @JoinColumn(name = "IDEMPRESA_CLIENTE", referencedColumnName = "IDEMPRESA")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Empresa idempresaCliente;
-    @OneToMany(mappedBy = "idclienteFlujotareacliente")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idclienteFlujotareacliente")
     private Collection<Flujotareacliente> flujotareaclienteCollection;
 
     public Cliente() {
     }
 
-    public Cliente(BigDecimal idcliente) {
+    public Cliente(Long idcliente) {
         this.idcliente = idcliente;
     }
 
-    public BigDecimal getIdcliente() {
+    public Cliente(Long idcliente, String dgnombre, String dgapellido, String dgcontacto, String dgcorreo, short blvigente) {
+        this.idcliente = idcliente;
+        this.dgnombre = dgnombre;
+        this.dgapellido = dgapellido;
+        this.dgcontacto = dgcontacto;
+        this.dgcorreo = dgcorreo;
+        this.blvigente = blvigente;
+    }
+
+    public Long getIdcliente() {
         return idcliente;
     }
 
-    public void setIdcliente(BigDecimal idcliente) {
+    public void setIdcliente(Long idcliente) {
         this.idcliente = idcliente;
     }
 
-    public Character getBlvigente() {
-        return blvigente;
+    public String getDgnombre() {
+        return dgnombre;
     }
 
-    public void setBlvigente(Character blvigente) {
-        this.blvigente = blvigente;
+    public void setDgnombre(String dgnombre) {
+        this.dgnombre = dgnombre;
     }
 
     public String getDgapellido() {
@@ -111,12 +132,12 @@ public class Cliente implements Serializable {
         this.dgcorreo = dgcorreo;
     }
 
-    public String getDgnombre() {
-        return dgnombre;
+    public short getBlvigente() {
+        return blvigente;
     }
 
-    public void setDgnombre(String dgnombre) {
-        this.dgnombre = dgnombre;
+    public void setBlvigente(short blvigente) {
+        this.blvigente = blvigente;
     }
 
     public Empresa getIdempresaCliente() {
@@ -127,6 +148,7 @@ public class Cliente implements Serializable {
         this.idempresaCliente = idempresaCliente;
     }
 
+    @XmlTransient
     public Collection<Flujotareacliente> getFlujotareaclienteCollection() {
         return flujotareaclienteCollection;
     }

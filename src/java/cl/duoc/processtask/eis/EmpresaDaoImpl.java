@@ -10,7 +10,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 
 /**
  *
@@ -19,7 +21,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class EmpresaDaoImpl implements EmpresaDao{
 
-    @PersistenceContext(unitName = "ProcessTaskPU")
+    @PersistenceContext(unitName = "ProcessTaskPU")//ProcessTaskPU
     EntityManager em;
     
     @Override
@@ -44,7 +46,32 @@ public class EmpresaDaoImpl implements EmpresaDao{
 
     @Override
     public void deleteEmpresa(Empresa empresa) {
-        em.remove(empresa);
+        
+        Empresa emp = em.merge(empresa);
+        
+        em.remove(emp);
+    }
+
+    @Override
+    public void insertEmpresa2(Empresa empresa) {
+        StoredProcedureQuery spInsertarEmpresa= em.createNamedStoredProcedureQuery("INGRESAREMPRESA");
+//        spInsertarEmpresa.registerStoredProcedureParameter("dgrut", String.class , ParameterMode.IN);
+//        spInsertarEmpresa.registerStoredProcedureParameter("dgdirreccion", String.class, ParameterMode.IN);
+//        spInsertarEmpresa.registerStoredProcedureParameter("dgnombreempresa", String.class, ParameterMode.IN);
+//        spInsertarEmpresa.registerStoredProcedureParameter("dgcontacto", String.class, ParameterMode.IN);
+//        spInsertarEmpresa.registerStoredProcedureParameter("dgcorreo", String.class, ParameterMode.IN);
+//        spInsertarEmpresa.registerStoredProcedureParameter("dgvigente", Integer.class, ParameterMode.IN);
+        
+        spInsertarEmpresa.setParameter("DGRUT", empresa.getDgrut());
+        spInsertarEmpresa.setParameter("DGDIRECCION", empresa.getDgdireccion());
+        spInsertarEmpresa.setParameter("DGNOMBREEMPRESA", empresa.getDgnombreempresa());
+        spInsertarEmpresa.setParameter("DGCONTACTO", empresa.getDgcontacto());
+        spInsertarEmpresa.setParameter("DGCORREO", empresa.getDgcorreo());
+        spInsertarEmpresa.setParameter("BLVIGENTE", empresa.getBlvigente());
+        
+        boolean bandera =spInsertarEmpresa.execute();
+        if(bandera)System.out.println("Insertado Correctamente");
+        
     }
     
     

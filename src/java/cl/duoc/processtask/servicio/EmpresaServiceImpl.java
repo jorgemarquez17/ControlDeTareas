@@ -7,7 +7,6 @@ package cl.duoc.processtask.servicio;
 
 import cl.duoc.processtask.eis.EmpresaDao;
 import cl.duoc.processtask.entity.Empresa;
-import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -41,12 +40,17 @@ public class EmpresaServiceImpl implements EmpresaService, EmpresaServiceWS{
 
     @Override
     public void modificarEmpresa(Empresa empresa) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        empresaDao.modifyEmpresa(empresa);
     }
 
     @Override
     public void eliminarEmpresa(Empresa empresa) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        empresaDao.deleteEmpresa(empresa);
+    }
+
+    @Override
+    public void registrarEmpresa2(Empresa empresa) {
+        empresaDao.insertEmpresa2(empresa);
     }
     
 }

@@ -37,16 +37,34 @@ public class prueba {
 //            ci.registrarEmpresa(empresa);
             
             //BuscarporId
-//              Empresa emp =ci.buscarEmpresaById(new Empresa(new BigDecimal(1)));
+//              Empresa emp =ci.buscarEmpresaById(new Empresa(new BigDecimal(21)));
 //              
 //              System.out.println("La empresa encontrada es :" + emp.toString());
+            
+            
             //Buscar Todas Las Empresas
-            List<Empresa> listEmpresa = new ArrayList<Empresa>();
-            listEmpresa =  ci.buscarAllEmpresas();
-            System.out.println("Listado de empresas es : ");
-            for(Empresa emp : listEmpresa){
-                System.out.println( emp.toString());
-            }
+//            List<Empresa> listEmpresa = new ArrayList<Empresa>();
+//            listEmpresa =  ci.buscarAllEmpresas();
+//            System.out.println("Listado de empresas es : ");
+//            for(Empresa emp : listEmpresa){
+//                System.out.println( emp.toString());
+//            }
+            
+            //MOdificar
+//            Empresa emp =ci.buscarEmpresaById(new Empresa(new BigDecimal(2)));
+//            emp.setDgrut("55555-5");
+//            emp.setDgcontacto("Alberto");
+//            emp.setDgcorreo("Alberto@alumnos.duoc.cl");
+//            ci.modificarEmpresa(emp);
+            
+            //Eliminar
+            Empresa emp = new Empresa();
+             emp =ci.buscarEmpresaById(new Empresa( 27L));
+            
+            //ci.modificarEmpresa(em);
+            System.out.println(emp.toString());
+            ci.eliminarEmpresa(emp);
+            
 
         } catch (Exception e) {
             e.printStackTrace();

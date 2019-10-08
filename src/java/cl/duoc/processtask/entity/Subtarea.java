@@ -7,8 +7,6 @@
 package cl.duoc.processtask.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -23,6 +21,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -30,29 +29,31 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "SUBTAREA")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Subtarea.findAll", query = "SELECT s FROM Subtarea s"),
     @NamedQuery(name = "Subtarea.findByIdsubtarea", query = "SELECT s FROM Subtarea s WHERE s.idsubtarea = :idsubtarea"),
-    @NamedQuery(name = "Subtarea.findByBlrechazo", query = "SELECT s FROM Subtarea s WHERE s.blrechazo = :blrechazo"),
-    @NamedQuery(name = "Subtarea.findByBlvigente", query = "SELECT s FROM Subtarea s WHERE s.blvigente = :blvigente"),
+    @NamedQuery(name = "Subtarea.findByDgnombresubtarea", query = "SELECT s FROM Subtarea s WHERE s.dgnombresubtarea = :dgnombresubtarea"),
     @NamedQuery(name = "Subtarea.findByDcfechacreacion", query = "SELECT s FROM Subtarea s WHERE s.dcfechacreacion = :dcfechacreacion"),
     @NamedQuery(name = "Subtarea.findByDcfechaemision", query = "SELECT s FROM Subtarea s WHERE s.dcfechaemision = :dcfechaemision"),
     @NamedQuery(name = "Subtarea.findByDcfechatermino", query = "SELECT s FROM Subtarea s WHERE s.dcfechatermino = :dcfechatermino"),
-    @NamedQuery(name = "Subtarea.findByDcidresponsabletarea", query = "SELECT s FROM Subtarea s WHERE s.dcidresponsabletarea = :dcidresponsabletarea"),
     @NamedQuery(name = "Subtarea.findByDgjustificacion", query = "SELECT s FROM Subtarea s WHERE s.dgjustificacion = :dgjustificacion"),
-    @NamedQuery(name = "Subtarea.findByDgnombresubtarea", query = "SELECT s FROM Subtarea s WHERE s.dgnombresubtarea = :dgnombresubtarea")})
+    @NamedQuery(name = "Subtarea.findByBlrechazo", query = "SELECT s FROM Subtarea s WHERE s.blrechazo = :blrechazo"),
+    @NamedQuery(name = "Subtarea.findByBlvigente", query = "SELECT s FROM Subtarea s WHERE s.blvigente = :blvigente")})
 public class Subtarea implements Serializable {
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDSUBTAREA")
-    private BigDecimal idsubtarea;
-    @Column(name = "BLRECHAZO")
-    private Character blrechazo;
-    @Column(name = "BLVIGENTE")
-    private Character blvigente;
+    private Long idsubtarea;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
+    @Column(name = "DGNOMBRESUBTAREA")
+    private String dgnombresubtarea;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "DCFECHACREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dcfechacreacion;
@@ -62,50 +63,56 @@ public class Subtarea implements Serializable {
     @Column(name = "DCFECHATERMINO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dcfechatermino;
-    @Column(name = "DCIDRESPONSABLETAREA")
-    private BigInteger dcidresponsabletarea;
-    @Size(max = 255)
+    @Size(max = 40)
     @Column(name = "DGJUSTIFICACION")
     private String dgjustificacion;
-    @Size(max = 255)
-    @Column(name = "DGNOMBRESUBTAREA")
-    private String dgnombresubtarea;
-    @JoinColumn(name = "IDTAREA_SUBTAREA", referencedColumnName = "IDTAREA")
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "BLRECHAZO")
+    private short blrechazo;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "BLVIGENTE")
+    private short blvigente;
+    @JoinColumn(name = "IDRESPONSABLESUBTAREA_USUARIO", referencedColumnName = "IDUSUARIO")
     @ManyToOne
+    private Usuario idresponsablesubtareaUsuario;
+    @JoinColumn(name = "IDTAREA_SUBTAREA", referencedColumnName = "IDTAREA")
+    @ManyToOne(optional = false)
     private Tarea idtareaSubtarea;
     @JoinColumn(name = "IDSEMAFORO_SUBTAREA", referencedColumnName = "IDSEMAFORO")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Semaforo idsemaforoSubtarea;
 
     public Subtarea() {
     }
 
-    public Subtarea(BigDecimal idsubtarea) {
+    public Subtarea(Long idsubtarea) {
         this.idsubtarea = idsubtarea;
     }
 
-    public BigDecimal getIdsubtarea() {
+    public Subtarea(Long idsubtarea, String dgnombresubtarea, Date dcfechacreacion, short blrechazo, short blvigente) {
+        this.idsubtarea = idsubtarea;
+        this.dgnombresubtarea = dgnombresubtarea;
+        this.dcfechacreacion = dcfechacreacion;
+        this.blrechazo = blrechazo;
+        this.blvigente = blvigente;
+    }
+
+    public Long getIdsubtarea() {
         return idsubtarea;
     }
 
-    public void setIdsubtarea(BigDecimal idsubtarea) {
+    public void setIdsubtarea(Long idsubtarea) {
         this.idsubtarea = idsubtarea;
     }
 
-    public Character getBlrechazo() {
-        return blrechazo;
+    public String getDgnombresubtarea() {
+        return dgnombresubtarea;
     }
 
-    public void setBlrechazo(Character blrechazo) {
-        this.blrechazo = blrechazo;
-    }
-
-    public Character getBlvigente() {
-        return blvigente;
-    }
-
-    public void setBlvigente(Character blvigente) {
-        this.blvigente = blvigente;
+    public void setDgnombresubtarea(String dgnombresubtarea) {
+        this.dgnombresubtarea = dgnombresubtarea;
     }
 
     public Date getDcfechacreacion() {
@@ -132,14 +139,6 @@ public class Subtarea implements Serializable {
         this.dcfechatermino = dcfechatermino;
     }
 
-    public BigInteger getDcidresponsabletarea() {
-        return dcidresponsabletarea;
-    }
-
-    public void setDcidresponsabletarea(BigInteger dcidresponsabletarea) {
-        this.dcidresponsabletarea = dcidresponsabletarea;
-    }
-
     public String getDgjustificacion() {
         return dgjustificacion;
     }
@@ -148,12 +147,28 @@ public class Subtarea implements Serializable {
         this.dgjustificacion = dgjustificacion;
     }
 
-    public String getDgnombresubtarea() {
-        return dgnombresubtarea;
+    public short getBlrechazo() {
+        return blrechazo;
     }
 
-    public void setDgnombresubtarea(String dgnombresubtarea) {
-        this.dgnombresubtarea = dgnombresubtarea;
+    public void setBlrechazo(short blrechazo) {
+        this.blrechazo = blrechazo;
+    }
+
+    public short getBlvigente() {
+        return blvigente;
+    }
+
+    public void setBlvigente(short blvigente) {
+        this.blvigente = blvigente;
+    }
+
+    public Usuario getIdresponsablesubtareaUsuario() {
+        return idresponsablesubtareaUsuario;
+    }
+
+    public void setIdresponsablesubtareaUsuario(Usuario idresponsablesubtareaUsuario) {
+        this.idresponsablesubtareaUsuario = idresponsablesubtareaUsuario;
     }
 
     public Tarea getIdtareaSubtarea() {

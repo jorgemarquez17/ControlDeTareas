@@ -7,8 +7,6 @@
 package cl.duoc.processtask.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -27,63 +26,60 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "FLUJOTAREACLIENTE")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Flujotareacliente.findAll", query = "SELECT f FROM Flujotareacliente f"),
     @NamedQuery(name = "Flujotareacliente.findByIdflujotareacliente", query = "SELECT f FROM Flujotareacliente f WHERE f.idflujotareacliente = :idflujotareacliente"),
-    @NamedQuery(name = "Flujotareacliente.findByBlvigente", query = "SELECT f FROM Flujotareacliente f WHERE f.blvigente = :blvigente"),
+    @NamedQuery(name = "Flujotareacliente.findByDgtipofujo", query = "SELECT f FROM Flujotareacliente f WHERE f.dgtipofujo = :dgtipofujo"),
     @NamedQuery(name = "Flujotareacliente.findByDccantidadcolumna", query = "SELECT f FROM Flujotareacliente f WHERE f.dccantidadcolumna = :dccantidadcolumna"),
-    @NamedQuery(name = "Flujotareacliente.findByDgtipofujo", query = "SELECT f FROM Flujotareacliente f WHERE f.dgtipofujo = :dgtipofujo")})
+    @NamedQuery(name = "Flujotareacliente.findByBlvigente", query = "SELECT f FROM Flujotareacliente f WHERE f.blvigente = :blvigente")})
 public class Flujotareacliente implements Serializable {
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDFLUJOTAREACLIENTE")
-    private BigDecimal idflujotareacliente;
-    @Column(name = "BLVIGENTE")
-    private Character blvigente;
-    @Column(name = "DCCANTIDADCOLUMNA")
-    private BigInteger dccantidadcolumna;
-    @Size(max = 255)
+    private Long idflujotareacliente;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
     @Column(name = "DGTIPOFUJO")
     private String dgtipofujo;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "DCCANTIDADCOLUMNA")
+    private long dccantidadcolumna;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "BLVIGENTE")
+    private short blvigente;
     @JoinColumn(name = "IDFLUJOTAREA_FLUJOTAREACLIENTE", referencedColumnName = "IDFLUJOTAREA")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Flujotarea idflujotareaFlujotareacliente;
     @JoinColumn(name = "IDCLIENTE_FLUJOTAREACLIENTE", referencedColumnName = "IDCLIENTE")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Cliente idclienteFlujotareacliente;
 
     public Flujotareacliente() {
     }
 
-    public Flujotareacliente(BigDecimal idflujotareacliente) {
+    public Flujotareacliente(Long idflujotareacliente) {
         this.idflujotareacliente = idflujotareacliente;
     }
 
-    public BigDecimal getIdflujotareacliente() {
-        return idflujotareacliente;
-    }
-
-    public void setIdflujotareacliente(BigDecimal idflujotareacliente) {
+    public Flujotareacliente(Long idflujotareacliente, String dgtipofujo, long dccantidadcolumna, short blvigente) {
         this.idflujotareacliente = idflujotareacliente;
-    }
-
-    public Character getBlvigente() {
-        return blvigente;
-    }
-
-    public void setBlvigente(Character blvigente) {
+        this.dgtipofujo = dgtipofujo;
+        this.dccantidadcolumna = dccantidadcolumna;
         this.blvigente = blvigente;
     }
 
-    public BigInteger getDccantidadcolumna() {
-        return dccantidadcolumna;
+    public Long getIdflujotareacliente() {
+        return idflujotareacliente;
     }
 
-    public void setDccantidadcolumna(BigInteger dccantidadcolumna) {
-        this.dccantidadcolumna = dccantidadcolumna;
+    public void setIdflujotareacliente(Long idflujotareacliente) {
+        this.idflujotareacliente = idflujotareacliente;
     }
 
     public String getDgtipofujo() {
@@ -92,6 +88,22 @@ public class Flujotareacliente implements Serializable {
 
     public void setDgtipofujo(String dgtipofujo) {
         this.dgtipofujo = dgtipofujo;
+    }
+
+    public long getDccantidadcolumna() {
+        return dccantidadcolumna;
+    }
+
+    public void setDccantidadcolumna(long dccantidadcolumna) {
+        this.dccantidadcolumna = dccantidadcolumna;
+    }
+
+    public short getBlvigente() {
+        return blvigente;
+    }
+
+    public void setBlvigente(short blvigente) {
+        this.blvigente = blvigente;
     }
 
     public Flujotarea getIdflujotareaFlujotareacliente() {

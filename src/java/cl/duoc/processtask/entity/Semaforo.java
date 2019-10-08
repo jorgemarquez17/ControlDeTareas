@@ -8,9 +8,9 @@ package cl.duoc.processtask.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,6 +20,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -27,59 +29,57 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "SEMAFORO")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Semaforo.findAll", query = "SELECT s FROM Semaforo s"),
     @NamedQuery(name = "Semaforo.findByIdsemaforo", query = "SELECT s FROM Semaforo s WHERE s.idsemaforo = :idsemaforo"),
-    @NamedQuery(name = "Semaforo.findByBlvigente", query = "SELECT s FROM Semaforo s WHERE s.blvigente = :blvigente"),
+    @NamedQuery(name = "Semaforo.findByDgnombresemaforo", query = "SELECT s FROM Semaforo s WHERE s.dgnombresemaforo = :dgnombresemaforo"),
     @NamedQuery(name = "Semaforo.findByDcporcentaje", query = "SELECT s FROM Semaforo s WHERE s.dcporcentaje = :dcporcentaje"),
-    @NamedQuery(name = "Semaforo.findByDgnombresemaforo", query = "SELECT s FROM Semaforo s WHERE s.dgnombresemaforo = :dgnombresemaforo")})
+    @NamedQuery(name = "Semaforo.findByBlvigente", query = "SELECT s FROM Semaforo s WHERE s.blvigente = :blvigente")})
 public class Semaforo implements Serializable {
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDSEMAFORO")
-    private BigDecimal idsemaforo;
-    @Column(name = "BLVIGENTE")
-    private Character blvigente;
-    @Column(name = "DCPORCENTAJE")
-    private BigInteger dcporcentaje;
-    @Size(max = 255)
+    private Long idsemaforo;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
     @Column(name = "DGNOMBRESEMAFORO")
     private String dgnombresemaforo;
-    @OneToMany(mappedBy = "idsemaforoSubtarea")
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "DCPORCENTAJE")
+    private BigDecimal dcporcentaje;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "BLVIGENTE")
+    private short blvigente;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idsemaforoSubtarea")
     private Collection<Subtarea> subtareaCollection;
 
     public Semaforo() {
     }
 
-    public Semaforo(BigDecimal idsemaforo) {
+    public Semaforo(Long idsemaforo) {
         this.idsemaforo = idsemaforo;
     }
 
-    public BigDecimal getIdsemaforo() {
-        return idsemaforo;
-    }
-
-    public void setIdsemaforo(BigDecimal idsemaforo) {
+    public Semaforo(Long idsemaforo, String dgnombresemaforo, BigDecimal dcporcentaje, short blvigente) {
         this.idsemaforo = idsemaforo;
-    }
-
-    public Character getBlvigente() {
-        return blvigente;
-    }
-
-    public void setBlvigente(Character blvigente) {
+        this.dgnombresemaforo = dgnombresemaforo;
+        this.dcporcentaje = dcporcentaje;
         this.blvigente = blvigente;
     }
 
-    public BigInteger getDcporcentaje() {
-        return dcporcentaje;
+    public Long getIdsemaforo() {
+        return idsemaforo;
     }
 
-    public void setDcporcentaje(BigInteger dcporcentaje) {
-        this.dcporcentaje = dcporcentaje;
+    public void setIdsemaforo(Long idsemaforo) {
+        this.idsemaforo = idsemaforo;
     }
 
     public String getDgnombresemaforo() {
@@ -90,6 +90,23 @@ public class Semaforo implements Serializable {
         this.dgnombresemaforo = dgnombresemaforo;
     }
 
+    public BigDecimal getDcporcentaje() {
+        return dcporcentaje;
+    }
+
+    public void setDcporcentaje(BigDecimal dcporcentaje) {
+        this.dcporcentaje = dcporcentaje;
+    }
+
+    public short getBlvigente() {
+        return blvigente;
+    }
+
+    public void setBlvigente(short blvigente) {
+        this.blvigente = blvigente;
+    }
+
+    @XmlTransient
     public Collection<Subtarea> getSubtareaCollection() {
         return subtareaCollection;
     }

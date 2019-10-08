@@ -4,6 +4,9 @@
     <service name="wsEmpresa">
       <implementation-class>cl.duoc.processtask.ws.wsEmpresa</implementation-class>
     </service>
+    <service name="wsCliente">
+      <implementation-class>cl.duoc.processtask.ws.wsCliente</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>

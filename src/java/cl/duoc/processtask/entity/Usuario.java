@@ -7,10 +7,10 @@
 package cl.duoc.processtask.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -24,6 +24,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,98 +33,83 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "USUARIO")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
     @NamedQuery(name = "Usuario.findByIdusuario", query = "SELECT u FROM Usuario u WHERE u.idusuario = :idusuario"),
-    @NamedQuery(name = "Usuario.findByBlhabilitado", query = "SELECT u FROM Usuario u WHERE u.blhabilitado = :blhabilitado"),
-    @NamedQuery(name = "Usuario.findByBlvigente", query = "SELECT u FROM Usuario u WHERE u.blvigente = :blvigente"),
-    @NamedQuery(name = "Usuario.findByDcfechacreacion", query = "SELECT u FROM Usuario u WHERE u.dcfechacreacion = :dcfechacreacion"),
-    @NamedQuery(name = "Usuario.findByDcfechatermino", query = "SELECT u FROM Usuario u WHERE u.dcfechatermino = :dcfechatermino"),
+    @NamedQuery(name = "Usuario.findByDgusername", query = "SELECT u FROM Usuario u WHERE u.dgusername = :dgusername"),
     @NamedQuery(name = "Usuario.findByDgpassword", query = "SELECT u FROM Usuario u WHERE u.dgpassword = :dgpassword"),
-    @NamedQuery(name = "Usuario.findByDgusername", query = "SELECT u FROM Usuario u WHERE u.dgusername = :dgusername")})
+    @NamedQuery(name = "Usuario.findByDcfechacreacion", query = "SELECT u FROM Usuario u WHERE u.dcfechacreacion = :dcfechacreacion"),
+    @NamedQuery(name = "Usuario.findByBlhabilitado", query = "SELECT u FROM Usuario u WHERE u.blhabilitado = :blhabilitado"),
+    @NamedQuery(name = "Usuario.findByBlvigente", query = "SELECT u FROM Usuario u WHERE u.blvigente = :blvigente")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDUSUARIO")
-    private BigDecimal idusuario;
-    @Column(name = "BLHABILITADO")
-    private Character blhabilitado;
-    @Column(name = "BLVIGENTE")
-    private Character blvigente;
+    private Long idusuario;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
+    @Column(name = "DGUSERNAME")
+    private String dgusername;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
+    @Column(name = "DGPASSWORD")
+    private String dgpassword;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "DCFECHACREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dcfechacreacion;
-    @Column(name = "DCFECHATERMINO")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dcfechatermino;
-    @Size(max = 255)
-    @Column(name = "DGPASSWORD")
-    private String dgpassword;
-    @Size(max = 255)
-    @Column(name = "DGUSERNAME")
-    private String dgusername;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "BLHABILITADO")
+    private short blhabilitado;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "BLVIGENTE")
+    private short blvigente;
+    @OneToMany(mappedBy = "idresponsabletareaUsuario")
+    private Collection<Tarea> tareaCollection;
+    @JoinColumn(name = "IDTIPOROL_USUARIO", referencedColumnName = "IDTIPOROL")
+    @ManyToOne(optional = false)
+    private Tiporol idtiporolUsuario;
     @JoinColumn(name = "IDTIPOPERFIL_USUARIO", referencedColumnName = "IDTIPOPERFIL")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Tipoperfil idtipoperfilUsuario;
-    @OneToMany(mappedBy = "idusuarioFlujotarea")
+    @JoinColumn(name = "IDNOTIFICACION_USUARIO", referencedColumnName = "IDNOTIFICACION")
+    @ManyToOne(optional = false)
+    private Notificacion idnotificacionUsuario;
+    @OneToMany(mappedBy = "idresponsablesubtareaUsuario")
+    private Collection<Subtarea> subtareaCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idusuarioFlujotarea")
     private Collection<Flujotarea> flujotareaCollection;
 
     public Usuario() {
     }
 
-    public Usuario(BigDecimal idusuario) {
+    public Usuario(Long idusuario) {
         this.idusuario = idusuario;
     }
 
-    public BigDecimal getIdusuario() {
-        return idusuario;
-    }
-
-    public void setIdusuario(BigDecimal idusuario) {
+    public Usuario(Long idusuario, String dgusername, String dgpassword, Date dcfechacreacion, short blhabilitado, short blvigente) {
         this.idusuario = idusuario;
-    }
-
-    public Character getBlhabilitado() {
-        return blhabilitado;
-    }
-
-    public void setBlhabilitado(Character blhabilitado) {
+        this.dgusername = dgusername;
+        this.dgpassword = dgpassword;
+        this.dcfechacreacion = dcfechacreacion;
         this.blhabilitado = blhabilitado;
-    }
-
-    public Character getBlvigente() {
-        return blvigente;
-    }
-
-    public void setBlvigente(Character blvigente) {
         this.blvigente = blvigente;
     }
 
-    public Date getDcfechacreacion() {
-        return dcfechacreacion;
+    public Long getIdusuario() {
+        return idusuario;
     }
 
-    public void setDcfechacreacion(Date dcfechacreacion) {
-        this.dcfechacreacion = dcfechacreacion;
-    }
-
-    public Date getDcfechatermino() {
-        return dcfechatermino;
-    }
-
-    public void setDcfechatermino(Date dcfechatermino) {
-        this.dcfechatermino = dcfechatermino;
-    }
-
-    public String getDgpassword() {
-        return dgpassword;
-    }
-
-    public void setDgpassword(String dgpassword) {
-        this.dgpassword = dgpassword;
+    public void setIdusuario(Long idusuario) {
+        this.idusuario = idusuario;
     }
 
     public String getDgusername() {
@@ -133,6 +120,55 @@ public class Usuario implements Serializable {
         this.dgusername = dgusername;
     }
 
+    public String getDgpassword() {
+        return dgpassword;
+    }
+
+    public void setDgpassword(String dgpassword) {
+        this.dgpassword = dgpassword;
+    }
+
+    public Date getDcfechacreacion() {
+        return dcfechacreacion;
+    }
+
+    public void setDcfechacreacion(Date dcfechacreacion) {
+        this.dcfechacreacion = dcfechacreacion;
+    }
+
+    public short getBlhabilitado() {
+        return blhabilitado;
+    }
+
+    public void setBlhabilitado(short blhabilitado) {
+        this.blhabilitado = blhabilitado;
+    }
+
+    public short getBlvigente() {
+        return blvigente;
+    }
+
+    public void setBlvigente(short blvigente) {
+        this.blvigente = blvigente;
+    }
+
+    @XmlTransient
+    public Collection<Tarea> getTareaCollection() {
+        return tareaCollection;
+    }
+
+    public void setTareaCollection(Collection<Tarea> tareaCollection) {
+        this.tareaCollection = tareaCollection;
+    }
+
+    public Tiporol getIdtiporolUsuario() {
+        return idtiporolUsuario;
+    }
+
+    public void setIdtiporolUsuario(Tiporol idtiporolUsuario) {
+        this.idtiporolUsuario = idtiporolUsuario;
+    }
+
     public Tipoperfil getIdtipoperfilUsuario() {
         return idtipoperfilUsuario;
     }
@@ -141,6 +177,24 @@ public class Usuario implements Serializable {
         this.idtipoperfilUsuario = idtipoperfilUsuario;
     }
 
+    public Notificacion getIdnotificacionUsuario() {
+        return idnotificacionUsuario;
+    }
+
+    public void setIdnotificacionUsuario(Notificacion idnotificacionUsuario) {
+        this.idnotificacionUsuario = idnotificacionUsuario;
+    }
+
+    @XmlTransient
+    public Collection<Subtarea> getSubtareaCollection() {
+        return subtareaCollection;
+    }
+
+    public void setSubtareaCollection(Collection<Subtarea> subtareaCollection) {
+        this.subtareaCollection = subtareaCollection;
+    }
+
+    @XmlTransient
     public Collection<Flujotarea> getFlujotareaCollection() {
         return flujotareaCollection;
     }

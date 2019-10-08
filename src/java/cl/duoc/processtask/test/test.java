@@ -27,7 +27,7 @@ public class test {
            
            
             Empresa empresa = new Empresa();
-            empresa.setIdempresa(BigDecimal.ONE);
+            empresa.setIdempresa(1L);
             empresa.setDgrut("898956-8");
             empresa.setDgdireccion("Renca");
             empresa.setDgcontacto("Jorge Marquez");
