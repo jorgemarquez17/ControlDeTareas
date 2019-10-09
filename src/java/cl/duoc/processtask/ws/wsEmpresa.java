@@ -50,7 +50,7 @@ public class wsEmpresa {
             empresa.setDgnombreempresa(NombreEmpresa);
             empresa.setDgcontacto(contacto);
             empresa.setDgcorreo(correo);
-            empresa.setBlvigente(vigente);
+            empresa.setBlvigente(vigente.longValue());
             
             //ejbRef.registrarEmpresa(empresa);
             ejbRef.registrarEmpresa2(empresa);

@@ -54,24 +54,23 @@ public class EmpresaDaoImpl implements EmpresaDao{
 
     @Override
     public void insertEmpresa2(Empresa empresa) {
-        StoredProcedureQuery spInsertarEmpresa= em.createNamedStoredProcedureQuery("INGRESAREMPRESA");
-//        spInsertarEmpresa.registerStoredProcedureParameter("dgrut", String.class , ParameterMode.IN);
-//        spInsertarEmpresa.registerStoredProcedureParameter("dgdirreccion", String.class, ParameterMode.IN);
-//        spInsertarEmpresa.registerStoredProcedureParameter("dgnombreempresa", String.class, ParameterMode.IN);
-//        spInsertarEmpresa.registerStoredProcedureParameter("dgcontacto", String.class, ParameterMode.IN);
-//        spInsertarEmpresa.registerStoredProcedureParameter("dgcorreo", String.class, ParameterMode.IN);
-//        spInsertarEmpresa.registerStoredProcedureParameter("dgvigente", Integer.class, ParameterMode.IN);
+        StoredProcedureQuery spInsertarEmpresa= em.createStoredProcedureQuery("INGRESAREMPRESA");
+        spInsertarEmpresa.registerStoredProcedureParameter(2, String.class , ParameterMode.IN);
+        spInsertarEmpresa.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
+        spInsertarEmpresa.registerStoredProcedureParameter(4, String.class, ParameterMode.IN);
+        spInsertarEmpresa.registerStoredProcedureParameter(5, String.class, ParameterMode.IN);
+        spInsertarEmpresa.registerStoredProcedureParameter(6, String.class, ParameterMode.IN);
+        spInsertarEmpresa.registerStoredProcedureParameter(7, Integer.class, ParameterMode.IN);
         
-        spInsertarEmpresa.setParameter("DGRUT", empresa.getDgrut());
-        spInsertarEmpresa.setParameter("DGDIRECCION", empresa.getDgdireccion());
-        spInsertarEmpresa.setParameter("DGNOMBREEMPRESA", empresa.getDgnombreempresa());
-        spInsertarEmpresa.setParameter("DGCONTACTO", empresa.getDgcontacto());
-        spInsertarEmpresa.setParameter("DGCORREO", empresa.getDgcorreo());
-        spInsertarEmpresa.setParameter("BLVIGENTE", empresa.getBlvigente());
+        spInsertarEmpresa.setParameter(2, empresa.getDgrut());
+        spInsertarEmpresa.setParameter(3, empresa.getDgdireccion());
+        spInsertarEmpresa.setParameter(4, empresa.getDgnombreempresa());
+        spInsertarEmpresa.setParameter(5, empresa.getDgcontacto());
+        spInsertarEmpresa.setParameter(6, empresa.getDgcorreo());
+        spInsertarEmpresa.setParameter(7, empresa.getBlvigente());
         
-        boolean bandera =spInsertarEmpresa.execute();
-        if(bandera)System.out.println("Insertado Correctamente");
-        
+        spInsertarEmpresa.execute();
+       
     }
     
     

@@ -20,4 +20,7 @@ public interface EmpresaServiceWS {
     @WebMethod
     public void registrarEmpresa(Empresa empresa);
     
+    @WebMethod
+    public void registrarEmpresa2(Empresa empresa);
+    
 }

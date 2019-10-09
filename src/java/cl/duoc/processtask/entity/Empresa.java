@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Empresa.findByBlvigente", query = "SELECT e FROM Empresa e WHERE e.blvigente = :blvigente")})
     @NamedStoredProcedureQuery(
     name = "INGRESAREMPRESA",
-            procedureName = "PT_USER.INGRESAREMPRESA",
+            procedureName = "PT_USER.IngresarEmpresaSP",
             parameters = {
                 @StoredProcedureParameter(name = "DGRUT",type = String.class,mode = ParameterMode.IN),
                 @StoredProcedureParameter(name = "DGDIRECCION",type = String.class,mode = ParameterMode.IN),

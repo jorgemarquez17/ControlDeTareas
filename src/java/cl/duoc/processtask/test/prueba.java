@@ -28,13 +28,16 @@ public class prueba {
 
            
            //Ingresar Empresa
-//            Empresa empresa = new Empresa();
-//            empresa.setIdempresa(BigDecimal.ONE);
-//            empresa.setDgrut("898956-8");
-//            empresa.setDgdireccion("Renca");
-//            empresa.setDgcontacto("Jorge Marquez");
-//            empresa.setDgcorreo("jmar@mail.com");
-//            ci.registrarEmpresa(empresa);
+            Empresa empresa = new Empresa();
+            //empresa.setIdempresa(BigDecimal.ONE);
+            empresa.setDgrut("898956-8");
+            empresa.setDgdireccion("Renca");
+            empresa.setDgnombreempresa("Empresa1");
+            empresa.setDgcontacto("Jorge Marquez");
+            empresa.setDgcorreo("jmar@mail.com");
+            empresa.setBlvigente(1L);
+            ci.registrarEmpresa2(empresa);
+            //ci.registrarEmpresa(empresa);
             
             //BuscarporId
 //              Empresa emp =ci.buscarEmpresaById(new Empresa(new BigDecimal(21)));
@@ -58,12 +61,12 @@ public class prueba {
 //            ci.modificarEmpresa(emp);
             
             //Eliminar
-            Empresa emp = new Empresa();
-             emp =ci.buscarEmpresaById(new Empresa( 27L));
-            
-            //ci.modificarEmpresa(em);
-            System.out.println(emp.toString());
-            ci.eliminarEmpresa(emp);
+//            Empresa emp = new Empresa();
+//             emp =ci.buscarEmpresaById(new Empresa( 27L));
+//            
+//            //ci.modificarEmpresa(em);
+//            System.out.println(emp.toString());
+//            ci.eliminarEmpresa(emp);
             
 
         } catch (Exception e) {

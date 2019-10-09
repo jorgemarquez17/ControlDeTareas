@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <definitions 
+ xmlns="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="wsEmpresa" targetNamespace="http://ws.processtask.duoc.cl/" xmlns:tns="http://ws.processtask.duoc.cl/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:fi="http://java.sun.com/xml/ns/wsit/2006/09/policy/fastinfoset/service" xmlns:tcp="http://java.sun.com/xml/ns/wsit/2006/09/policy/soaptcp/service" xmlns:wsat="http://schemas.xmlsoap.org/ws/2004/10/wsat" 
+ >
+    <message name="registrarEmpresa"/>
+    <message name="registrarEmpresaResponse"/>
+    <message name="EliminarEmpresa"/>
+    <message name="EliminarEmpresaResponse"/>
+    <message name="Modificar"/>
+    <message name="ModificarResponse"/>
+    <portType name="wsEmpresa">
+        <operation name="registrarEmpresa">
+            <input message="tns:registrarEmpresa"/>
+            <output message="tns:registrarEmpresaResponse"/>
+        </operation>
+        <operation name="EliminarEmpresa">
+            <input message="tns:EliminarEmpresa"/>
+            <output message="tns:EliminarEmpresaResponse"/>
+        </operation>
+        <operation name="Modificar">
+            <input message="tns:Modificar"/>
+            <output message="tns:ModificarResponse"/>
+        </operation>
+    </portType>
+    <binding name="wsEmpresaPortBinding" type="tns:wsEmpresa">
+        <wsp:PolicyReference URI="#wsEmpresaPortBindingPolicy"/>
+        <operation name="registrarEmpresa">
+            <wsp:PolicyReference URI="#wsEmpresaPortBinding_registrarEmpresa_Policy"/>
+            <input/>
+            <output/>
+        </operation>
+        <operation name="EliminarEmpresa">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="Modificar">
+            <input/>
+            <output/>
+        </operation>
+    </binding>
+    <service name="wsEmpresa">
+        <port name="wsEmpresaPort" binding="tns:wsEmpresaPortBinding"/>
+    </service>
+    <wsp:Policy wsu:Id="wsEmpresaPortBindingPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All/>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="wsEmpresaPortBinding_registrarEmpresa_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsat:ATAssertion wsp:Optional="true"/>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</definitions>
