@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://ws.processtask.duoc.cl/" xmlns:tns="http://ws.processtask.duoc.cl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="EliminarEmpresa" nillable="true" type="tns:eliminarEmpresa"/>
+
+  <xs:element name="EliminarEmpresaResponse" nillable="true" type="tns:eliminarEmpresaResponse"/>
+
+  <xs:element name="Modificar" nillable="true" type="tns:modificar"/>
+
+  <xs:element name="registrarEmpresa" nillable="true" type="tns:registrarEmpresa"/>
+
+  <xs:element name="registrarEmpresaResponse" nillable="true" type="tns:registrarEmpresaResponse"/>
+
+  <xs:complexType name="modificar">
+    <xs:sequence>
+      <xs:element name="idEmpresa" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="eliminarEmpresa">
+    <xs:sequence>
+      <xs:element name="idEmp" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="eliminarEmpresaResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="registrarEmpresa">
+    <xs:sequence>
+      <xs:element name="contacto" type="xs:string" minOccurs="0"/>
+      <xs:element name="correo" type="xs:string" minOccurs="0"/>
+      <xs:element name="direccion" type="xs:string" minOccurs="0"/>
+      <xs:element name="nombreEmpresa" type="xs:string" minOccurs="0"/>
+      <xs:element name="rut" type="xs:string" minOccurs="0"/>
+      <xs:element name="vigente" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="registrarEmpresaResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

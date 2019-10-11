@@ -49,8 +49,8 @@ public class EmpresaServiceImpl implements EmpresaService, EmpresaServiceWS{
     }
 
     @Override
-    public void registrarEmpresa2(Empresa empresa) {
-        empresaDao.insertEmpresa2(empresa);
+    public List<Empresa> registrarEmpresa2(Empresa empresa) {
+        return empresaDao.insertEmpresa2(empresa);
     }
     
 }

@@ -7,6 +7,7 @@
 package cl.duoc.processtask.servicio;
 
 import cl.duoc.processtask.entity.Empresa;
+import java.util.List;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
@@ -21,6 +22,6 @@ public interface EmpresaServiceWS {
     public void registrarEmpresa(Empresa empresa);
     
     @WebMethod
-    public void registrarEmpresa2(Empresa empresa);
+    public List<Empresa> registrarEmpresa2(Empresa empresa);
     
 }

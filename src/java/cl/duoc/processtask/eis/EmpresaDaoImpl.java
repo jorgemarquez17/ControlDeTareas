@@ -7,6 +7,8 @@ package cl.duoc.processtask.eis;
 
 import cl.duoc.processtask.entity.Empresa;
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -53,14 +55,17 @@ public class EmpresaDaoImpl implements EmpresaDao{
     }
 
     @Override
-    public void insertEmpresa2(Empresa empresa) {
-        StoredProcedureQuery spInsertarEmpresa= em.createStoredProcedureQuery("INGRESAREMPRESA");
+    public List<Empresa> insertEmpresa2(Empresa empresa) {
+        List<Empresa> r_cursor =  new ArrayList<Empresa>();
+        StoredProcedureQuery spInsertarEmpresa= em.createStoredProcedureQuery("INGRESAREMPRESA",Empresa.class);
         spInsertarEmpresa.registerStoredProcedureParameter(2, String.class , ParameterMode.IN);
         spInsertarEmpresa.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
         spInsertarEmpresa.registerStoredProcedureParameter(4, String.class, ParameterMode.IN);
         spInsertarEmpresa.registerStoredProcedureParameter(5, String.class, ParameterMode.IN);
         spInsertarEmpresa.registerStoredProcedureParameter(6, String.class, ParameterMode.IN);
-        spInsertarEmpresa.registerStoredProcedureParameter(7, Integer.class, ParameterMode.IN);
+        spInsertarEmpresa.registerStoredProcedureParameter(7, Short.class, ParameterMode.IN);
+        //spInsertarEmpresa.registerStoredProcedureParameter("C_EMPRESA", ResultSet.class, ParameterMode.REF_CURSOR);
+        spInsertarEmpresa.registerStoredProcedureParameter("C_EMPRESA", void.class, ParameterMode.REF_CURSOR);
         
         spInsertarEmpresa.setParameter(2, empresa.getDgrut());
         spInsertarEmpresa.setParameter(3, empresa.getDgdireccion());
@@ -69,7 +74,9 @@ public class EmpresaDaoImpl implements EmpresaDao{
         spInsertarEmpresa.setParameter(6, empresa.getDgcorreo());
         spInsertarEmpresa.setParameter(7, empresa.getBlvigente());
         
-        spInsertarEmpresa.execute();
+        r_cursor = (ArrayList<Empresa>) spInsertarEmpresa.getResultList();
+        
+       return r_cursor;
        
     }
     

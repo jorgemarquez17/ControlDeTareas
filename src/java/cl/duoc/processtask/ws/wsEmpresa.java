@@ -9,6 +9,8 @@ import cl.duoc.processtask.entity.Empresa;
 import cl.duoc.processtask.servicio.EmpresaService;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.Oneway;
@@ -31,33 +33,35 @@ public class wsEmpresa {
     @EJB
     private EmpresaService ejbRef;// Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Web Service Operation")
+    private List<Empresa> listEmp;
 
     @WebMethod(operationName = "registrarEmpresa")
     //@Oneway
-    public String registrarEmpresa(@WebParam(name = "rut") String rut, @WebParam(name = "direccion") String Direccion,
+    public List<Empresa> registrarEmpresa(@WebParam(name = "rut") String rut, @WebParam(name = "direccion") String Direccion,
             @WebParam(name="nombreEmpresa") String NombreEmpresa,
             @WebParam(name = "contacto") String contacto, @WebParam(name = "correo") String correo,
-            @WebParam(name="vigente")Long vigente) {
+            @WebParam(name="vigente")Short vigente) {
         Empresa empresa = new Empresa();
         
         try {
             Context jndi = new InitialContext();
             EmpresaService ci = (EmpresaService) jndi.lookup("java:global/ProcessTask/EmpresaServiceImpl!cl.duoc.processtask.servicio.EmpresaService");
-            
+           // listEmp = new ArrayList<Empresa>();
             //empresa.setIdempresa(1L);
             empresa.setDgrut(rut);
             empresa.setDgdireccion(Direccion);
             empresa.setDgnombreempresa(NombreEmpresa);
             empresa.setDgcontacto(contacto);
             empresa.setDgcorreo(correo);
-            empresa.setBlvigente(vigente.longValue());
+            empresa.setBlvigente(vigente);
             
             //ejbRef.registrarEmpresa(empresa);
-            ejbRef.registrarEmpresa2(empresa);
+            listEmp = ejbRef.registrarEmpresa2(empresa);
         } catch (NamingException e) {
             e.printStackTrace();
         }
-        return "Se agrego la empresa correctamente";
+        //return "Se agrego la empresa correctamente";
+        return listEmp;
         //ejbRef.registrarEmpresa(empresa);
     }
 

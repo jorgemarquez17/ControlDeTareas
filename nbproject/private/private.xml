@@ -3,18 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/eis/EmpresaDaoImpl.java</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/entity/Empresa.java</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/web/WEB-INF/web.xml</file>
-            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/test/prueba.java</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/nbproject/build-impl.xml</file>
-            <file>file:/D:/NetbeanProjects/ProcessTask/nbproject/jax-ws.xml</file>
-            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/servicio/EmpresaServiceImpl.java</file>
-            <file>file:/D:/NetbeanProjects/ProcessTask/src/conf/persistence.xml</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/test/prueba.java</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/servicio/EmpresaServiceWS.java</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/setup/glassfish-resources.xml</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/eis/EmpresaDaoImpl.java</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/servicio/EmpresaServiceImpl.java</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/nbproject/jax-ws.xml</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/test/test.java</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/src/conf/persistence.xml</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/eis/EmpresaDao.java</file>
-            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/ws/wsCliente.java</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/servicio/EmpresaService.java</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/ws/wsEmpresa.java</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/ws/wsCliente.java</file>
         </group>
     </open-files>
 </project-private>

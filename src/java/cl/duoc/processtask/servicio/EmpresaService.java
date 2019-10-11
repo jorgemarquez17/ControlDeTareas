@@ -26,5 +26,5 @@ public interface EmpresaService {
     
     public void eliminarEmpresa(Empresa empresa);
 
-    public void registrarEmpresa2(Empresa empresa);
+    public List<Empresa> registrarEmpresa2(Empresa empresa);
 }

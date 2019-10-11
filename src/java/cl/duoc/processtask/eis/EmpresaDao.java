@@ -23,6 +23,6 @@ public interface EmpresaDao {
     
     public void deleteEmpresa(Empresa empresa);
     
-    public void insertEmpresa2(Empresa empresa);
+    public List<Empresa> insertEmpresa2(Empresa empresa);
     
 }

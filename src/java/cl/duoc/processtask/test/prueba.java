@@ -35,7 +35,7 @@ public class prueba {
             empresa.setDgnombreempresa("Empresa1");
             empresa.setDgcontacto("Jorge Marquez");
             empresa.setDgcorreo("jmar@mail.com");
-            empresa.setBlvigente(1L);
+            //empresa.setBlvigente(2);
             ci.registrarEmpresa2(empresa);
             //ci.registrarEmpresa(empresa);
             

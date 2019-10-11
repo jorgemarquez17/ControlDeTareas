@@ -7,22 +7,20 @@
 package cl.duoc.processtask.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.NamedStoredProcedureQuery;
-import javax.persistence.ParameterMode;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.StoredProcedureParameter;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -40,22 +38,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Empresa.findByDgcontacto", query = "SELECT e FROM Empresa e WHERE e.dgcontacto = :dgcontacto"),
     @NamedQuery(name = "Empresa.findByDgcorreo", query = "SELECT e FROM Empresa e WHERE e.dgcorreo = :dgcorreo"),
     @NamedQuery(name = "Empresa.findByBlvigente", query = "SELECT e FROM Empresa e WHERE e.blvigente = :blvigente")})
-    @NamedStoredProcedureQuery(
-    name = "INGRESAREMPRESA",
-            procedureName = "PT_USER.IngresarEmpresaSP",
-            parameters = {
-                @StoredProcedureParameter(name = "DGRUT",type = String.class,mode = ParameterMode.IN),
-                @StoredProcedureParameter(name = "DGDIRECCION",type = String.class,mode = ParameterMode.IN),
-                @StoredProcedureParameter(name = "DGNOMBREEMPRESA",type = String.class,mode = ParameterMode.IN),
-                @StoredProcedureParameter(name = "DGCONTACTO",type = String.class,mode = ParameterMode.IN),
-                @StoredProcedureParameter(name = "DGCORREO",type = String.class,mode = ParameterMode.IN),
-                @StoredProcedureParameter(name = "BLVIGENTE",type = Long.class,mode = ParameterMode.IN)
-            })
+    
 public class Empresa implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "EMPRESA_SEQ")
-    @SequenceGenerator(sequenceName = "EMPRESA_SEQ",allocationSize = 1,name = "EMPRESA_SEQ")
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDEMPRESA")
@@ -85,8 +71,12 @@ public class Empresa implements Serializable {
     @Size(min = 1, max = 40)
     @Column(name = "DGCORREO")
     private String dgcorreo;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "BLVIGENTE")
-    private Long blvigente;
+    private short blvigente;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idempresaCliente")
+    private Collection<Cliente> clienteCollection;
 
     public Empresa() {
     }
@@ -95,13 +85,14 @@ public class Empresa implements Serializable {
         this.idempresa = idempresa;
     }
 
-    public Empresa(Long idempresa, String dgrut, String dgdireccion, String dgnombreempresa, String dgcontacto, String dgcorreo) {
+    public Empresa(Long idempresa, String dgrut, String dgdireccion, String dgnombreempresa, String dgcontacto, String dgcorreo, short blvigente) {
         this.idempresa = idempresa;
         this.dgrut = dgrut;
         this.dgdireccion = dgdireccion;
         this.dgnombreempresa = dgnombreempresa;
         this.dgcontacto = dgcontacto;
         this.dgcorreo = dgcorreo;
+        this.blvigente = blvigente;
     }
 
     public Long getIdempresa() {
@@ -152,12 +143,21 @@ public class Empresa implements Serializable {
         this.dgcorreo = dgcorreo;
     }
 
-    public Long getBlvigente() {
+    public short getBlvigente() {
         return blvigente;
     }
 
-    public void setBlvigente(Long blvigente) {
+    public void setBlvigente(short blvigente) {
         this.blvigente = blvigente;
+    }
+
+    @XmlTransient
+    public Collection<Cliente> getClienteCollection() {
+        return clienteCollection;
+    }
+
+    public void setClienteCollection(Collection<Cliente> clienteCollection) {
+        this.clienteCollection = clienteCollection;
     }
 
     @Override
@@ -182,7 +182,8 @@ public class Empresa implements Serializable {
 
     @Override
     public String toString() {
-        return "cl.duoc.processtask.entity.Empresa[ idempresa=" + idempresa + " ]";
+        return "Empresa id: "+idempresa+" direccion: "+dgdireccion+" nombreEmpresa: "+dgnombreempresa+" contacto: "+dgcontacto
+                +" correo: "+dgcorreo+ " vigente: "+blvigente;
     }
     
 }
