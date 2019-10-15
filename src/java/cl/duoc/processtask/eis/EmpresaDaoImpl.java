@@ -6,8 +6,6 @@
 package cl.duoc.processtask.eis;
 
 import cl.duoc.processtask.entity.Empresa;
-import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -37,8 +35,18 @@ public class EmpresaDaoImpl implements EmpresaDao{
     }
 
     @Override
-    public Empresa findIdEmpresa(Empresa empresa) {
-        return em.find(Empresa.class, empresa.getIdempresa());
+    public List<Empresa> findIdEmpresa(Empresa empresa) {
+        //return em.find(Empresa.class, empresa.getIdempresa());
+        List<Empresa> r_cursor =  new ArrayList<Empresa>();
+        StoredProcedureQuery spfindByIdEmpresa = em.createStoredProcedureQuery("P_LISTAREMPRESA",Empresa.class);
+        spfindByIdEmpresa.registerStoredProcedureParameter(1, Long.class , ParameterMode.IN);
+        spfindByIdEmpresa.registerStoredProcedureParameter("C_IDEMPRESA", void.class, ParameterMode.REF_CURSOR);
+        
+         spfindByIdEmpresa.setParameter(1, empresa.getIdempresa());
+         
+         r_cursor = (ArrayList<Empresa>) spfindByIdEmpresa.getResultList();
+        
+        return r_cursor;
     }
 
     @Override
@@ -47,11 +55,17 @@ public class EmpresaDaoImpl implements EmpresaDao{
     }
 
     @Override
-    public void deleteEmpresa(Empresa empresa) {
+    public List<Empresa> deleteEmpresa(Empresa empresa) {
+        List<Empresa> r_cursor =  new ArrayList<Empresa>();
+        StoredProcedureQuery spEliminarEmpresa= em.createStoredProcedureQuery("P_ELIMINAREMPRESA",Empresa.class);
+        //Empresa emp = em.merge(empresa);
+        spEliminarEmpresa.registerStoredProcedureParameter(1, long.class , ParameterMode.IN);
+        spEliminarEmpresa.registerStoredProcedureParameter("C_IDEMPRESA", void.class, ParameterMode.REF_CURSOR);
         
-        Empresa emp = em.merge(empresa);
-        
-        em.remove(emp);
+        spEliminarEmpresa.setParameter(1, empresa.getIdempresa());
+        r_cursor = (ArrayList<Empresa>) spEliminarEmpresa.getResultList();
+        return r_cursor;
+        //em.remove(emp);
     }
 
     @Override
@@ -64,7 +78,6 @@ public class EmpresaDaoImpl implements EmpresaDao{
         spInsertarEmpresa.registerStoredProcedureParameter(5, String.class, ParameterMode.IN);
         spInsertarEmpresa.registerStoredProcedureParameter(6, String.class, ParameterMode.IN);
         spInsertarEmpresa.registerStoredProcedureParameter(7, Short.class, ParameterMode.IN);
-        //spInsertarEmpresa.registerStoredProcedureParameter("C_EMPRESA", ResultSet.class, ParameterMode.REF_CURSOR);
         spInsertarEmpresa.registerStoredProcedureParameter("C_EMPRESA", void.class, ParameterMode.REF_CURSOR);
         
         spInsertarEmpresa.setParameter(2, empresa.getDgrut());

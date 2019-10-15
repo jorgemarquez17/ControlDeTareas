@@ -17,12 +17,14 @@ public interface EmpresaDao {
     
     public void modifyEmpresa(Empresa empresa);
     
-    public Empresa findIdEmpresa(Empresa empresa);
+    public List<Empresa> findIdEmpresa(Empresa empresa);
     
     public List<Empresa> findIdEmpresa();
     
-    public void deleteEmpresa(Empresa empresa);
+    public List<Empresa> deleteEmpresa(Empresa empresa);
     
     public List<Empresa> insertEmpresa2(Empresa empresa);
+    
+    
     
 }

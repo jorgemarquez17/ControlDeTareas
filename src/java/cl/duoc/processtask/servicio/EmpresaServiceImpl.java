@@ -29,7 +29,7 @@ public class EmpresaServiceImpl implements EmpresaService, EmpresaServiceWS{
     }
 
     @Override
-    public Empresa buscarEmpresaById(Empresa empresa) {
+    public List<Empresa> buscarEmpresaById(Empresa empresa) {
         return empresaDao.findIdEmpresa(empresa);
     }
 
@@ -44,8 +44,8 @@ public class EmpresaServiceImpl implements EmpresaService, EmpresaServiceWS{
     }
 
     @Override
-    public void eliminarEmpresa(Empresa empresa) {
-        empresaDao.deleteEmpresa(empresa);
+    public List<Empresa> eliminarEmpresa(Empresa empresa) {
+        return empresaDao.deleteEmpresa(empresa);
     }
 
     @Override

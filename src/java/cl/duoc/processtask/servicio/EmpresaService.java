@@ -18,13 +18,13 @@ public interface EmpresaService {
     
     public void registrarEmpresa(Empresa empresa);
     
-    public Empresa buscarEmpresaById(Empresa empresa);
+    public List<Empresa> buscarEmpresaById(Empresa empresa);
     
     public List<Empresa> buscarAllEmpresas();
     
     public void modificarEmpresa(Empresa empresa);
     
-    public void eliminarEmpresa(Empresa empresa);
+    public List<Empresa> eliminarEmpresa(Empresa empresa);
 
     public List<Empresa> registrarEmpresa2(Empresa empresa);
 }

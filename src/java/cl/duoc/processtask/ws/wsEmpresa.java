@@ -7,8 +7,6 @@ package cl.duoc.processtask.ws;
 
 import cl.duoc.processtask.entity.Empresa;
 import cl.duoc.processtask.servicio.EmpresaService;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -68,26 +66,54 @@ public class wsEmpresa {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "EliminarEmpresa")
-    public void EliminarEmpresa(@WebParam(name = "idEmp") long idEmp) {
-        Empresa emp2 = new Empresa() ;
-        emp2.setIdempresa(idEmp);
-        emp2 = ejbRef.buscarEmpresaById(emp2);
+//    @WebMethod(operationName = "EliminarEmpresa")
+//    public void EliminarEmpresa(@WebParam(name = "idEmp") long idEmp) {
+//        Empresa emp2 = new Empresa() ;
+//        emp2.setIdempresa(idEmp);
+//        emp2 = ejbRef.buscarEmpresaById(emp2);
+//        //TODO write your implementation code here:
+//        ejbRef.eliminarEmpresa(emp2);
+//    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "listarEmpresaById")
+    public List<Empresa> listarEmpresaById(@WebParam(name = "id_empresa") long id_empresa) {
         //TODO write your implementation code here:
-        ejbRef.eliminarEmpresa(emp2);
+        Empresa emp = new Empresa();
+         List<Empresa> listEmp2;
+         emp.setIdempresa(id_empresa);
+        
+        listEmp2 = ejbRef.buscarEmpresaById(emp);
+        return listEmp2;
     }
 
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "Modificar")
-    @Oneway
-    public void Modificar(@WebParam(name = "idEmpresa") long idEmpresa) {
-         Empresa emp2 = new Empresa() ;
-        emp2.setIdempresa(idEmpresa);
-        emp2 = ejbRef.buscarEmpresaById(emp2);
-        emp2.setDgcontacto("cesar burgos");
-        ejbRef.modificarEmpresa(emp2);
+    @WebMethod(operationName = "eliminarEmpresaById")
+    public List<Empresa> eliminarEmpresaById(@WebParam(name = "idEmpresa") long idEmpresa) {
+        //TODO write your implementation code here:
+        Empresa emp = new Empresa();
+        List<Empresa> listEmp3;
+        emp.setIdempresa(idEmpresa);
+        
+        listEmp3 = ejbRef.eliminarEmpresa(emp);
+        return listEmp3;
     }
+
+    /**
+     * Web service operation
+     */
+//    @WebMethod(operationName = "Modificar")
+//    @Oneway
+//    public void Modificar(@WebParam(name = "idEmpresa") long idEmpresa) {
+//         Empresa emp2 = new Empresa() ;
+//        emp2.setIdempresa(idEmpresa);
+//        emp2 = ejbRef.buscarEmpresaById(emp2);
+//        emp2.setDgcontacto("cesar burgos");
+//        ejbRef.modificarEmpresa(emp2);
+//    }
     
 }

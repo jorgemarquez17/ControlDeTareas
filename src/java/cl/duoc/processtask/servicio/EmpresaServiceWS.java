@@ -24,4 +24,10 @@ public interface EmpresaServiceWS {
     @WebMethod
     public List<Empresa> registrarEmpresa2(Empresa empresa);
     
+     @WebMethod
+    public List<Empresa> eliminarEmpresa(Empresa empresa);
+    
+     @WebMethod
+    public List<Empresa> buscarEmpresaById(Empresa empresa);
+    
 }

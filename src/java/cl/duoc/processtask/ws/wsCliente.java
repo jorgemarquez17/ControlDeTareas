@@ -24,4 +24,13 @@ public class wsCliente {
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "ingresarCliente")
+    public String ingresarCliente(@WebParam(name = "idEmpresa") long idEmpresa, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido, @WebParam(name = "contacto") String contacto, @WebParam(name = "correo") String correo, @WebParam(name = "vigente") short vigente) {
+        //TODO write your implementation code here:
+        return null;
+    }
 }
