@@ -7,7 +7,6 @@
 package cl.duoc.processtask.eis;
 
 import cl.duoc.processtask.entity.Cliente;
-import cl.duoc.processtask.entity.Empresa;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -25,12 +24,6 @@ public class ClienteDaoEmpl implements ClienteDao{
     
     @PersistenceContext(unitName = "ProcessTaskPU")//ProcessTaskPU
     EntityManager em;
-    Empresa empresa;
-
-    @Override
-    public List<Cliente> findIdCliente(Cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     
     @Override
@@ -59,13 +52,29 @@ public class ClienteDaoEmpl implements ClienteDao{
     }
 
     @Override
-    public List<Cliente> findIdCliente() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Cliente> findIdCliente(Cliente cliente) {
+         List<Cliente> r_cursor =  new ArrayList<Cliente>();
+         StoredProcedureQuery spfindByIdCliente = em.createStoredProcedureQuery("P_LISTARCLIENTE",Cliente.class);
+         spfindByIdCliente.registerStoredProcedureParameter(1, Long.class , ParameterMode.IN);
+         spfindByIdCliente.registerStoredProcedureParameter("C_IDCLIENTE", void.class, ParameterMode.REF_CURSOR);
+         
+         spfindByIdCliente.setParameter(1, cliente.getIdcliente());
+         
+         r_cursor = spfindByIdCliente.getResultList();
+        return r_cursor;
     }
 
     @Override
     public List<Cliente> deleteCliente(Cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Cliente> r_cursor =  new ArrayList<Cliente>();
+        StoredProcedureQuery spEliminarCliente = em.createStoredProcedureQuery("P_ELIMINARCLIENTE",Cliente.class);
+        spEliminarCliente.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
+        spEliminarCliente.registerStoredProcedureParameter("C_IDCLIENTE", void.class, ParameterMode.REF_CURSOR);
+        
+        spEliminarCliente.setParameter(1, cliente.getIdcliente());
+        
+        r_cursor = spEliminarCliente.getResultList();
+        return r_cursor;
     }
     
 }

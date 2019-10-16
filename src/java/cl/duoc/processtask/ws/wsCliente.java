@@ -31,8 +31,6 @@ public class wsCliente {
     
     @EJB
     ClienteService ejbRef3;
-    @EJB
-    EmpresaService ejbRef2;
     
     private List<Cliente> listCli;
 
@@ -81,5 +79,31 @@ public class wsCliente {
             e.printStackTrace();
         }
         return listCli;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "listarCliente")
+    public List<Cliente> listarCliente(@WebParam(name = "idCliente") long idCliente) {
+        //TODO write your implementation code here:
+        Cliente cliente = new Cliente();
+        List<Cliente> listCliente;
+        
+        cliente.setIdcliente(idCliente);
+        listCliente = ejbRef3.buscarByIdCliente(cliente);
+        return listCliente;
+    }
+    
+    
+     @WebMethod(operationName = "eliminarCliente")
+    public List<Cliente> eliminarCliente(@WebParam(name = "idCliente") long idCliente) {
+        //TODO write your implementation code here:
+        Cliente cliente = new Cliente();
+        List<Cliente> listCliente;
+        cliente.setIdcliente(idCliente);
+        
+        listCliente = ejbRef3.eliminarCliente(cliente);
+        return listCliente;
     }
 }

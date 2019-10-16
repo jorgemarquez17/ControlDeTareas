@@ -34,11 +34,11 @@ public class ClienteServiceImpl implements ClienteService, ClienteServicesWS{
 
     @Override
     public List<Cliente> buscarByIdCliente(Cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return clienteDao.findIdCliente(cliente);
     }
 
     @Override
     public List<Cliente> eliminarCliente(Cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return clienteDao.deleteCliente(cliente);
     }
 }

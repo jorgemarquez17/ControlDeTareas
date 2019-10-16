@@ -21,4 +21,9 @@ public interface ClienteServicesWS {
     @WebMethod
     public List<Cliente> registrarCliente(Cliente cliente);
     
+    @WebMethod
+    public List<Cliente> buscarByIdCliente(Cliente cliente);
+    
+    
+    
 }

@@ -44,7 +44,8 @@ public class EmpresaDaoImpl implements EmpresaDao{
         
          spfindByIdEmpresa.setParameter(1, empresa.getIdempresa());
          
-         r_cursor = (ArrayList<Empresa>) spfindByIdEmpresa.getResultList();
+         //(ArrayList<Empresa>) para castear el resultado
+         r_cursor =  spfindByIdEmpresa.getResultList();
         
         return r_cursor;
     }

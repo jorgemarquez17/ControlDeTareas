@@ -17,8 +17,6 @@ public interface ClienteDao {
     
     public List<Cliente> findIdCliente(Cliente cliente);
     
-    public List<Cliente> findIdCliente();
-    
     public List<Cliente> deleteCliente(Cliente cliente);
     
     public List<Cliente> insertCliente(Cliente cliente);
