@@ -15,13 +15,11 @@ import java.util.List;
  */
 public interface ClienteDao {
     
-    public void modifyEmpresa(Cliente cliente);
+    public List<Cliente> findIdCliente(Cliente cliente);
     
-    public List<Cliente> findIdEmpresa(Cliente cliente);
+    public List<Cliente> findIdCliente();
     
-    public List<Cliente> findIdEmpresa();
-    
-    public List<Cliente> deleteEmpresa(Cliente cliente);
+    public List<Cliente> deleteCliente(Cliente cliente);
     
     public List<Cliente> insertCliente(Cliente cliente);
 }

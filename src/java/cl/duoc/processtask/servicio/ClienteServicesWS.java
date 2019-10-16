@@ -6,10 +6,19 @@
 
 package cl.duoc.processtask.servicio;
 
+import cl.duoc.processtask.entity.Cliente;
+import java.util.List;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+
 /**
  *
  * @author jorge
  */
-public class ClienteServicesWS {
+@WebService
+public interface ClienteServicesWS {
+    
+    @WebMethod
+    public List<Cliente> registrarCliente(Cliente cliente);
     
 }

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Metro/2.3 (tags/2.3-7528; 2013-04-29T19:34:10+0000) JAXWS-RI/2.2.8 JAXWS/2.2 svn-revision#unknown. --><xs:schema xmlns:tns="http://ws.processtask.duoc.cl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://ws.processtask.duoc.cl/">
+
+<xs:element name="cliente" type="tns:cliente"/>
+
+<xs:element name="empresa" type="tns:empresa"/>
+
+<xs:element name="ingresarCliente" type="tns:ingresarCliente"/>
+
+<xs:element name="ingresarClienteResponse" type="tns:ingresarClienteResponse"/>
+
+<xs:complexType name="ingresarCliente">
+<xs:sequence>
+<xs:element name="idEmpresa" type="xs:long"/>
+<xs:element name="nombre" type="xs:string" minOccurs="0"/>
+<xs:element name="apellido" type="xs:string" minOccurs="0"/>
+<xs:element name="contacto" type="xs:string" minOccurs="0"/>
+<xs:element name="correo" type="xs:string" minOccurs="0"/>
+<xs:element name="vigente" type="xs:short"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ingresarClienteResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:cliente" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cliente">
+<xs:sequence>
+<xs:element name="blvigente" type="xs:short"/>
+<xs:element name="dgapellido" type="xs:string" minOccurs="0"/>
+<xs:element name="dgcontacto" type="xs:string" minOccurs="0"/>
+<xs:element name="dgcorreo" type="xs:string" minOccurs="0"/>
+<xs:element name="dgnombre" type="xs:string" minOccurs="0"/>
+<xs:element name="idcliente" type="xs:long" minOccurs="0"/>
+<xs:element name="idempresaCliente" type="tns:empresa" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="empresa">
+<xs:sequence>
+<xs:element name="blvigente" type="xs:short"/>
+<xs:element name="dgcontacto" type="xs:string" minOccurs="0"/>
+<xs:element name="dgcorreo" type="xs:string" minOccurs="0"/>
+<xs:element name="dgdireccion" type="xs:string" minOccurs="0"/>
+<xs:element name="dgnombreempresa" type="xs:string" minOccurs="0"/>
+<xs:element name="dgrut" type="xs:string" minOccurs="0"/>
+<xs:element name="idempresa" type="xs:long" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

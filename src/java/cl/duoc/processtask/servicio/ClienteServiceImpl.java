@@ -7,18 +7,25 @@
 package cl.duoc.processtask.servicio;
 
 import cl.duoc.processtask.eis.ClienteDao;
+import cl.duoc.processtask.eis.EmpresaDao;
 import cl.duoc.processtask.entity.Cliente;
+import cl.duoc.processtask.entity.Empresa;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author jorge
  */
-public class ClienteServiceImpl implements ClienteService{
+@Stateless
+public class ClienteServiceImpl implements ClienteService, ClienteServicesWS{
     
     @EJB
     ClienteDao clienteDao;
+    
+    @EJB
+    EmpresaDao empresaDao;
 
     @Override
     public List<Cliente> registrarCliente(Cliente cliente) {
@@ -34,5 +41,4 @@ public class ClienteServiceImpl implements ClienteService{
     public List<Cliente> eliminarCliente(Cliente cliente) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

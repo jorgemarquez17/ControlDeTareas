@@ -25,13 +25,13 @@ import javax.naming.NamingException;
  */
 @WebService(serviceName = "wsEmpresa")
 //@WebService(endpointInterface = "cl.duoc.processtask.servicio.EmpresaService")
-@Stateless()
+@Stateless
 public class wsEmpresa {
 
     @EJB
-    private EmpresaService ejbRef;// Add business logic below. (Right-click in editor and choose
+     EmpresaService ejbRef;// Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Web Service Operation")
-    private List<Empresa> listEmp;
+     List<Empresa> listEmp;
 
     @WebMethod(operationName = "registrarEmpresa")
     //@Oneway

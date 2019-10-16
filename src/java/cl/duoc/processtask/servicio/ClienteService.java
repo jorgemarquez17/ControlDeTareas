@@ -22,4 +22,5 @@ public interface ClienteService {
     public List<Cliente> buscarByIdCliente(Cliente cliente);
     
     public List<Cliente> eliminarCliente(Cliente cliente);
+    
 }

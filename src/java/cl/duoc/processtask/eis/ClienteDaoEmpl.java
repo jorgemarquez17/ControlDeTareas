@@ -7,6 +7,7 @@
 package cl.duoc.processtask.eis;
 
 import cl.duoc.processtask.entity.Cliente;
+import cl.duoc.processtask.entity.Empresa;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -24,27 +25,14 @@ public class ClienteDaoEmpl implements ClienteDao{
     
     @PersistenceContext(unitName = "ProcessTaskPU")//ProcessTaskPU
     EntityManager em;
+    Empresa empresa;
 
     @Override
-    public void modifyEmpresa(Cliente cliente) {
+    public List<Cliente> findIdCliente(Cliente cliente) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public List<Cliente> findIdEmpresa(Cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Cliente> findIdEmpresa() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Cliente> deleteEmpresa(Cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public List<Cliente> insertCliente(Cliente cliente) {
         List<Cliente> r_cursor =  new ArrayList<Cliente>();
@@ -57,7 +45,7 @@ public class ClienteDaoEmpl implements ClienteDao{
         spInsertarCliente.registerStoredProcedureParameter(7, Short.class, ParameterMode.IN);
         spInsertarCliente.registerStoredProcedureParameter("C_CLIENTE", void.class, ParameterMode.REF_CURSOR);
         
-        spInsertarCliente.setParameter(2, cliente.getIdempresaCliente());
+        spInsertarCliente.setParameter(2, cliente.getIdempresaCliente().getIdempresa());
         spInsertarCliente.setParameter(3, cliente.getDgnombre());
         spInsertarCliente.setParameter(4, cliente.getDgapellido());
         spInsertarCliente.setParameter(5, cliente.getDgcontacto());
@@ -68,6 +56,16 @@ public class ClienteDaoEmpl implements ClienteDao{
         
         
         return r_cursor;
+    }
+
+    @Override
+    public List<Cliente> findIdCliente() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Cliente> deleteCliente(Cliente cliente) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
