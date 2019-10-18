@@ -41,4 +41,9 @@ public class ClienteServiceImpl implements ClienteService, ClienteServicesWS{
     public List<Cliente> eliminarCliente(Cliente cliente) {
         return clienteDao.deleteCliente(cliente);
     }
+
+    @Override
+    public List<Cliente> modificarCliente(Cliente cliente) {
+        return clienteDao.updateCliente(cliente);
+    }
 }

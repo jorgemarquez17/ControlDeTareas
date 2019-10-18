@@ -9,7 +9,6 @@ package cl.duoc.processtask.ws;
 import cl.duoc.processtask.entity.Cliente;
 import cl.duoc.processtask.entity.Empresa;
 import cl.duoc.processtask.servicio.ClienteService;
-import cl.duoc.processtask.servicio.EmpresaService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -105,5 +104,42 @@ public class wsCliente {
         
         listCliente = ejbRef3.eliminarCliente(cliente);
         return listCliente;
+    }
+    
+    @WebMethod(operationName = "actualizarCliente")
+    public List<Cliente> actualizarCliente(
+            @WebParam(name ="idCliente" ) Long idCliente,
+            @WebParam(name = "idempresa") Long idEmpresa,
+            @WebParam(name = "nombre") String nombre, 
+            @WebParam(name = "apellido") String apellido,
+            @WebParam(name = "contacto") String contacto, 
+            @WebParam(name = "correo") String correo, 
+            @WebParam(name = "vigente") Short vigente){
+        Cliente cliente = new Cliente();
+        Empresa empresa = new Empresa();
+        List<Empresa> listEmp =new ArrayList<Empresa>();
+        try{
+           empresa.setIdempresa(idEmpresa);
+           
+            for(Empresa emp : listEmp){
+                empresa = emp;
+            }
+           // System.out.println("Empresa Rescatada:"+empresa.toString());
+            cliente.setIdcliente(idCliente);
+            cliente.setIdempresaCliente(empresa);
+            cliente.setDgnombre(nombre);
+            cliente.setDgapellido(apellido);
+            cliente.setDgcontacto(contacto);
+            cliente.setDgcorreo(correo);
+            cliente.setBlvigente(vigente);
+            
+            //ejbRef.registrarEmpresa(empresa);
+            listCli = ejbRef3.modificarCliente(cliente); 
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        return listCli;
+        
     }
 }

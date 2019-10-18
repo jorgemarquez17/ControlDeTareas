@@ -30,8 +30,30 @@ public class EmpresaDaoImpl implements EmpresaDao{
     }
 
     @Override
-    public void modifyEmpresa(Empresa empresa) {
-       em.merge(empresa);
+    public List<Empresa> modifyEmpresa(Empresa empresa) {
+       //em.merge(empresa);
+        List<Empresa> r_cursor =  new ArrayList<Empresa>();
+        StoredProcedureQuery spUpdateEmpresa = em.createStoredProcedureQuery("P_ACTUALIZAREMPRESA",Empresa.class);
+        spUpdateEmpresa.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
+        spUpdateEmpresa.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
+        spUpdateEmpresa.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
+        spUpdateEmpresa.registerStoredProcedureParameter(4, String.class, ParameterMode.IN);
+        spUpdateEmpresa.registerStoredProcedureParameter(5, String.class, ParameterMode.IN);
+        spUpdateEmpresa.registerStoredProcedureParameter(6, String.class, ParameterMode.IN);
+        spUpdateEmpresa.registerStoredProcedureParameter(7, Short.class, ParameterMode.IN);
+        spUpdateEmpresa.registerStoredProcedureParameter("C_EMPRESA", void.class, ParameterMode.REF_CURSOR);
+        
+        spUpdateEmpresa.setParameter(1, empresa.getIdempresa());
+        spUpdateEmpresa.setParameter(2, empresa.getDgrut());
+        spUpdateEmpresa.setParameter(3, empresa.getDgdireccion());
+        spUpdateEmpresa.setParameter(4, empresa.getDgnombreempresa());
+        spUpdateEmpresa.setParameter(5, empresa.getDgcontacto());
+        spUpdateEmpresa.setParameter(6, empresa.getDgcorreo());
+        spUpdateEmpresa.setParameter(7, empresa.getBlvigente());
+        
+        r_cursor = spUpdateEmpresa.getResultList();
+        
+        return r_cursor;
     }
 
     @Override

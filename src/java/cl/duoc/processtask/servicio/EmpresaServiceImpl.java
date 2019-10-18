@@ -39,8 +39,9 @@ public class EmpresaServiceImpl implements EmpresaService, EmpresaServiceWS{
     }
 
     @Override
-    public void modificarEmpresa(Empresa empresa) {
-        empresaDao.modifyEmpresa(empresa);
+    public List<Empresa> modificarEmpresa(Empresa empresa) {
+        //empresaDao.modifyEmpresa(empresa);
+        return empresaDao.modifyEmpresa(empresa);
     }
 
     @Override

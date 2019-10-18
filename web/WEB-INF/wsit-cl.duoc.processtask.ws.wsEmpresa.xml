@@ -13,6 +13,8 @@
     <message name="listarEmpresaByIdResponse"/>
     <message name="eliminarEmpresaById"/>
     <message name="eliminarEmpresaByIdResponse"/>
+    <message name="actualizarEmpresa"/>
+    <message name="actualizarEmpresaResponse"/>
     <portType name="wsEmpresa">
         <operation name="registrarEmpresa">
             <input message="tns:registrarEmpresa"/>
@@ -29,6 +31,10 @@
         <operation name="eliminarEmpresaById">
             <input message="tns:eliminarEmpresaById"/>
             <output message="tns:eliminarEmpresaByIdResponse"/>
+        </operation>
+        <operation name="actualizarEmpresa">
+            <input message="tns:actualizarEmpresa"/>
+            <output message="tns:actualizarEmpresaResponse"/>
         </operation>
     </portType>
     <binding name="wsEmpresaPortBinding" type="tns:wsEmpresa">
@@ -47,6 +53,10 @@
             <output/>
         </operation>
         <operation name="eliminarEmpresaById">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="actualizarEmpresa">
             <input/>
             <output/>
         </operation>

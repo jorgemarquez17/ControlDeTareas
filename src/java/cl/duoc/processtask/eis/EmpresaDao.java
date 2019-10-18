@@ -15,7 +15,7 @@ public interface EmpresaDao {
     
     public void insertEmpresa(Empresa empresa);
     
-    public void modifyEmpresa(Empresa empresa);
+    public List<Empresa> modifyEmpresa(Empresa empresa);
     
     public List<Empresa> findIdEmpresa(Empresa empresa);
     

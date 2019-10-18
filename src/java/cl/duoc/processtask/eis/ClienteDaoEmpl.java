@@ -30,6 +30,7 @@ public class ClienteDaoEmpl implements ClienteDao{
     public List<Cliente> insertCliente(Cliente cliente) {
         List<Cliente> r_cursor =  new ArrayList<Cliente>();
         StoredProcedureQuery spInsertarCliente= em.createStoredProcedureQuery("INGRESARCLIENTE",Cliente.class);
+        
         spInsertarCliente.registerStoredProcedureParameter(2, Long.class, ParameterMode.IN);
         spInsertarCliente.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
         spInsertarCliente.registerStoredProcedureParameter(4, String.class, ParameterMode.IN);
@@ -38,6 +39,7 @@ public class ClienteDaoEmpl implements ClienteDao{
         spInsertarCliente.registerStoredProcedureParameter(7, Short.class, ParameterMode.IN);
         spInsertarCliente.registerStoredProcedureParameter("C_CLIENTE", void.class, ParameterMode.REF_CURSOR);
         
+       
         spInsertarCliente.setParameter(2, cliente.getIdempresaCliente().getIdempresa());
         spInsertarCliente.setParameter(3, cliente.getDgnombre());
         spInsertarCliente.setParameter(4, cliente.getDgapellido());
@@ -74,6 +76,32 @@ public class ClienteDaoEmpl implements ClienteDao{
         spEliminarCliente.setParameter(1, cliente.getIdcliente());
         
         r_cursor = spEliminarCliente.getResultList();
+        return r_cursor;
+    }
+
+    @Override
+    public List<Cliente> updateCliente(Cliente cliente) {
+        List<Cliente> r_cursor = new ArrayList<Cliente>();
+        StoredProcedureQuery spActualizarCliente = em.createStoredProcedureQuery("P_ACTUALIZARCLIENTE",Cliente.class);
+        spActualizarCliente.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
+        spActualizarCliente.registerStoredProcedureParameter(2, Long.class, ParameterMode.IN);
+        spActualizarCliente.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
+        spActualizarCliente.registerStoredProcedureParameter(4, String.class, ParameterMode.IN);
+        spActualizarCliente.registerStoredProcedureParameter(5, String.class, ParameterMode.IN);
+        spActualizarCliente.registerStoredProcedureParameter(6, String.class, ParameterMode.IN);
+        spActualizarCliente.registerStoredProcedureParameter(7, Short.class, ParameterMode.IN);
+        spActualizarCliente.registerStoredProcedureParameter("C_CLIENTE", void.class, ParameterMode.REF_CURSOR);
+        
+        spActualizarCliente.setParameter(1, cliente.getIdcliente());        
+        spActualizarCliente.setParameter(2, cliente.getIdempresaCliente().getIdempresa());
+        spActualizarCliente.setParameter(3, cliente.getDgnombre());
+        spActualizarCliente.setParameter(4, cliente.getDgapellido());
+        spActualizarCliente.setParameter(5, cliente.getDgcontacto());
+        spActualizarCliente.setParameter(6, cliente.getDgcorreo());
+        spActualizarCliente.setParameter(7, cliente.getBlvigente());
+        
+        r_cursor = spActualizarCliente.getResultList();       
+        
         return r_cursor;
     }
     

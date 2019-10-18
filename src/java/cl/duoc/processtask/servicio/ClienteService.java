@@ -23,4 +23,6 @@ public interface ClienteService {
     
     public List<Cliente> eliminarCliente(Cliente cliente);
     
+    public List<Cliente> modificarCliente(Cliente cliente);
+    
 }

@@ -22,7 +22,7 @@ public interface EmpresaService {
     
     public List<Empresa> buscarAllEmpresas();
     
-    public void modificarEmpresa(Empresa empresa);
+    public List<Empresa> modificarEmpresa(Empresa empresa);
     
     public List<Empresa> eliminarEmpresa(Empresa empresa);
 

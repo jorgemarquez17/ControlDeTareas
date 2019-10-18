@@ -106,14 +106,29 @@ public class wsEmpresa {
     /**
      * Web service operation
      */
-//    @WebMethod(operationName = "Modificar")
-//    @Oneway
-//    public void Modificar(@WebParam(name = "idEmpresa") long idEmpresa) {
-//         Empresa emp2 = new Empresa() ;
-//        emp2.setIdempresa(idEmpresa);
-//        emp2 = ejbRef.buscarEmpresaById(emp2);
-//        emp2.setDgcontacto("cesar burgos");
-//        ejbRef.modificarEmpresa(emp2);
-//    }
+    @WebMethod(operationName = "actualizarEmpresa")
+    public List<Empresa> actualizarEmpresa(@WebParam(name = "idEmpresa") long idEmpresa, @WebParam(name = "rut") String rut,
+            @WebParam(name = "direccion") String direccion, @WebParam(name = "nombreEmpresa") String nombreEmpresa, 
+            @WebParam(name = "contacto") String contacto, @WebParam(name = "correo") String correo, @WebParam(name = "vigente") short vigente
+            ) {
+        
+        Empresa empresa = new Empresa();
+        List<Empresa> listEmp;
+        
+        empresa.setIdempresa(idEmpresa);
+        empresa.setDgrut(rut);
+        empresa.setDgdireccion(direccion);
+        empresa.setDgnombreempresa(nombreEmpresa);
+        empresa.setDgcontacto(contacto);
+        empresa.setDgcorreo(correo);
+        empresa.setBlvigente(vigente);
+        
+       listEmp= ejbRef.modificarEmpresa(empresa);
+        
+        
+        return listEmp;
+    }
+
+   
     
 }
