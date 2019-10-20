@@ -7,6 +7,9 @@
     <service name="wsCliente">
       <implementation-class>cl.duoc.processtask.ws.wsCliente</implementation-class>
     </service>
+    <service name="wsTarea">
+      <implementation-class>cl.duoc.processtask.ws.wsTarea</implementation-class>
+    </service>
   </services>
   <clients>
     <client name="wsCliente">
