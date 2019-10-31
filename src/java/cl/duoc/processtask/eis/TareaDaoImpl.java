@@ -74,7 +74,15 @@ public class TareaDaoImpl implements TareaDao{
 
     @Override
     public List<Tarea> findByIdTarea(Tarea tarea) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         List<Tarea> r_cursor = new ArrayList<Tarea>();
+         
+         StoredProcedureQuery spListarTarea = em.createStoredProcedureQuery("P_LISTARTAREA", Tarea.class);
+         spListarTarea.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
+         spListarTarea.registerStoredProcedureParameter("C_IDTAREA", void.class, ParameterMode.REF_CURSOR);
+         
+         spListarTarea.setParameter(1, tarea.getIdtarea());
+         
+         return r_cursor;
     }
     
 }

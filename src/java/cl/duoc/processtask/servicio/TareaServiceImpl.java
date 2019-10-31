@@ -27,5 +27,11 @@ public class TareaServiceImpl implements TareaService{
         
         return tareaDao.insertTarea(tarea);
     }
+
+    @Override
+    public List<Tarea> listarTarea(Tarea tarea) {
+        
+        return tareaDao.findByIdTarea(tarea);
+    }
     
 }

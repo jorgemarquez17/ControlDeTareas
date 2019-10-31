@@ -3,24 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/eis/TipoperfilDaoImpl.java</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/nbproject/build-impl.xml</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/setup/glassfish-resources.xml</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/eis/ClienteDao.java</file>
-            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/eis/UsuarioDao.java</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/eis/TareaDaoImpl.java</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/eis/UsuarioDao.java</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/ws/wsTarea.java</file>
-            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/eis/TipoperfilDao.java</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/servicio/TareaService.java</file>
-            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/eis/TiporolDaoImpl.java</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/eis/EmpresaDaoImpl.java</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/servicio/TareaServiceImpl.java</file>
-            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/eis/TiporolDao.java</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/eis/ClienteDaoEmpl.java</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/eis/TareaDao.java</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/eis/UsuarioDaoImpl.java</file>
+            <file>file:/D:/NetbeanProjects/ProcessTask/build.xml</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/servicio/ClienteServiceImpl.java</file>
             <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/entity/Tarea.java</file>
-            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/servicio/ClienteService.java</file>
-            <file>file:/D:/NetbeanProjects/ProcessTask/src/java/cl/duoc/processtask/ws/wsCliente.java</file>
         </group>
     </open-files>
 </project-private>

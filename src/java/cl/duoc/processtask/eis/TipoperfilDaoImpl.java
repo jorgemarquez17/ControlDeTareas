@@ -8,6 +8,7 @@ package cl.duoc.processtask.eis;
 
 import cl.duoc.processtask.entity.Tipoperfil;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceUnit;
 
@@ -15,6 +16,7 @@ import javax.persistence.PersistenceUnit;
  *
  * @author jorge
  */
+@Stateless
 public class TipoperfilDaoImpl implements TipoperfilDao{
     
     @PersistenceUnit( unitName = "ProcessTaskPU")
