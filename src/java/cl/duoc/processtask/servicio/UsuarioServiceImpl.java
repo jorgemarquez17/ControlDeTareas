@@ -24,26 +24,26 @@ public class UsuarioServiceImpl implements UsuarioService{
 
     @Override
     public List<Usuario> ingresarUsuario(Usuario usuario) {
-        List<Usuario> r_cursor = new ArrayList<Usuario>();
-        return r_cursor;
+        
+        return usuarioDao.insertUsuario(usuario);
     }
 
     @Override
     public List<Usuario> actualizarUsuario(Usuario usuario) {
-        List<Usuario> r_cursor = new ArrayList<Usuario>();
-        return r_cursor;
+        
+        return usuarioDao.updateUsuario(usuario);
     }
 
     @Override
     public List<Usuario> eliminarUsuario(Usuario usuario) {
-        List<Usuario> r_cursor = new ArrayList<Usuario>();
-        return r_cursor;
+       
+        return usuarioDao.deleteUsuario(usuario);
     }
 
     @Override
     public List<Usuario> listarUsuario(Usuario usuario) {
-        List<Usuario> r_cursor = new ArrayList<Usuario>();
-        return r_cursor;
+        
+        return usuarioDao.findAllUsuario(usuario);
     }
     
 }

@@ -59,7 +59,16 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
     @Override
     public List<Usuario> deleteUsuario(Usuario usuario) {
-        return null;
+        List<Usuario> r_cursor = new ArrayList<Usuario>();
+        StoredProcedureQuery spEliminarUsuario = em.createStoredProcedureQuery("P_ELIMINARUSUARIO",Usuario.class);
+        spEliminarUsuario.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
+        spEliminarUsuario.registerStoredProcedureParameter("c_usuario", void.class, ParameterMode.REF_CURSOR);
+        
+        spEliminarUsuario.setParameter(1, usuario.getIdusuario());
+        
+        r_cursor = spEliminarUsuario.getResultList();
+        
+        return r_cursor;
     }
 
     @Override
