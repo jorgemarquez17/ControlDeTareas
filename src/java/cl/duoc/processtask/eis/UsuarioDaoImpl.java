@@ -73,7 +73,33 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
     @Override
     public List<Usuario> updateUsuario(Usuario usuario) {
-        return null;
+        List<Usuario> r_cursor = new ArrayList<Usuario>();
+        StoredProcedureQuery spActualizarUser = em.createStoredProcedureQuery("P_ACTUALIZARUSUARIO",Usuario.class);
+        
+        spActualizarUser.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
+        spActualizarUser.registerStoredProcedureParameter(2, Long.class, ParameterMode.IN);
+        spActualizarUser.registerStoredProcedureParameter(3, Long.class, ParameterMode.IN);
+        spActualizarUser.registerStoredProcedureParameter(4, Long.class, ParameterMode.IN);
+        spActualizarUser.registerStoredProcedureParameter(5, String.class, ParameterMode.IN);
+        spActualizarUser.registerStoredProcedureParameter(6, String.class, ParameterMode.IN);
+        spActualizarUser.registerStoredProcedureParameter(7, Date.class, ParameterMode.IN);
+        spActualizarUser.registerStoredProcedureParameter(8, Short.class, ParameterMode.IN);
+        spActualizarUser.registerStoredProcedureParameter(9, Short.class, ParameterMode.IN);
+        spActualizarUser.registerStoredProcedureParameter("c_usuario", void.class, ParameterMode.REF_CURSOR);
+        
+        spActualizarUser.setParameter(1, usuario.getIdusuario());
+        spActualizarUser.setParameter(2, usuario.getIdtipoperfilUsuario());
+        spActualizarUser.setParameter(3, usuario.getIdtiporolUsuario());
+        spActualizarUser.setParameter(4, usuario.getIdnotificacionUsuario());
+        spActualizarUser.setParameter(5, usuario.getDgusername());
+        spActualizarUser.setParameter(6, usuario.getDgpassword());
+        spActualizarUser.setParameter(7, usuario.getDcfechacreacion());
+        spActualizarUser.setParameter(8, usuario.getBlhabilitado());
+        spActualizarUser.setParameter(9, usuario.getBlvigente());
+        
+        r_cursor =spActualizarUser.getResultList();        
+        
+        return r_cursor;
     }
 
     @Override
