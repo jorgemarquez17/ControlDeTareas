@@ -8,6 +8,7 @@ package cl.duoc.processtask.ws;
 
 import cl.duoc.processtask.eis.TipoperfilDao;
 import cl.duoc.processtask.eis.TiporolDao;
+import cl.duoc.processtask.eis.UsuarioDao;
 import cl.duoc.processtask.entity.Flujotarea;
 import cl.duoc.processtask.entity.Tarea;
 import cl.duoc.processtask.entity.Tipoperfil;
@@ -35,6 +36,8 @@ public class wsTarea {
     private TiporolDao ejbTiporol;
     @EJB
     private TipoperfilDao ejbTipoPerfil;
+    @EJB
+    UsuarioDao ejbUsusarioDao;
 
     @WebMethod(operationName = "ingresarTarea")
     public List<Tarea> ingresarTarea(@WebParam(name = "idFlujoTarea") Long idFlujoTarea,@WebParam(name="idUsuario") Long idUsuario,
@@ -50,10 +53,17 @@ public class wsTarea {
         List<Tarea> listTarea = new ArrayList<Tarea>();
 //        List<Tipoperfil> listTipoPerfil =ejbTipoPerfil.findAllTipoperfil();
 //        List<Tiporol> listTipoRol = ejbTiporol.findByAllTipoRol();
+        List<Usuario> listUsuario = ejbUsusarioDao.findAllUsuario(usuario);
         
         try{
-//            for(Tiporol trol : listTipoRol){
-//                if(trol.getIdtiporol()==id)
+//            for(Usuario usu : listUsuario){
+//                if(usu.getIdusuario()==idUsuario.longValue()){
+//                    usu.setIdusuario(idUsuario);
+//                }
+//                else 
+//                {
+//                    usu.setIdusuario(null);
+//                }
 //            }
             usuario.setIdusuario(idUsuario);
             flujoTarea.setIdflujotarea(idFlujoTarea);

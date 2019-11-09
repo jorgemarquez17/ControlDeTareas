@@ -104,5 +104,10 @@ public class ClienteDaoEmpl implements ClienteDao{
         
         return r_cursor;
     }
+
+    @Override
+    public List<Cliente> findAllCliente() {
+        return em.createNamedQuery("Cliente.findAll").getResultList();
+    }
     
 }

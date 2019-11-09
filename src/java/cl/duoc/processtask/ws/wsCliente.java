@@ -142,4 +142,15 @@ public class wsCliente {
         return listCli;
         
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "buscarAllCliente")
+    public List<Cliente> buscarAllCliente() {
+        //TODO write your implementation code here:
+        List<Cliente> listCliente;
+        listCliente = ejbRef3.buscarAllCliente();
+        return listCliente ;
+    }
 }

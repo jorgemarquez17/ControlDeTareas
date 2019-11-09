@@ -129,6 +129,17 @@ public class wsEmpresa {
         return listEmp;
     }
 
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "listarAllEmpresa")
+    public List<Empresa> listarAllEmpresa() {
+        //TODO write your implementation code here:
+        List<Empresa> listEmp2;
+        listEmp2 = ejbRef.buscarAllEmpresas();
+        return listEmp2;
+    }
+
    
     
 }

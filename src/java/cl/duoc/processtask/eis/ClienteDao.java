@@ -22,4 +22,6 @@ public interface ClienteDao {
     public List<Cliente> insertCliente(Cliente cliente);
     
     public List<Cliente> updateCliente(Cliente cliente);
+    
+    public List<Cliente> findAllCliente();
 }

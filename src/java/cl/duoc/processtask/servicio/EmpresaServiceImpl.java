@@ -35,7 +35,7 @@ public class EmpresaServiceImpl implements EmpresaService, EmpresaServiceWS{
 
     @Override
     public List<Empresa> buscarAllEmpresas() {
-        return empresaDao.findIdEmpresa();
+        return empresaDao.findAllEmpresa();
     }
 
     @Override

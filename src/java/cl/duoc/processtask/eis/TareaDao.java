@@ -22,4 +22,6 @@ public interface TareaDao {
     public List<Tarea> deleteTarea(Tarea tarea);
     
     public List<Tarea> findByIdTarea(Tarea tarea);
+    
+    public List<Tarea> findAllTarea();
 }

@@ -25,4 +25,6 @@ public interface ClienteService {
     
     public List<Cliente> modificarCliente(Cliente cliente);
     
+    public List<Cliente> buscarAllCliente();
+    
 }

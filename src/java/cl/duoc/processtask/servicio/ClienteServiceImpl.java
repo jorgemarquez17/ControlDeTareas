@@ -46,4 +46,9 @@ public class ClienteServiceImpl implements ClienteService, ClienteServicesWS{
     public List<Cliente> modificarCliente(Cliente cliente) {
         return clienteDao.updateCliente(cliente);
     }
+
+    @Override
+    public List<Cliente> buscarAllCliente() {
+        return clienteDao.findAllCliente();
+    }
 }

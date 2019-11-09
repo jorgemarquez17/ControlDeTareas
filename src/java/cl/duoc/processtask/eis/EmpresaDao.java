@@ -19,7 +19,7 @@ public interface EmpresaDao {
     
     public List<Empresa> findIdEmpresa(Empresa empresa);
     
-    public List<Empresa> findIdEmpresa();
+    public List<Empresa> findAllEmpresa();
     
     public List<Empresa> deleteEmpresa(Empresa empresa);
     

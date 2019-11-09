@@ -73,7 +73,7 @@ public class EmpresaDaoImpl implements EmpresaDao{
     }
 
     @Override
-    public List<Empresa> findIdEmpresa() {
+    public List<Empresa> findAllEmpresa() {
         return em.createNamedQuery("Empresa.findAll").getResultList();
     }
 
