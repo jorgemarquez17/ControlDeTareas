@@ -23,7 +23,7 @@ public class TareaServiceImpl implements TareaService{
     TareaDao tareaDao;
 
     @Override
-    public List<Tarea> ingresarTarea(Tarea tarea) {
+    public boolean ingresarTarea(Tarea tarea) {
         
         return tareaDao.insertTarea(tarea);
     }

@@ -28,7 +28,7 @@ public class ClienteServiceImpl implements ClienteService, ClienteServicesWS{
     EmpresaDao empresaDao;
 
     @Override
-    public List<Cliente> registrarCliente(Cliente cliente) {
+    public boolean registrarCliente(Cliente cliente) {
         return clienteDao.insertCliente(cliente);
     }
 
@@ -38,12 +38,12 @@ public class ClienteServiceImpl implements ClienteService, ClienteServicesWS{
     }
 
     @Override
-    public List<Cliente> eliminarCliente(Cliente cliente) {
+    public boolean eliminarCliente(Cliente cliente) {
         return clienteDao.deleteCliente(cliente);
     }
 
     @Override
-    public List<Cliente> modificarCliente(Cliente cliente) {
+    public boolean modificarCliente(Cliente cliente) {
         return clienteDao.updateCliente(cliente);
     }
 

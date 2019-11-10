@@ -2,4 +2,6 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="http://localhost:8081/wsCliente/wsCliente?wsdl" uri="src/conf/xml-resources/web-service-references/wsCliente/wsdl/localhost_8081/wsCliente/wsCliente.wsdl"/>
     <system systemId="http://localhost:8081/wsCliente/wsCliente?xsd=1" uri="src/conf/xml-resources/web-service-references/wsCliente/wsdl/localhost_8081/wsCliente/wsCliente.xsd_1.xsd"/>
+    <system systemId="http://localhost:8081/wsEmpresa/wsEmpresa?wsdl" uri="src/conf/xml-resources/web-service-references/wsEmpresa/wsdl/localhost_8081/wsEmpresa/wsEmpresa.wsdl"/>
+    <system systemId="http://localhost:8081/wsEmpresa/wsEmpresa?xsd=1" uri="src/conf/xml-resources/web-service-references/wsEmpresa/wsdl/localhost_8081/wsEmpresa/wsEmpresa.xsd_1.xsd"/>
 </catalog>

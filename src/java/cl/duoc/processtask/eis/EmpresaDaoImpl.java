@@ -30,9 +30,10 @@ public class EmpresaDaoImpl implements EmpresaDao{
     }
 
     @Override
-    public List<Empresa> modifyEmpresa(Empresa empresa) {
+    public boolean modifyEmpresa(Empresa empresa) {
        //em.merge(empresa);
-        List<Empresa> r_cursor =  new ArrayList<Empresa>();
+        boolean bandera ;
+        short var;
         StoredProcedureQuery spUpdateEmpresa = em.createStoredProcedureQuery("P_ACTUALIZAREMPRESA",Empresa.class);
         spUpdateEmpresa.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
         spUpdateEmpresa.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
@@ -41,7 +42,7 @@ public class EmpresaDaoImpl implements EmpresaDao{
         spUpdateEmpresa.registerStoredProcedureParameter(5, String.class, ParameterMode.IN);
         spUpdateEmpresa.registerStoredProcedureParameter(6, String.class, ParameterMode.IN);
         spUpdateEmpresa.registerStoredProcedureParameter(7, Short.class, ParameterMode.IN);
-        spUpdateEmpresa.registerStoredProcedureParameter("C_EMPRESA", void.class, ParameterMode.REF_CURSOR);
+        spUpdateEmpresa.registerStoredProcedureParameter("C_EMPRESA", Short.class, ParameterMode.OUT);
         
         spUpdateEmpresa.setParameter(1, empresa.getIdempresa());
         spUpdateEmpresa.setParameter(2, empresa.getDgrut());
@@ -51,9 +52,15 @@ public class EmpresaDaoImpl implements EmpresaDao{
         spUpdateEmpresa.setParameter(6, empresa.getDgcorreo());
         spUpdateEmpresa.setParameter(7, empresa.getBlvigente());
         
-        r_cursor = spUpdateEmpresa.getResultList();
-        
-        return r_cursor;
+        spUpdateEmpresa.execute();
+        var = (short) spUpdateEmpresa.getOutputParameterValue("C_EMPRESA");
+        if(var==1){
+            bandera = true;
+        }
+        else{
+            bandera = false;
+        }        
+        return bandera;
     }
 
     @Override
@@ -74,26 +81,41 @@ public class EmpresaDaoImpl implements EmpresaDao{
 
     @Override
     public List<Empresa> findAllEmpresa() {
-        return em.createNamedQuery("Empresa.findAll").getResultList();
+        //return em.createNamedQuery("Empresa.findAll").getResultList();
+        List<Empresa> r_cursor =  new ArrayList<Empresa>();
+         StoredProcedureQuery spfindByIdEmpresa = em.createStoredProcedureQuery("P_LISTAREMPRESAALL",Empresa.class);
+         spfindByIdEmpresa.registerStoredProcedureParameter("C_IDEMPRESA", void.class, ParameterMode.REF_CURSOR);
+          r_cursor =  spfindByIdEmpresa.getResultList();
+          return r_cursor;
     }
 
     @Override
-    public List<Empresa> deleteEmpresa(Empresa empresa) {
-        List<Empresa> r_cursor =  new ArrayList<Empresa>();
+    public boolean deleteEmpresa(Empresa empresa) {
+        boolean bandera;
+        short var;
         StoredProcedureQuery spEliminarEmpresa= em.createStoredProcedureQuery("P_ELIMINAREMPRESA",Empresa.class);
-        //Empresa emp = em.merge(empresa);
-        spEliminarEmpresa.registerStoredProcedureParameter(1, long.class , ParameterMode.IN);
-        spEliminarEmpresa.registerStoredProcedureParameter("C_IDEMPRESA", void.class, ParameterMode.REF_CURSOR);
+        spEliminarEmpresa.registerStoredProcedureParameter(1, Long.class , ParameterMode.IN);
+        spEliminarEmpresa.registerStoredProcedureParameter("C_IDEMPRESA", Short.class, ParameterMode.OUT);
         
         spEliminarEmpresa.setParameter(1, empresa.getIdempresa());
-        r_cursor = (ArrayList<Empresa>) spEliminarEmpresa.getResultList();
-        return r_cursor;
-        //em.remove(emp);
+        //r_cursor = (ArrayList<Empresa>) spEliminarEmpresa.getResultList();
+        spEliminarEmpresa.execute();
+        var = (short) spEliminarEmpresa.getOutputParameterValue("C_IDEMPRESA");
+        if(var == 1){
+            bandera = true;
+        }
+        else{
+            bandera = false;
+        }
+        return bandera;
     }
 
     @Override
-    public List<Empresa> insertEmpresa2(Empresa empresa) {
-        List<Empresa> r_cursor =  new ArrayList<Empresa>();
+    //public List<Empresa> insertEmpresa2(Empresa empresa) {
+    public boolean insertEmpresa2(Empresa empresa) {
+        //List<Empresa> r_cursor =  new ArrayList<Empresa>();
+        boolean bandera = false;
+        short var ;
         StoredProcedureQuery spInsertarEmpresa= em.createStoredProcedureQuery("INGRESAREMPRESA",Empresa.class);
         spInsertarEmpresa.registerStoredProcedureParameter(2, String.class , ParameterMode.IN);
         spInsertarEmpresa.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
@@ -101,7 +123,7 @@ public class EmpresaDaoImpl implements EmpresaDao{
         spInsertarEmpresa.registerStoredProcedureParameter(5, String.class, ParameterMode.IN);
         spInsertarEmpresa.registerStoredProcedureParameter(6, String.class, ParameterMode.IN);
         spInsertarEmpresa.registerStoredProcedureParameter(7, Short.class, ParameterMode.IN);
-        spInsertarEmpresa.registerStoredProcedureParameter("C_EMPRESA", void.class, ParameterMode.REF_CURSOR);
+        spInsertarEmpresa.registerStoredProcedureParameter("C_EMPRESA", Short.class, ParameterMode.OUT);
         
         spInsertarEmpresa.setParameter(2, empresa.getDgrut());
         spInsertarEmpresa.setParameter(3, empresa.getDgdireccion());
@@ -110,9 +132,16 @@ public class EmpresaDaoImpl implements EmpresaDao{
         spInsertarEmpresa.setParameter(6, empresa.getDgcorreo());
         spInsertarEmpresa.setParameter(7, empresa.getBlvigente());
         
-        r_cursor = (ArrayList<Empresa>) spInsertarEmpresa.getResultList();
-        
-       return r_cursor;
+        //r_cursor = (ArrayList<Empresa>) spInsertarEmpresa.getResultList();
+        spInsertarEmpresa.execute();
+        var =  (short) spInsertarEmpresa.getOutputParameterValue("C_EMPRESA");
+        if(var == 1) {
+            bandera = true;
+        }
+        else{
+            bandera = false;
+        }
+       return bandera;
        
     }
     

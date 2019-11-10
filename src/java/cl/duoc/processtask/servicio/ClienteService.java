@@ -17,13 +17,13 @@ import javax.ejb.Remote;
 @Remote
 public interface ClienteService {
     
-    public List<Cliente> registrarCliente(Cliente cliente);
+    public boolean registrarCliente(Cliente cliente);
     
     public List<Cliente> buscarByIdCliente(Cliente cliente);
     
-    public List<Cliente> eliminarCliente(Cliente cliente);
+    public boolean eliminarCliente(Cliente cliente);
     
-    public List<Cliente> modificarCliente(Cliente cliente);
+    public boolean modificarCliente(Cliente cliente);
     
     public List<Cliente> buscarAllCliente();
     

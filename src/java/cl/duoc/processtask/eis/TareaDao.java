@@ -15,11 +15,11 @@ import java.util.List;
  */
 public interface TareaDao {
     
-    public List<Tarea> insertTarea(Tarea tarea);
+    public boolean insertTarea(Tarea tarea);
     
-    public List<Tarea> updateTarea(Tarea tarea);
+    public boolean updateTarea(Tarea tarea);
     
-    public List<Tarea> deleteTarea(Tarea tarea);
+    public boolean deleteTarea(Tarea tarea);
     
     public List<Tarea> findByIdTarea(Tarea tarea);
     

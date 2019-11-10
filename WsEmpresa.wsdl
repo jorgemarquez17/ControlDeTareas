@@ -10,46 +10,61 @@
       <xsd:import namespace="http://ws.processtask.duoc.cl/" schemaLocation="WsEmpresa_schema1.xsd"/>
     </xsd:schema>
   </types>
-  <message name="EliminarEmpresa">
-    <part name="parameters" element="tns:EliminarEmpresa"/>
-  </message>
-  <message name="EliminarEmpresaResponse">
-    <part name="parameters" element="tns:EliminarEmpresaResponse"/>
-  </message>
   <message name="registrarEmpresa">
     <part name="parameters" element="tns:registrarEmpresa"/>
   </message>
   <message name="registrarEmpresaResponse">
     <part name="parameters" element="tns:registrarEmpresaResponse"/>
   </message>
-  <message name="Modificar">
-    <part name="parameters" element="tns:Modificar"/>
+  <message name="eliminarEmpresaById">
+    <part name="parameters" element="tns:eliminarEmpresaById"/>
+  </message>
+  <message name="eliminarEmpresaByIdResponse">
+    <part name="parameters" element="tns:eliminarEmpresaByIdResponse"/>
+  </message>
+  <message name="listarAllEmpresa">
+    <part name="parameters" element="tns:listarAllEmpresa"/>
+  </message>
+  <message name="listarAllEmpresaResponse">
+    <part name="parameters" element="tns:listarAllEmpresaResponse"/>
+  </message>
+  <message name="actualizarEmpresa">
+    <part name="parameters" element="tns:actualizarEmpresa"/>
+  </message>
+  <message name="actualizarEmpresaResponse">
+    <part name="parameters" element="tns:actualizarEmpresaResponse"/>
+  </message>
+  <message name="listarEmpresaById">
+    <part name="parameters" element="tns:listarEmpresaById"/>
+  </message>
+  <message name="listarEmpresaByIdResponse">
+    <part name="parameters" element="tns:listarEmpresaByIdResponse"/>
   </message>
   <portType name="wsEmpresa">
-    <operation name="EliminarEmpresa">
-      <input wsam:Action="http://ws.processtask.duoc.cl/wsEmpresa/EliminarEmpresaRequest" message="tns:EliminarEmpresa"/>
-      <output wsam:Action="http://ws.processtask.duoc.cl/wsEmpresa/EliminarEmpresaResponse" message="tns:EliminarEmpresaResponse"/>
-    </operation>
     <operation name="registrarEmpresa">
       <input wsam:Action="http://ws.processtask.duoc.cl/wsEmpresa/registrarEmpresaRequest" message="tns:registrarEmpresa"/>
       <output wsam:Action="http://ws.processtask.duoc.cl/wsEmpresa/registrarEmpresaResponse" message="tns:registrarEmpresaResponse"/>
     </operation>
-    <operation name="Modificar">
-      <input wsam:Action="http://ws.processtask.duoc.cl/wsEmpresa/Modificar" message="tns:Modificar"/>
+    <operation name="eliminarEmpresaById">
+      <input wsam:Action="http://ws.processtask.duoc.cl/wsEmpresa/eliminarEmpresaByIdRequest" message="tns:eliminarEmpresaById"/>
+      <output wsam:Action="http://ws.processtask.duoc.cl/wsEmpresa/eliminarEmpresaByIdResponse" message="tns:eliminarEmpresaByIdResponse"/>
+    </operation>
+    <operation name="listarAllEmpresa">
+      <input wsam:Action="http://ws.processtask.duoc.cl/wsEmpresa/listarAllEmpresaRequest" message="tns:listarAllEmpresa"/>
+      <output wsam:Action="http://ws.processtask.duoc.cl/wsEmpresa/listarAllEmpresaResponse" message="tns:listarAllEmpresaResponse"/>
+    </operation>
+    <operation name="actualizarEmpresa">
+      <input wsam:Action="http://ws.processtask.duoc.cl/wsEmpresa/actualizarEmpresaRequest" message="tns:actualizarEmpresa"/>
+      <output wsam:Action="http://ws.processtask.duoc.cl/wsEmpresa/actualizarEmpresaResponse" message="tns:actualizarEmpresaResponse"/>
+    </operation>
+    <operation name="listarEmpresaById">
+      <input wsam:Action="http://ws.processtask.duoc.cl/wsEmpresa/listarEmpresaByIdRequest" message="tns:listarEmpresaById"/>
+      <output wsam:Action="http://ws.processtask.duoc.cl/wsEmpresa/listarEmpresaByIdResponse" message="tns:listarEmpresaByIdResponse"/>
     </operation>
   </portType>
   <binding name="wsEmpresaPortBinding" type="tns:wsEmpresa">
     <wsp:PolicyReference URI="#wsEmpresaPortBindingPolicy"/>
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-    <operation name="EliminarEmpresa">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-    </operation>
     <operation name="registrarEmpresa">
       <wsp:PolicyReference URI="#wsEmpresaPortBinding_registrarEmpresa_Policy"/>
       <soap:operation soapAction=""/>
@@ -60,11 +75,41 @@
         <soap:body use="literal"/>
       </output>
     </operation>
-    <operation name="Modificar">
+    <operation name="eliminarEmpresaById">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>
       </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="listarAllEmpresa">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="actualizarEmpresa">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="listarEmpresaById">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
     </operation>
   </binding>
   <service name="wsEmpresa">

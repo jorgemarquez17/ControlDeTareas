@@ -6,21 +6,97 @@
       <xsd:import namespace="http://ws.processtask.duoc.cl/" schemaLocation="WsCliente_schema1.xsd"/>
     </xsd:schema>
   </types>
+  <message name="listarCliente">
+    <part name="parameters" element="tns:listarCliente"/>
+  </message>
+  <message name="listarClienteResponse">
+    <part name="parameters" element="tns:listarClienteResponse"/>
+  </message>
+  <message name="eliminarCliente">
+    <part name="parameters" element="tns:eliminarCliente"/>
+  </message>
+  <message name="eliminarClienteResponse">
+    <part name="parameters" element="tns:eliminarClienteResponse"/>
+  </message>
   <message name="ingresarCliente">
     <part name="parameters" element="tns:ingresarCliente"/>
   </message>
   <message name="ingresarClienteResponse">
     <part name="parameters" element="tns:ingresarClienteResponse"/>
   </message>
+  <message name="buscarAllCliente">
+    <part name="parameters" element="tns:buscarAllCliente"/>
+  </message>
+  <message name="buscarAllClienteResponse">
+    <part name="parameters" element="tns:buscarAllClienteResponse"/>
+  </message>
+  <message name="actualizarCliente">
+    <part name="parameters" element="tns:actualizarCliente"/>
+  </message>
+  <message name="actualizarClienteResponse">
+    <part name="parameters" element="tns:actualizarClienteResponse"/>
+  </message>
   <portType name="wsCliente">
+    <operation name="listarCliente">
+      <input wsam:Action="http://ws.processtask.duoc.cl/wsCliente/listarClienteRequest" message="tns:listarCliente"/>
+      <output wsam:Action="http://ws.processtask.duoc.cl/wsCliente/listarClienteResponse" message="tns:listarClienteResponse"/>
+    </operation>
+    <operation name="eliminarCliente">
+      <input wsam:Action="http://ws.processtask.duoc.cl/wsCliente/eliminarClienteRequest" message="tns:eliminarCliente"/>
+      <output wsam:Action="http://ws.processtask.duoc.cl/wsCliente/eliminarClienteResponse" message="tns:eliminarClienteResponse"/>
+    </operation>
     <operation name="ingresarCliente">
       <input wsam:Action="http://ws.processtask.duoc.cl/wsCliente/ingresarClienteRequest" message="tns:ingresarCliente"/>
       <output wsam:Action="http://ws.processtask.duoc.cl/wsCliente/ingresarClienteResponse" message="tns:ingresarClienteResponse"/>
     </operation>
+    <operation name="buscarAllCliente">
+      <input wsam:Action="http://ws.processtask.duoc.cl/wsCliente/buscarAllClienteRequest" message="tns:buscarAllCliente"/>
+      <output wsam:Action="http://ws.processtask.duoc.cl/wsCliente/buscarAllClienteResponse" message="tns:buscarAllClienteResponse"/>
+    </operation>
+    <operation name="actualizarCliente">
+      <input wsam:Action="http://ws.processtask.duoc.cl/wsCliente/actualizarClienteRequest" message="tns:actualizarCliente"/>
+      <output wsam:Action="http://ws.processtask.duoc.cl/wsCliente/actualizarClienteResponse" message="tns:actualizarClienteResponse"/>
+    </operation>
   </portType>
   <binding name="wsClientePortBinding" type="tns:wsCliente">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="listarCliente">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="eliminarCliente">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
     <operation name="ingresarCliente">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="buscarAllCliente">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="actualizarCliente">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>

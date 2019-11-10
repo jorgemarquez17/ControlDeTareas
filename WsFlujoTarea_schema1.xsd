@@ -1,88 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema version="1.0" targetNamespace="http://ws.processtask.duoc.cl/" xmlns:tns="http://ws.processtask.duoc.cl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:element name="actualizarCliente" nillable="true" type="tns:actualizarCliente"/>
+  <xs:element name="findAllFlujoTarea" type="tns:findAllFlujoTarea"/>
 
-  <xs:element name="actualizarClienteResponse" nillable="true" type="tns:actualizarClienteResponse"/>
+  <xs:element name="findAllFlujoTareaResponse" type="tns:findAllFlujoTareaResponse"/>
 
-  <xs:element name="buscarAllCliente" nillable="true" type="tns:buscarAllCliente"/>
+  <xs:element name="ingresarFlujoTarea" type="tns:ingresarFlujoTarea"/>
 
-  <xs:element name="buscarAllClienteResponse" nillable="true" type="tns:buscarAllClienteResponse"/>
+  <xs:element name="ingresarFlujoTareaResponse" type="tns:ingresarFlujoTareaResponse"/>
 
-  <xs:element name="eliminarCliente" nillable="true" type="tns:eliminarCliente"/>
-
-  <xs:element name="eliminarClienteResponse" nillable="true" type="tns:eliminarClienteResponse"/>
-
-  <xs:element name="ingresarCliente" nillable="true" type="tns:ingresarCliente"/>
-
-  <xs:element name="ingresarClienteResponse" nillable="true" type="tns:ingresarClienteResponse"/>
-
-  <xs:element name="listarCliente" nillable="true" type="tns:listarCliente"/>
-
-  <xs:element name="listarClienteResponse" nillable="true" type="tns:listarClienteResponse"/>
-
-  <xs:complexType name="eliminarCliente">
+  <xs:complexType name="ingresarFlujoTarea">
     <xs:sequence>
-      <xs:element name="idCliente" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="eliminarClienteResponse">
-    <xs:sequence>
-      <xs:element name="return" type="xs:boolean"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="ingresarCliente">
-    <xs:sequence>
-      <xs:element name="apellido" type="xs:string" minOccurs="0"/>
-      <xs:element name="contacto" type="xs:string" minOccurs="0"/>
-      <xs:element name="correo" type="xs:string" minOccurs="0"/>
-      <xs:element name="idEmpresa" type="xs:long" minOccurs="0"/>
-      <xs:element name="nombre" type="xs:string" minOccurs="0"/>
-      <xs:element name="vigente" type="xs:short" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="ingresarClienteResponse">
-    <xs:sequence>
-      <xs:element name="return" type="xs:boolean"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="listarCliente">
-    <xs:sequence>
-      <xs:element name="idCliente" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="listarClienteResponse">
-    <xs:sequence>
-      <xs:element name="return" type="tns:cliente" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="cliente">
-    <xs:sequence>
-      <xs:element name="blvigente" type="xs:short"/>
-      <xs:element name="dgapellido" type="xs:string" minOccurs="0"/>
-      <xs:element name="dgcontacto" type="xs:string" minOccurs="0"/>
-      <xs:element name="dgcorreo" type="xs:string" minOccurs="0"/>
-      <xs:element name="dgnombre" type="xs:string" minOccurs="0"/>
-      <xs:element name="flujotareaclienteCollection" type="tns:flujotareacliente" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="idcliente" type="xs:long" minOccurs="0"/>
-      <xs:element name="idempresaCliente" type="tns:empresa" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="flujotareacliente">
-    <xs:sequence>
-      <xs:element name="blvigente" type="xs:short"/>
-      <xs:element name="dccantidadcolumna" type="xs:long"/>
-      <xs:element name="dgtipofujo" type="xs:string" minOccurs="0"/>
-      <xs:element name="idclienteFlujotareacliente" type="tns:cliente" minOccurs="0"/>
-      <xs:element name="idflujotareaFlujotareacliente" type="tns:flujotarea" minOccurs="0"/>
-      <xs:element name="idflujotareacliente" type="xs:long" minOccurs="0"/>
+      <xs:element name="flujotarea" type="tns:flujotarea" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -100,6 +29,43 @@
       <xs:element name="idreporteFlujotarea" type="xs:long"/>
       <xs:element name="idusuarioFlujotarea" type="tns:usuario" minOccurs="0"/>
       <xs:element name="tareaCollection" type="tns:tarea" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="flujotareacliente">
+    <xs:sequence>
+      <xs:element name="blvigente" type="xs:short"/>
+      <xs:element name="dccantidadcolumna" type="xs:long"/>
+      <xs:element name="dgtipofujo" type="xs:string" minOccurs="0"/>
+      <xs:element name="idclienteFlujotareacliente" type="tns:cliente" minOccurs="0"/>
+      <xs:element name="idflujotareaFlujotareacliente" type="tns:flujotarea" minOccurs="0"/>
+      <xs:element name="idflujotareacliente" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="cliente">
+    <xs:sequence>
+      <xs:element name="blvigente" type="xs:short"/>
+      <xs:element name="dgapellido" type="xs:string" minOccurs="0"/>
+      <xs:element name="dgcontacto" type="xs:string" minOccurs="0"/>
+      <xs:element name="dgcorreo" type="xs:string" minOccurs="0"/>
+      <xs:element name="dgnombre" type="xs:string" minOccurs="0"/>
+      <xs:element name="flujotareaclienteCollection" type="tns:flujotareacliente" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="idcliente" type="xs:long" minOccurs="0"/>
+      <xs:element name="idempresaCliente" type="tns:empresa" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="empresa">
+    <xs:sequence>
+      <xs:element name="blvigente" type="xs:short"/>
+      <xs:element name="clienteCollection" type="tns:cliente" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="dgcontacto" type="xs:string" minOccurs="0"/>
+      <xs:element name="dgcorreo" type="xs:string" minOccurs="0"/>
+      <xs:element name="dgdireccion" type="xs:string" minOccurs="0"/>
+      <xs:element name="dgnombreempresa" type="xs:string" minOccurs="0"/>
+      <xs:element name="dgrut" type="xs:string" minOccurs="0"/>
+      <xs:element name="idempresa" type="xs:long" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -191,44 +157,19 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="empresa">
-    <xs:sequence>
-      <xs:element name="blvigente" type="xs:short"/>
-      <xs:element name="clienteCollection" type="tns:cliente" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="dgcontacto" type="xs:string" minOccurs="0"/>
-      <xs:element name="dgcorreo" type="xs:string" minOccurs="0"/>
-      <xs:element name="dgdireccion" type="xs:string" minOccurs="0"/>
-      <xs:element name="dgnombreempresa" type="xs:string" minOccurs="0"/>
-      <xs:element name="dgrut" type="xs:string" minOccurs="0"/>
-      <xs:element name="idempresa" type="xs:long" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="actualizarCliente">
-    <xs:sequence>
-      <xs:element name="apellido" type="xs:string" minOccurs="0"/>
-      <xs:element name="contacto" type="xs:string" minOccurs="0"/>
-      <xs:element name="correo" type="xs:string" minOccurs="0"/>
-      <xs:element name="idCliente" type="xs:long" minOccurs="0"/>
-      <xs:element name="idempresa" type="xs:long" minOccurs="0"/>
-      <xs:element name="nombre" type="xs:string" minOccurs="0"/>
-      <xs:element name="vigente" type="xs:short" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="actualizarClienteResponse">
+  <xs:complexType name="ingresarFlujoTareaResponse">
     <xs:sequence>
       <xs:element name="return" type="xs:boolean"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="buscarAllCliente">
+  <xs:complexType name="findAllFlujoTarea">
     <xs:sequence/>
   </xs:complexType>
 
-  <xs:complexType name="buscarAllClienteResponse">
+  <xs:complexType name="findAllFlujoTareaResponse">
     <xs:sequence>
-      <xs:element name="return" type="tns:cliente" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="return" type="tns:flujotarea" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>

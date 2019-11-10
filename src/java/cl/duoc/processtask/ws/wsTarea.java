@@ -40,7 +40,7 @@ public class wsTarea {
     UsuarioDao ejbUsusarioDao;
 
     @WebMethod(operationName = "ingresarTarea")
-    public List<Tarea> ingresarTarea(@WebParam(name = "idFlujoTarea") Long idFlujoTarea,@WebParam(name="idUsuario") Long idUsuario,
+    public boolean ingresarTarea(@WebParam(name = "idFlujoTarea") Long idFlujoTarea,@WebParam(name="idUsuario") Long idUsuario,
             @WebParam(name = "nombreTarea") String nombreTarea, @WebParam(name = "ccompletado") Long ccompletado,
             @WebParam(name = "fechaCreacionT") Date fechaCreacionT,
             @WebParam(name = "fechaEmisionT") Date fechaEmisionT ,@WebParam(name = "fechaTerminoT") Date fechaTerminoT,
@@ -53,7 +53,8 @@ public class wsTarea {
         List<Tarea> listTarea = new ArrayList<Tarea>();
 //        List<Tipoperfil> listTipoPerfil =ejbTipoPerfil.findAllTipoperfil();
 //        List<Tiporol> listTipoRol = ejbTiporol.findByAllTipoRol();
-        List<Usuario> listUsuario = ejbUsusarioDao.findAllUsuario(usuario);
+        List<Usuario> listUsuario = ejbUsusarioDao.findByIdUsuario(usuario);
+        boolean bandera = false;
         
         try{
 //            for(Usuario usu : listUsuario){
@@ -79,7 +80,7 @@ public class wsTarea {
             tarea.setBlestado(estado);
             tarea.setBlvigente(vigente);
             
-            listTarea = ejbRef.ingresarTarea(tarea);
+            bandera = ejbRef.ingresarTarea(tarea);
             
             
         }catch(Exception e){
@@ -87,7 +88,7 @@ public class wsTarea {
         }
         
         //return ejbRef.ingresarTarea(tarea);
-        return listTarea;
+        return bandera;
     }
     
 }

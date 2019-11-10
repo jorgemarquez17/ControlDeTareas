@@ -27,8 +27,9 @@ public class TareaDaoImpl implements TareaDao{
     EntityManager em;
 
     @Override
-    public List<Tarea> insertTarea(Tarea tarea) {
-        List<Tarea> r_refcursor = new ArrayList<Tarea>();
+    public boolean insertTarea(Tarea tarea) {
+        boolean bandera = false;
+        short var;
         StoredProcedureQuery spInsertTarea = em.createStoredProcedureQuery("INGRESARTAREA",Tarea.class);
         spInsertTarea.registerStoredProcedureParameter(2, Long.class, ParameterMode.IN);
         spInsertTarea.registerStoredProcedureParameter(3, Long.class, ParameterMode.IN);
@@ -42,7 +43,7 @@ public class TareaDaoImpl implements TareaDao{
         spInsertTarea.registerStoredProcedureParameter(11, Short.class, ParameterMode.IN);
         spInsertTarea.registerStoredProcedureParameter(12, Short.class, ParameterMode.IN);
         
-        spInsertTarea.registerStoredProcedureParameter("INGRESARTAREA", void.class, ParameterMode.REF_CURSOR);
+        spInsertTarea.registerStoredProcedureParameter("C_TAREA", Short.class, ParameterMode.OUT);
         
         spInsertTarea.setParameter(2, tarea.getIdflujotareaTarea().getIdflujotarea());
         spInsertTarea.setParameter(3, tarea.getIdresponsabletareaUsuario().getIdusuario());
@@ -56,19 +57,22 @@ public class TareaDaoImpl implements TareaDao{
         spInsertTarea.setParameter(11, tarea.getBlestado());
         spInsertTarea.setParameter(12, tarea.getBlvigente());
         
-        r_refcursor = spInsertTarea.getResultList();        
-        
-        return r_refcursor;
+        spInsertTarea.execute();
+        var = (short) spInsertTarea.getOutputParameterValue("C_TAREA");
+        if(var==1) bandera = true;
+        return bandera;
     }
 
     @Override
-    public List<Tarea> updateTarea(Tarea tarea) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean updateTarea(Tarea tarea) {
+        boolean bandera = false;
+        return bandera;
     }
 
     @Override
-    public List<Tarea> deleteTarea(Tarea tarea) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean deleteTarea(Tarea tarea) {
+        boolean bandera = false;
+        return bandera;
     }
 
     @Override

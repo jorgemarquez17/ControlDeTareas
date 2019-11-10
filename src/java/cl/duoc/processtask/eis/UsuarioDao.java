@@ -18,5 +18,6 @@ public interface UsuarioDao {
     public List<Usuario> insertUsuario(Usuario usuario);
     public List<Usuario> deleteUsuario(Usuario usuario);
     public List<Usuario> updateUsuario(Usuario usuario);
-    public List<Usuario> findAllUsuario(Usuario usuario);
+    public List<Usuario> findByIdUsuario(Usuario usuario);
+    public List<Usuario> findAllUsuarios();
 }

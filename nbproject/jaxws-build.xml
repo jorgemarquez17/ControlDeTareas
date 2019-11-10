@@ -43,6 +43,22 @@
             <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
         </wsgen>
     </target>
+    <target name="wsgen-wsFlujoTarea" depends="wsgen-init">
+        <copy todir="${build.classes.dir}/META-INF">
+            <fileset dir="${webinf.dir}" includes="wsit-cl.duoc.processtask.ws.wsFlujoTarea.xml"/>
+        </copy>
+        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="cl.duoc.processtask.ws.wsFlujoTarea" xendorsed="true">
+            <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
+        </wsgen>
+    </target>
+    <target name="wsgen-wsUsuario" depends="wsgen-init">
+        <copy todir="${build.classes.dir}/META-INF">
+            <fileset dir="${webinf.dir}" includes="wsit-cl.duoc.processtask.ws.wsUsuario.xml"/>
+        </copy>
+        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="cl.duoc.processtask.ws.wsUsuario" xendorsed="true">
+            <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
+        </wsgen>
+    </target>
     <!--
                 ===================
                 JAX-WS WSIMPORT SECTION
@@ -75,5 +91,21 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/cl/duoc/processtask/ws_client"/>
         <delete dir="${build.generated.dir}/jax-wsCache/wsCliente"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-wsCliente"/>
+    <target name="wsimport-client-wsEmpresa" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/wsEmpresa"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/wsEmpresa" destdir="${build.generated.dir}/jax-wsCache/wsEmpresa" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/wsEmpresa/wsdl/localhost_8081/wsEmpresa/wsEmpresa.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8081/wsEmpresa/wsEmpresa?wsdl" xnocompile="true" xendorsed="true" package="cl.duoc.processtask.ws_client1">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/wsEmpresa/wsdl/localhost_8081/wsEmpresa/wsEmpresa.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/wsEmpresa"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/wsEmpresa">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-wsEmpresa" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/cl/duoc/processtask/ws_client1"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/wsEmpresa"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-wsCliente, wsimport-client-wsEmpresa"/>
 </project>

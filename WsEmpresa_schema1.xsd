@@ -1,46 +1,234 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema version="1.0" targetNamespace="http://ws.processtask.duoc.cl/" xmlns:tns="http://ws.processtask.duoc.cl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:element name="EliminarEmpresa" nillable="true" type="tns:eliminarEmpresa"/>
+  <xs:element name="actualizarEmpresa" type="tns:actualizarEmpresa"/>
 
-  <xs:element name="EliminarEmpresaResponse" nillable="true" type="tns:eliminarEmpresaResponse"/>
+  <xs:element name="actualizarEmpresaResponse" type="tns:actualizarEmpresaResponse"/>
 
-  <xs:element name="Modificar" nillable="true" type="tns:modificar"/>
+  <xs:element name="eliminarEmpresaById" type="tns:eliminarEmpresaById"/>
 
-  <xs:element name="registrarEmpresa" nillable="true" type="tns:registrarEmpresa"/>
+  <xs:element name="eliminarEmpresaByIdResponse" type="tns:eliminarEmpresaByIdResponse"/>
 
-  <xs:element name="registrarEmpresaResponse" nillable="true" type="tns:registrarEmpresaResponse"/>
+  <xs:element name="listarAllEmpresa" type="tns:listarAllEmpresa"/>
 
-  <xs:complexType name="modificar">
+  <xs:element name="listarAllEmpresaResponse" type="tns:listarAllEmpresaResponse"/>
+
+  <xs:element name="listarEmpresaById" type="tns:listarEmpresaById"/>
+
+  <xs:element name="listarEmpresaByIdResponse" type="tns:listarEmpresaByIdResponse"/>
+
+  <xs:element name="registrarEmpresa" type="tns:registrarEmpresa"/>
+
+  <xs:element name="registrarEmpresaResponse" type="tns:registrarEmpresaResponse"/>
+
+  <xs:complexType name="actualizarEmpresa">
     <xs:sequence>
       <xs:element name="idEmpresa" type="xs:long"/>
+      <xs:element name="rut" type="xs:string" minOccurs="0"/>
+      <xs:element name="direccion" type="xs:string" minOccurs="0"/>
+      <xs:element name="nombreEmpresa" type="xs:string" minOccurs="0"/>
+      <xs:element name="contacto" type="xs:string" minOccurs="0"/>
+      <xs:element name="correo" type="xs:string" minOccurs="0"/>
+      <xs:element name="vigente" type="xs:short"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="eliminarEmpresa">
+  <xs:complexType name="actualizarEmpresaResponse">
     <xs:sequence>
-      <xs:element name="idEmp" type="xs:long"/>
+      <xs:element name="return" type="xs:boolean"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="eliminarEmpresaResponse">
-    <xs:sequence/>
+  <xs:complexType name="listarEmpresaById">
+    <xs:sequence>
+      <xs:element name="id_empresa" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="listarEmpresaByIdResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:empresa" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="empresa">
+    <xs:sequence>
+      <xs:element name="blvigente" type="xs:short"/>
+      <xs:element name="clienteCollection" type="tns:cliente" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="dgcontacto" type="xs:string" minOccurs="0"/>
+      <xs:element name="dgcorreo" type="xs:string" minOccurs="0"/>
+      <xs:element name="dgdireccion" type="xs:string" minOccurs="0"/>
+      <xs:element name="dgnombreempresa" type="xs:string" minOccurs="0"/>
+      <xs:element name="dgrut" type="xs:string" minOccurs="0"/>
+      <xs:element name="idempresa" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="cliente">
+    <xs:sequence>
+      <xs:element name="blvigente" type="xs:short"/>
+      <xs:element name="dgapellido" type="xs:string" minOccurs="0"/>
+      <xs:element name="dgcontacto" type="xs:string" minOccurs="0"/>
+      <xs:element name="dgcorreo" type="xs:string" minOccurs="0"/>
+      <xs:element name="dgnombre" type="xs:string" minOccurs="0"/>
+      <xs:element name="flujotareaclienteCollection" type="tns:flujotareacliente" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="idcliente" type="xs:long" minOccurs="0"/>
+      <xs:element name="idempresaCliente" type="tns:empresa" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="flujotareacliente">
+    <xs:sequence>
+      <xs:element name="blvigente" type="xs:short"/>
+      <xs:element name="dccantidadcolumna" type="xs:long"/>
+      <xs:element name="dgtipofujo" type="xs:string" minOccurs="0"/>
+      <xs:element name="idclienteFlujotareacliente" type="tns:cliente" minOccurs="0"/>
+      <xs:element name="idflujotareaFlujotareacliente" type="tns:flujotarea" minOccurs="0"/>
+      <xs:element name="idflujotareacliente" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="flujotarea">
+    <xs:sequence>
+      <xs:element name="blestadoavance" type="xs:short"/>
+      <xs:element name="blvigente" type="xs:short"/>
+      <xs:element name="dcfechacreacion" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="dcfechaemision" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="dcfechatermino" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="dcporcentajeavance" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="flujotareaclienteCollection" type="tns:flujotareacliente" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="gnombreflujotarea" type="xs:string" minOccurs="0"/>
+      <xs:element name="idflujotarea" type="xs:long" minOccurs="0"/>
+      <xs:element name="idreporteFlujotarea" type="xs:long"/>
+      <xs:element name="idusuarioFlujotarea" type="tns:usuario" minOccurs="0"/>
+      <xs:element name="tareaCollection" type="tns:tarea" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="usuario">
+    <xs:sequence>
+      <xs:element name="blhabilitado" type="xs:short"/>
+      <xs:element name="blvigente" type="xs:short"/>
+      <xs:element name="dcfechacreacion" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="dgpassword" type="xs:string" minOccurs="0"/>
+      <xs:element name="dgusername" type="xs:string" minOccurs="0"/>
+      <xs:element name="flujotareaCollection" type="tns:flujotarea" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="idnotificacionUsuario" type="tns:notificacion" minOccurs="0"/>
+      <xs:element name="idtipoperfilUsuario" type="tns:tipoperfil" minOccurs="0"/>
+      <xs:element name="idtiporolUsuario" type="tns:tiporol" minOccurs="0"/>
+      <xs:element name="idusuario" type="xs:long" minOccurs="0"/>
+      <xs:element name="subtareaCollection" type="tns:subtarea" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="tareaCollection" type="tns:tarea" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="notificacion">
+    <xs:sequence>
+      <xs:element name="blvigente" type="xs:short"/>
+      <xs:element name="dgnombrenotificacion" type="xs:string" minOccurs="0"/>
+      <xs:element name="idnotificacion" type="xs:long" minOccurs="0"/>
+      <xs:element name="usuarioCollection" type="tns:usuario" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="tipoperfil">
+    <xs:sequence>
+      <xs:element name="blvigente" type="xs:short"/>
+      <xs:element name="dgnombretipoperfil" type="xs:string" minOccurs="0"/>
+      <xs:element name="idtipoperfil" type="xs:long" minOccurs="0"/>
+      <xs:element name="usuarioCollection" type="tns:usuario" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="tiporol">
+    <xs:sequence>
+      <xs:element name="blvigente" type="xs:short"/>
+      <xs:element name="dgnombretiporol" type="xs:string" minOccurs="0"/>
+      <xs:element name="idtiporol" type="xs:long" minOccurs="0"/>
+      <xs:element name="usuarioCollection" type="tns:usuario" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="subtarea">
+    <xs:sequence>
+      <xs:element name="blrechazo" type="xs:short"/>
+      <xs:element name="blvigente" type="xs:short"/>
+      <xs:element name="dcfechacreacion" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="dcfechaemision" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="dcfechatermino" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="dgjustificacion" type="xs:string" minOccurs="0"/>
+      <xs:element name="dgnombresubtarea" type="xs:string" minOccurs="0"/>
+      <xs:element name="idresponsablesubtareaUsuario" type="tns:usuario" minOccurs="0"/>
+      <xs:element name="idsemaforoSubtarea" type="tns:semaforo" minOccurs="0"/>
+      <xs:element name="idsubtarea" type="xs:long" minOccurs="0"/>
+      <xs:element name="idtareaSubtarea" type="tns:tarea" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="semaforo">
+    <xs:sequence>
+      <xs:element name="blvigente" type="xs:short"/>
+      <xs:element name="dcporcentaje" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="dgnombresemaforo" type="xs:string" minOccurs="0"/>
+      <xs:element name="idsemaforo" type="xs:long" minOccurs="0"/>
+      <xs:element name="subtareaCollection" type="tns:subtarea" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="tarea">
+    <xs:sequence>
+      <xs:element name="blestado" type="xs:short"/>
+      <xs:element name="blrechazado" type="xs:short"/>
+      <xs:element name="blvigente" type="xs:short"/>
+      <xs:element name="dcfechacreacion" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="dcfechaemision" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="dcfechatermino" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="dcporccompletado" type="xs:long"/>
+      <xs:element name="dgjustificacion" type="xs:string" minOccurs="0"/>
+      <xs:element name="dgnombretarea" type="xs:string" minOccurs="0"/>
+      <xs:element name="idflujotareaTarea" type="tns:flujotarea" minOccurs="0"/>
+      <xs:element name="idresponsabletareaUsuario" type="tns:usuario" minOccurs="0"/>
+      <xs:element name="idtarea" type="xs:long" minOccurs="0"/>
+      <xs:element name="subtareaCollection" type="tns:subtarea" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="registrarEmpresa">
     <xs:sequence>
-      <xs:element name="contacto" type="xs:string" minOccurs="0"/>
-      <xs:element name="correo" type="xs:string" minOccurs="0"/>
+      <xs:element name="rut" type="xs:string" minOccurs="0"/>
       <xs:element name="direccion" type="xs:string" minOccurs="0"/>
       <xs:element name="nombreEmpresa" type="xs:string" minOccurs="0"/>
-      <xs:element name="rut" type="xs:string" minOccurs="0"/>
-      <xs:element name="vigente" type="xs:long" minOccurs="0"/>
+      <xs:element name="contacto" type="xs:string" minOccurs="0"/>
+      <xs:element name="correo" type="xs:string" minOccurs="0"/>
+      <xs:element name="vigente" type="xs:short" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="registrarEmpresaResponse">
     <xs:sequence>
-      <xs:element name="return" type="xs:string" minOccurs="0"/>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="listarAllEmpresa">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="listarAllEmpresaResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:empresa" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="eliminarEmpresaById">
+    <xs:sequence>
+      <xs:element name="idEmpresa" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="eliminarEmpresaByIdResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>

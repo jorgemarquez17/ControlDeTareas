@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Metro/2.3 (tags/2.3-7528; 2013-04-29T19:34:10+0000) JAXWS-RI/2.2.8 JAXWS/2.2 svn-revision#unknown. --><xs:schema xmlns:tns="http://ws.processtask.duoc.cl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://ws.processtask.duoc.cl/">
+
+<xs:element name="actualizarEmpresa" type="tns:actualizarEmpresa"/>
+
+<xs:element name="actualizarEmpresaResponse" type="tns:actualizarEmpresaResponse"/>
+
+<xs:element name="eliminarEmpresaById" type="tns:eliminarEmpresaById"/>
+
+<xs:element name="eliminarEmpresaByIdResponse" type="tns:eliminarEmpresaByIdResponse"/>
+
+<xs:element name="empresa" type="tns:empresa"/>
+
+<xs:element name="listarAllEmpresa" type="tns:listarAllEmpresa"/>
+
+<xs:element name="listarAllEmpresaResponse" type="tns:listarAllEmpresaResponse"/>
+
+<xs:element name="listarEmpresaById" type="tns:listarEmpresaById"/>
+
+<xs:element name="listarEmpresaByIdResponse" type="tns:listarEmpresaByIdResponse"/>
+
+<xs:element name="registrarEmpresa" type="tns:registrarEmpresa"/>
+
+<xs:element name="registrarEmpresaResponse" type="tns:registrarEmpresaResponse"/>
+
+<xs:complexType name="actualizarEmpresa">
+<xs:sequence>
+<xs:element name="idEmpresa" type="xs:long"/>
+<xs:element name="rut" type="xs:string" minOccurs="0"/>
+<xs:element name="direccion" type="xs:string" minOccurs="0"/>
+<xs:element name="nombreEmpresa" type="xs:string" minOccurs="0"/>
+<xs:element name="contacto" type="xs:string" minOccurs="0"/>
+<xs:element name="correo" type="xs:string" minOccurs="0"/>
+<xs:element name="vigente" type="xs:short"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="actualizarEmpresaResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:empresa" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="empresa">
+<xs:sequence>
+<xs:element name="blvigente" type="xs:short"/>
+<xs:element name="dgcontacto" type="xs:string" minOccurs="0"/>
+<xs:element name="dgcorreo" type="xs:string" minOccurs="0"/>
+<xs:element name="dgdireccion" type="xs:string" minOccurs="0"/>
+<xs:element name="dgnombreempresa" type="xs:string" minOccurs="0"/>
+<xs:element name="dgrut" type="xs:string" minOccurs="0"/>
+<xs:element name="idempresa" type="xs:long" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="listarEmpresaById">
+<xs:sequence>
+<xs:element name="id_empresa" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="listarEmpresaByIdResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:empresa" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="registrarEmpresa">
+<xs:sequence>
+<xs:element name="rut" type="xs:string" minOccurs="0"/>
+<xs:element name="direccion" type="xs:string" minOccurs="0"/>
+<xs:element name="nombreEmpresa" type="xs:string" minOccurs="0"/>
+<xs:element name="contacto" type="xs:string" minOccurs="0"/>
+<xs:element name="correo" type="xs:string" minOccurs="0"/>
+<xs:element name="vigente" type="xs:short" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="registrarEmpresaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="listarAllEmpresa">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="listarAllEmpresaResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:empresa" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="eliminarEmpresaById">
+<xs:sequence>
+<xs:element name="idEmpresa" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="eliminarEmpresaByIdResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:empresa" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

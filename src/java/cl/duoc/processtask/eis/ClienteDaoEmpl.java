@@ -27,8 +27,9 @@ public class ClienteDaoEmpl implements ClienteDao{
 
     
     @Override
-    public List<Cliente> insertCliente(Cliente cliente) {
-        List<Cliente> r_cursor =  new ArrayList<Cliente>();
+    public boolean insertCliente(Cliente cliente) {
+        boolean bandera = false;
+        short var;
         StoredProcedureQuery spInsertarCliente= em.createStoredProcedureQuery("INGRESARCLIENTE",Cliente.class);
         
         spInsertarCliente.registerStoredProcedureParameter(2, Long.class, ParameterMode.IN);
@@ -37,7 +38,7 @@ public class ClienteDaoEmpl implements ClienteDao{
         spInsertarCliente.registerStoredProcedureParameter(5, String.class, ParameterMode.IN);
         spInsertarCliente.registerStoredProcedureParameter(6, String.class, ParameterMode.IN);
         spInsertarCliente.registerStoredProcedureParameter(7, Short.class, ParameterMode.IN);
-        spInsertarCliente.registerStoredProcedureParameter("C_CLIENTE", void.class, ParameterMode.REF_CURSOR);
+        spInsertarCliente.registerStoredProcedureParameter("C_CLIENTE", Short.class, ParameterMode.OUT);
         
        
         spInsertarCliente.setParameter(2, cliente.getIdempresaCliente().getIdempresa());
@@ -47,10 +48,13 @@ public class ClienteDaoEmpl implements ClienteDao{
         spInsertarCliente.setParameter(6, cliente.getDgcorreo());
         spInsertarCliente.setParameter(7, cliente.getBlvigente());
         
-        r_cursor = (ArrayList<Cliente>) spInsertarCliente.getResultList();
-        
-        
-        return r_cursor;
+        //r_cursor = (ArrayList<Cliente>) spInsertarCliente.getResultList();
+        spInsertarCliente.execute();
+        var = (short) spInsertarCliente.getOutputParameterValue("C_CLIENTE");
+        if(var==1){
+            bandera = true;
+        }        
+        return bandera;
     }
 
     @Override
@@ -67,21 +71,26 @@ public class ClienteDaoEmpl implements ClienteDao{
     }
 
     @Override
-    public List<Cliente> deleteCliente(Cliente cliente) {
-        List<Cliente> r_cursor =  new ArrayList<Cliente>();
+    public boolean deleteCliente(Cliente cliente) {
+        boolean bandera = false;
+        short var;
         StoredProcedureQuery spEliminarCliente = em.createStoredProcedureQuery("P_ELIMINARCLIENTE",Cliente.class);
         spEliminarCliente.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
-        spEliminarCliente.registerStoredProcedureParameter("C_IDCLIENTE", void.class, ParameterMode.REF_CURSOR);
+        spEliminarCliente.registerStoredProcedureParameter("C_IDCLIENTE", Short.class, ParameterMode.OUT);
         
         spEliminarCliente.setParameter(1, cliente.getIdcliente());
         
-        r_cursor = spEliminarCliente.getResultList();
-        return r_cursor;
+        spEliminarCliente.execute();
+        var = (short) spEliminarCliente.getOutputParameterValue("C_IDCLIENTE");
+        if(var==1) bandera= true;
+        return bandera;
     }
 
     @Override
-    public List<Cliente> updateCliente(Cliente cliente) {
-        List<Cliente> r_cursor = new ArrayList<Cliente>();
+    public boolean updateCliente(Cliente cliente) {
+        boolean bandera = false;
+        short var;
+        //List<Cliente> r_cursor = new ArrayList<Cliente>();
         StoredProcedureQuery spActualizarCliente = em.createStoredProcedureQuery("P_ACTUALIZARCLIENTE",Cliente.class);
         spActualizarCliente.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
         spActualizarCliente.registerStoredProcedureParameter(2, Long.class, ParameterMode.IN);
@@ -90,7 +99,7 @@ public class ClienteDaoEmpl implements ClienteDao{
         spActualizarCliente.registerStoredProcedureParameter(5, String.class, ParameterMode.IN);
         spActualizarCliente.registerStoredProcedureParameter(6, String.class, ParameterMode.IN);
         spActualizarCliente.registerStoredProcedureParameter(7, Short.class, ParameterMode.IN);
-        spActualizarCliente.registerStoredProcedureParameter("C_CLIENTE", void.class, ParameterMode.REF_CURSOR);
+        spActualizarCliente.registerStoredProcedureParameter("C_CLIENTE", Short.class, ParameterMode.OUT);
         
         spActualizarCliente.setParameter(1, cliente.getIdcliente());        
         spActualizarCliente.setParameter(2, cliente.getIdempresaCliente().getIdempresa());
@@ -100,14 +109,22 @@ public class ClienteDaoEmpl implements ClienteDao{
         spActualizarCliente.setParameter(6, cliente.getDgcorreo());
         spActualizarCliente.setParameter(7, cliente.getBlvigente());
         
-        r_cursor = spActualizarCliente.getResultList();       
-        
-        return r_cursor;
+        //r_cursor = spActualizarCliente.getResultList();    
+        spActualizarCliente.execute();
+        var = (short) spActualizarCliente.getOutputParameterValue("C_CLIENTE");
+        if(var==1) bandera = true;       
+        return bandera;
     }
 
     @Override
     public List<Cliente> findAllCliente() {
-        return em.createNamedQuery("Cliente.findAll").getResultList();
+        List<Cliente> r_cursor = new ArrayList<Cliente>();
+        StoredProcedureQuery spfindAllCliente = em.createStoredProcedureQuery("P_LISTARCLIENTEALL",Cliente.class);
+        
+        spfindAllCliente.registerStoredProcedureParameter("C_IDCLIENTE", void.class, ParameterMode.REF_CURSOR);        
+        r_cursor = spfindAllCliente.getResultList();        
+        return r_cursor;
+        
     }
     
 }

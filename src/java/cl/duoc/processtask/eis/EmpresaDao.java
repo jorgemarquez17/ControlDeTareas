@@ -15,15 +15,15 @@ public interface EmpresaDao {
     
     public void insertEmpresa(Empresa empresa);
     
-    public List<Empresa> modifyEmpresa(Empresa empresa);
+    public boolean modifyEmpresa(Empresa empresa);
     
     public List<Empresa> findIdEmpresa(Empresa empresa);
     
     public List<Empresa> findAllEmpresa();
     
-    public List<Empresa> deleteEmpresa(Empresa empresa);
+    public boolean deleteEmpresa(Empresa empresa);
     
-    public List<Empresa> insertEmpresa2(Empresa empresa);
+    public boolean insertEmpresa2(Empresa empresa);
     
     
     

@@ -17,7 +17,7 @@ import javax.ejb.Remote;
 @Remote
 public interface TareaService {
     
-    public List<Tarea> ingresarTarea(Tarea tarea);
+    public boolean ingresarTarea(Tarea tarea);
     
     public List<Tarea> listarTarea(Tarea tarea);
     

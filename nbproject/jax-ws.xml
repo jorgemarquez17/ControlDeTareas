@@ -10,6 +10,12 @@
     <service name="wsTarea">
       <implementation-class>cl.duoc.processtask.ws.wsTarea</implementation-class>
     </service>
+    <service name="wsFlujoTarea">
+      <implementation-class>cl.duoc.processtask.ws.wsFlujoTarea</implementation-class>
+    </service>
+    <service name="wsUsuario">
+      <implementation-class>cl.duoc.processtask.ws.wsUsuario</implementation-class>
+    </service>
   </services>
   <clients>
     <client name="wsCliente">
@@ -45,6 +51,42 @@
         <wsimport-option>
           <wsimport-option-name>package</wsimport-option-name>
           <wsimport-option-value>cl.duoc.processtask.ws_client</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </client>
+    <client name="wsEmpresa">
+      <wsdl-url>http://localhost:8081/wsEmpresa/wsEmpresa?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_8081/wsEmpresa/wsEmpresa.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">cl.duoc.processtask.ws_client1</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>fork</wsimport-option-name>
+          <wsimport-option-value>false</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>wsdlLocation</wsimport-option-name>
+          <wsimport-option-value>http://localhost:8081/wsEmpresa/wsEmpresa?wsdl</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>package</wsimport-option-name>
+          <wsimport-option-value>cl.duoc.processtask.ws_client1</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>

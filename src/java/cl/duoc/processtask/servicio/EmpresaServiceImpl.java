@@ -39,19 +39,24 @@ public class EmpresaServiceImpl implements EmpresaService, EmpresaServiceWS{
     }
 
     @Override
-    public List<Empresa> modificarEmpresa(Empresa empresa) {
+    public boolean modificarEmpresa(Empresa empresa) {
         //empresaDao.modifyEmpresa(empresa);
         return empresaDao.modifyEmpresa(empresa);
     }
 
     @Override
-    public List<Empresa> eliminarEmpresa(Empresa empresa) {
+    public boolean eliminarEmpresa(Empresa empresa) {
         return empresaDao.deleteEmpresa(empresa);
     }
 
-    @Override
-    public List<Empresa> registrarEmpresa2(Empresa empresa) {
-        return empresaDao.insertEmpresa2(empresa);
+     @Override
+    public boolean registrarEmpresa2(Empresa empresa) {
+        boolean ban;
+        ban = empresaDao.insertEmpresa2(empresa);
+        return ban;
     }
+    
+   
+
     
 }

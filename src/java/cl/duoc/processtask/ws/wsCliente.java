@@ -44,13 +44,14 @@ public class wsCliente {
      * @return 
      */
     @WebMethod(operationName = "ingresarCliente")
-    public List<Cliente> ingresarCliente(@WebParam(name = "idEmpresa") Long idEmpresa, 
+    public boolean ingresarCliente(@WebParam(name = "idEmpresa") Long idEmpresa, 
             @WebParam(name = "nombre") String nombre, 
             @WebParam(name = "apellido") String apellido,
             @WebParam(name = "contacto") String contacto, 
             @WebParam(name = "correo") String correo, 
             @WebParam(name = "vigente") Short vigente) {
         //TODO write your implementation code here:
+        boolean bandera= false;
         Cliente cliente = new Cliente();
         Empresa empresa = new Empresa();
         List<Empresa> listEmpresa = new ArrayList<Empresa>();
@@ -64,7 +65,6 @@ public class wsCliente {
             for(Empresa emp : listEmpresa){
                 empresa = emp;
             }
-            System.out.println("Empresa Rescatada:"+empresa.toString());
             cliente.setIdempresaCliente(empresa);
             cliente.setDgnombre(nombre);
             cliente.setDgapellido(apellido);
@@ -73,11 +73,11 @@ public class wsCliente {
             cliente.setBlvigente(vigente);
             
             //ejbRef.registrarEmpresa(empresa);
-            listCli = ejbRef3.registrarCliente(cliente);
+            bandera = ejbRef3.registrarCliente(cliente);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return listCli;
+        return bandera;
     }
 
     /**
@@ -96,18 +96,19 @@ public class wsCliente {
     
     
      @WebMethod(operationName = "eliminarCliente")
-    public List<Cliente> eliminarCliente(@WebParam(name = "idCliente") long idCliente) {
+    public boolean eliminarCliente(@WebParam(name = "idCliente") long idCliente) {
         //TODO write your implementation code here:
+        boolean bandera = false;
         Cliente cliente = new Cliente();
         List<Cliente> listCliente;
         cliente.setIdcliente(idCliente);
         
-        listCliente = ejbRef3.eliminarCliente(cliente);
-        return listCliente;
+        bandera = ejbRef3.eliminarCliente(cliente);
+        return bandera;
     }
     
     @WebMethod(operationName = "actualizarCliente")
-    public List<Cliente> actualizarCliente(
+    public boolean actualizarCliente(
             @WebParam(name ="idCliente" ) Long idCliente,
             @WebParam(name = "idempresa") Long idEmpresa,
             @WebParam(name = "nombre") String nombre, 
@@ -115,6 +116,7 @@ public class wsCliente {
             @WebParam(name = "contacto") String contacto, 
             @WebParam(name = "correo") String correo, 
             @WebParam(name = "vigente") Short vigente){
+        boolean bandera = false;
         Cliente cliente = new Cliente();
         Empresa empresa = new Empresa();
         List<Empresa> listEmp =new ArrayList<Empresa>();
@@ -134,12 +136,12 @@ public class wsCliente {
             cliente.setBlvigente(vigente);
             
             //ejbRef.registrarEmpresa(empresa);
-            listCli = ejbRef3.modificarCliente(cliente); 
+            bandera = ejbRef3.modificarCliente(cliente); 
         }catch(Exception e){
             e.printStackTrace();
         }
         
-        return listCli;
+        return bandera;
         
     }
 

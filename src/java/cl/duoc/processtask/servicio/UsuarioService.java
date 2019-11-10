@@ -25,4 +25,6 @@ public interface UsuarioService {
     
     public List<Usuario> listarUsuario(Usuario usuario);
     
+    public List<Usuario> listarAllUsuarios();
+    
 }

@@ -103,7 +103,7 @@ public class UsuarioDaoImpl implements UsuarioDao{
     }
 
     @Override
-    public List<Usuario> findAllUsuario(Usuario usuario) {
+    public List<Usuario> findByIdUsuario(Usuario usuario) {
         List<Usuario> r_cursor = new ArrayList<Usuario>();
         StoredProcedureQuery spListUsuario = em.createStoredProcedureQuery("P_LISTARUSUARIO",Usuario.class);
         spListUsuario.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
@@ -115,5 +115,17 @@ public class UsuarioDaoImpl implements UsuarioDao{
         
         return r_cursor;
     }
+
+    @Override
+    public List<Usuario> findAllUsuarios() {
+        List<Usuario> r_cursor = new ArrayList<Usuario>();
+        StoredProcedureQuery spListarUsuarios = em.createStoredProcedureQuery("P_listarallusuario",Usuario.class);
+        spListarUsuarios.registerStoredProcedureParameter("c_usuario", void.class, ParameterMode.REF_CURSOR);
+        
+        r_cursor = spListarUsuarios.getResultList();
+        return r_cursor;
+        
+    }
+    
     
 }

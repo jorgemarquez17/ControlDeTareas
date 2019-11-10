@@ -22,9 +22,9 @@ public interface EmpresaService {
     
     public List<Empresa> buscarAllEmpresas();
     
-    public List<Empresa> modificarEmpresa(Empresa empresa);
+    public boolean modificarEmpresa(Empresa empresa);
     
-    public List<Empresa> eliminarEmpresa(Empresa empresa);
+    public boolean eliminarEmpresa(Empresa empresa);
 
-    public List<Empresa> registrarEmpresa2(Empresa empresa);
+    public boolean registrarEmpresa2(Empresa empresa);
 }

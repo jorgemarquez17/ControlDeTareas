@@ -35,7 +35,7 @@ public class wsEmpresa {
 
     @WebMethod(operationName = "registrarEmpresa")
     //@Oneway
-    public List<Empresa> registrarEmpresa(@WebParam(name = "rut") String rut, @WebParam(name = "direccion") String Direccion,
+    public boolean registrarEmpresa(@WebParam(name = "rut") String rut, @WebParam(name = "direccion") String Direccion,
             @WebParam(name="nombreEmpresa") String NombreEmpresa,
             @WebParam(name = "contacto") String contacto, @WebParam(name = "correo") String correo,
             @WebParam(name="vigente")Short vigente) {
@@ -54,12 +54,12 @@ public class wsEmpresa {
             empresa.setBlvigente(vigente);
             
             //ejbRef.registrarEmpresa(empresa);
-            listEmp = ejbRef.registrarEmpresa2(empresa);
+            //listEmp = ejbRef.registrarEmpresa2(empresa);
         } catch (NamingException e) {
             e.printStackTrace();
         }
         //return "Se agrego la empresa correctamente";
-        return listEmp;
+        return ejbRef.registrarEmpresa2(empresa);
         //ejbRef.registrarEmpresa(empresa);
     }
 
@@ -77,6 +77,7 @@ public class wsEmpresa {
 
     /**
      * Web service operation
+     * @param id_empresa
      */
     @WebMethod(operationName = "listarEmpresaById")
     public List<Empresa> listarEmpresaById(@WebParam(name = "id_empresa") long id_empresa) {
@@ -93,28 +94,28 @@ public class wsEmpresa {
      * Web service operation
      */
     @WebMethod(operationName = "eliminarEmpresaById")
-    public List<Empresa> eliminarEmpresaById(@WebParam(name = "idEmpresa") long idEmpresa) {
+    public boolean eliminarEmpresaById(@WebParam(name = "idEmpresa") long idEmpresa) {
         //TODO write your implementation code here:
+        boolean bandera ;
         Empresa emp = new Empresa();
+        
         List<Empresa> listEmp3;
         emp.setIdempresa(idEmpresa);
         
-        listEmp3 = ejbRef.eliminarEmpresa(emp);
-        return listEmp3;
+        bandera = ejbRef.eliminarEmpresa(emp);
+        return bandera;
     }
 
     /**
      * Web service operation
      */
     @WebMethod(operationName = "actualizarEmpresa")
-    public List<Empresa> actualizarEmpresa(@WebParam(name = "idEmpresa") long idEmpresa, @WebParam(name = "rut") String rut,
+    public boolean actualizarEmpresa(@WebParam(name = "idEmpresa") long idEmpresa, @WebParam(name = "rut") String rut,
             @WebParam(name = "direccion") String direccion, @WebParam(name = "nombreEmpresa") String nombreEmpresa, 
             @WebParam(name = "contacto") String contacto, @WebParam(name = "correo") String correo, @WebParam(name = "vigente") short vigente
             ) {
-        
-        Empresa empresa = new Empresa();
-        List<Empresa> listEmp;
-        
+        boolean bandera;
+        Empresa empresa = new Empresa();        
         empresa.setIdempresa(idEmpresa);
         empresa.setDgrut(rut);
         empresa.setDgdireccion(direccion);
@@ -123,10 +124,10 @@ public class wsEmpresa {
         empresa.setDgcorreo(correo);
         empresa.setBlvigente(vigente);
         
-       listEmp= ejbRef.modificarEmpresa(empresa);
+       bandera = ejbRef.modificarEmpresa(empresa);
         
         
-        return listEmp;
+        return bandera;
     }
 
     /**
@@ -135,7 +136,7 @@ public class wsEmpresa {
     @WebMethod(operationName = "listarAllEmpresa")
     public List<Empresa> listarAllEmpresa() {
         //TODO write your implementation code here:
-        List<Empresa> listEmp2;
+        List<Empresa> listEmp2 ;
         listEmp2 = ejbRef.buscarAllEmpresas();
         return listEmp2;
     }

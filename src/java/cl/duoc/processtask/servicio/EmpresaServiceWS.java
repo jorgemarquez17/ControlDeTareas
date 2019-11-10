@@ -22,10 +22,10 @@ public interface EmpresaServiceWS {
     public void registrarEmpresa(Empresa empresa);
     
     @WebMethod
-    public List<Empresa> registrarEmpresa2(Empresa empresa);
+    public boolean registrarEmpresa2(Empresa empresa);
     
      @WebMethod
-    public List<Empresa> eliminarEmpresa(Empresa empresa);
+    public boolean eliminarEmpresa(Empresa empresa);
     
      @WebMethod
     public List<Empresa> buscarEmpresaById(Empresa empresa);
