@@ -12,6 +12,9 @@ import cl.duoc.processtask.servicio.FlujoTareaService;
 import cl.duoc.processtask.servicio.UsuarioService;
 import com.oracle.jrockit.jfr.FlightRecorder;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,9 +38,9 @@ public class wsFlujoTarea {
     @WebMethod(operationName = "ingresarFlujoTarea")
     public boolean ingresarFlujoTarea(@WebParam(name = "idUsuario") Long idUsuario,
             @WebParam(name = "idReporte")Long idReporte ,@WebParam(name="nombreFlujo") String nombreflujo,
-            @WebParam(name="fechaCreacion") Date fechaCreacion, @WebParam(name="fechaEmision")Date fechaEmision,
-            @WebParam(name="fechaTermino")Date fechaTermino,@WebParam(name="porcentajeAvan")BigDecimal porcentajeAvan,
-            @WebParam(name="estadoAvance") Short estadoAvance, @WebParam(name="vigente") Short vigente) {
+            @WebParam(name="fechaEmision")String fechaEmision,@WebParam(name="fechaTermino")String fechaTermino,
+            @WebParam(name="porcentajeAvan")BigDecimal porcentajeAvan,@WebParam(name="estadoAvance") Short estadoAvance, 
+            @WebParam(name="vigente") Short vigente) throws ParseException {
         
         
         Usuario objUsuario = new Usuario();
@@ -49,12 +52,21 @@ public class wsFlujoTarea {
         for(Usuario u : listUsu){
             objUsuario = u;
         }
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+        Date parsedDate = dateFormat.parse(fechaEmision);
+        Timestamp timestamp1 = new java.sql.Timestamp(parsedDate.getTime());
+        
+        Date parsedDate2 = dateFormat.parse(fechaTermino);
+        Timestamp timestamp2 = new java.sql.Timestamp(parsedDate2.getTime());
+        
+        
         flujito.setIdusuarioFlujotarea(objUsuario);
         flujito.setIdreporteFlujotarea(idReporte);
         flujito.setGnombreflujotarea(nombreflujo);
-        flujito.setDcfechacreacion(fechaCreacion);
-        flujito.setDcfechaemision(fechaEmision);
-        flujito.setDcfechatermino(fechaTermino);
+        //flujito.setDcfechacreacion(fechaCreacion);
+        flujito.setDcfechaemision(timestamp1);
+        flujito.setDcfechatermino(timestamp2);
         flujito.setDcporcentajeavance(porcentajeAvan.ZERO);
         flujito.setBlestadoavance(estadoAvance);
         flujito.setBlvigente(vigente);

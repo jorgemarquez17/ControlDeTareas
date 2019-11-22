@@ -7,6 +7,7 @@
 package cl.duoc.processtask.eis;
 
 import cl.duoc.processtask.entity.Flujotarea;
+import com.sun.xml.wss.core.Timestamp;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,23 +35,23 @@ public class FlujoTareaDaoImpl implements FlujoTareaDao{
          spInsertFlujoTarea.registerStoredProcedureParameter(2, Long.class, ParameterMode.IN);
          spInsertFlujoTarea.registerStoredProcedureParameter(3, Long.class, ParameterMode.IN);
          spInsertFlujoTarea.registerStoredProcedureParameter(4, String.class, ParameterMode.IN);
-         spInsertFlujoTarea.registerStoredProcedureParameter(5, Date.class, ParameterMode.IN);
-         spInsertFlujoTarea.registerStoredProcedureParameter(6, Date.class, ParameterMode.IN);
-         spInsertFlujoTarea.registerStoredProcedureParameter(7, Date.class, ParameterMode.IN);
-         spInsertFlujoTarea.registerStoredProcedureParameter(8, BigDecimal.class, ParameterMode.IN);
+         //spInsertFlujoTarea.registerStoredProcedureParameter(5, Date.class, ParameterMode.IN);
+         spInsertFlujoTarea.registerStoredProcedureParameter(5, java.sql.Timestamp.class, ParameterMode.IN);
+         spInsertFlujoTarea.registerStoredProcedureParameter(6, java.sql.Timestamp.class, ParameterMode.IN);
+         spInsertFlujoTarea.registerStoredProcedureParameter(7, BigDecimal.class, ParameterMode.IN);
+         spInsertFlujoTarea.registerStoredProcedureParameter(8, Short.class, ParameterMode.IN);
          spInsertFlujoTarea.registerStoredProcedureParameter(9, Short.class, ParameterMode.IN);
-         spInsertFlujoTarea.registerStoredProcedureParameter(10, Short.class, ParameterMode.IN);
          spInsertFlujoTarea.registerStoredProcedureParameter("C_FLUJOTAREA", Short.class, ParameterMode.OUT);
          
          spInsertFlujoTarea.setParameter(2, flujotarea.getIdusuarioFlujotarea().getIdusuario());
          spInsertFlujoTarea.setParameter(3, flujotarea.getIdreporteFlujotarea());
          spInsertFlujoTarea.setParameter(4, flujotarea.getGnombreflujotarea());
-         spInsertFlujoTarea.setParameter(5, flujotarea.getDcfechacreacion());
-         spInsertFlujoTarea.setParameter(6, flujotarea.getDcfechaemision());
-         spInsertFlujoTarea.setParameter(7, flujotarea.getDcfechatermino());
-         spInsertFlujoTarea.setParameter(8, flujotarea.getDcporcentajeavance());
-         spInsertFlujoTarea.setParameter(9, flujotarea.getBlestadoavance());
-         spInsertFlujoTarea.setParameter(10,flujotarea.getBlvigente());
+         //spInsertFlujoTarea.setParameter(5, flujotarea.getDcfechacreacion());
+         spInsertFlujoTarea.setParameter(5, flujotarea.getDcfechaemision());
+         spInsertFlujoTarea.setParameter(6, flujotarea.getDcfechatermino());
+         spInsertFlujoTarea.setParameter(7, flujotarea.getDcporcentajeavance());
+         spInsertFlujoTarea.setParameter(8, flujotarea.getBlestadoavance());
+         spInsertFlujoTarea.setParameter(9,flujotarea.getBlvigente());
          
          spInsertFlujoTarea.execute();
          var= (short) spInsertFlujoTarea.getOutputParameterValue("C_FLUJOTAREA");

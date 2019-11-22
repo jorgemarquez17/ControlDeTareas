@@ -11,10 +11,9 @@ import cl.duoc.processtask.eis.TiporolDao;
 import cl.duoc.processtask.eis.UsuarioDao;
 import cl.duoc.processtask.entity.Flujotarea;
 import cl.duoc.processtask.entity.Tarea;
-import cl.duoc.processtask.entity.Tipoperfil;
-import cl.duoc.processtask.entity.Tiporol;
 import cl.duoc.processtask.entity.Usuario;
 import cl.duoc.processtask.servicio.TareaService;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,8 +41,8 @@ public class wsTarea {
     @WebMethod(operationName = "ingresarTarea")
     public boolean ingresarTarea(@WebParam(name = "idFlujoTarea") Long idFlujoTarea,@WebParam(name="idUsuario") Long idUsuario,
             @WebParam(name = "nombreTarea") String nombreTarea, @WebParam(name = "ccompletado") Long ccompletado,
-            @WebParam(name = "fechaCreacionT") Date fechaCreacionT,
-            @WebParam(name = "fechaEmisionT") Date fechaEmisionT ,@WebParam(name = "fechaTerminoT") Date fechaTerminoT,
+            @WebParam(name = "fechaCreacionT") Timestamp fechaCreacionT,
+            @WebParam(name = "fechaEmisionT") Timestamp fechaEmisionT,@WebParam(name = "fechaTerminoT") Timestamp fechaTerminoT,
             @WebParam(name = "justificacion") String justificacion, @WebParam(name = "rechazado") Short rechazado,
             @WebParam(name = "estado") Short estado, @WebParam( name = "vigente") Short vigente) {
         
@@ -72,7 +71,7 @@ public class wsTarea {
             tarea.setIdresponsabletareaUsuario(usuario);
             tarea.setDgnombretarea(nombreTarea);
             tarea.setDcporccompletado(ccompletado);
-            tarea.setDcfechacreacion(fechaCreacionT);
+            //tarea.setDcfechacreacion(fechaCreacionT);
             tarea.setDcfechaemision(fechaEmisionT);
             tarea.setDcfechatermino(fechaTerminoT);
             tarea.setDgjustificacion(justificacion);

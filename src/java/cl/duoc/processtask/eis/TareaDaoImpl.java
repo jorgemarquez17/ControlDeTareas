@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
+import oracle.sql.TIMESTAMP;
 
 /**
  *
@@ -31,31 +32,33 @@ public class TareaDaoImpl implements TareaDao{
         boolean bandera = false;
         short var;
         StoredProcedureQuery spInsertTarea = em.createStoredProcedureQuery("INGRESARTAREA",Tarea.class);
+        spInsertTarea.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
         spInsertTarea.registerStoredProcedureParameter(2, Long.class, ParameterMode.IN);
         spInsertTarea.registerStoredProcedureParameter(3, Long.class, ParameterMode.IN);
         spInsertTarea.registerStoredProcedureParameter(4, String.class, ParameterMode.IN);
         spInsertTarea.registerStoredProcedureParameter(5, Long.class, ParameterMode.IN);        
+        //spInsertTarea.registerStoredProcedureParameter(6, Date.class, ParameterMode.IN);
         spInsertTarea.registerStoredProcedureParameter(6, Date.class, ParameterMode.IN);
         spInsertTarea.registerStoredProcedureParameter(7, Date.class, ParameterMode.IN);
-        spInsertTarea.registerStoredProcedureParameter(8, Date.class, ParameterMode.IN);
-        spInsertTarea.registerStoredProcedureParameter(9, String.class, ParameterMode.IN);
+        spInsertTarea.registerStoredProcedureParameter(8, String.class, ParameterMode.IN);
+        spInsertTarea.registerStoredProcedureParameter(9, Short.class, ParameterMode.IN);
         spInsertTarea.registerStoredProcedureParameter(10, Short.class, ParameterMode.IN);
         spInsertTarea.registerStoredProcedureParameter(11, Short.class, ParameterMode.IN);
-        spInsertTarea.registerStoredProcedureParameter(12, Short.class, ParameterMode.IN);
         
         spInsertTarea.registerStoredProcedureParameter("C_TAREA", Short.class, ParameterMode.OUT);
         
+        spInsertTarea.setParameter(1, tarea.getIdtarea());
         spInsertTarea.setParameter(2, tarea.getIdflujotareaTarea().getIdflujotarea());
         spInsertTarea.setParameter(3, tarea.getIdresponsabletareaUsuario().getIdusuario());
         spInsertTarea.setParameter(4, tarea.getDgnombretarea());
         spInsertTarea.setParameter(5, tarea.getDcporccompletado());
-        spInsertTarea.setParameter(6, tarea.getDcfechacreacion());
-        spInsertTarea.setParameter(7, tarea.getDcfechaemision());
-        spInsertTarea.setParameter(8, tarea.getDcfechatermino());
-        spInsertTarea.setParameter(9, tarea.getDgjustificacion());
-        spInsertTarea.setParameter(10, tarea.getBlrechazado());
-        spInsertTarea.setParameter(11, tarea.getBlestado());
-        spInsertTarea.setParameter(12, tarea.getBlvigente());
+        //spInsertTarea.setParameter(6, tarea.getDcfechacreacion());
+        spInsertTarea.setParameter(6, tarea.getDcfechaemision());
+        spInsertTarea.setParameter(7, tarea.getDcfechatermino());
+        spInsertTarea.setParameter(8, tarea.getDgjustificacion());
+        spInsertTarea.setParameter(9, tarea.getBlrechazado());
+        spInsertTarea.setParameter(10, tarea.getBlestado());
+        spInsertTarea.setParameter(11, tarea.getBlvigente());
         
         spInsertTarea.execute();
         var = (short) spInsertTarea.getOutputParameterValue("C_TAREA");
