@@ -29,9 +29,24 @@ public class TareaServiceImpl implements TareaService{
     }
 
     @Override
-    public List<Tarea> listarTarea(Tarea tarea) {
+    public List<Tarea> listarTareas() {
         
+        return tareaDao.findAllTarea();
+    }
+
+    @Override
+    public List<Tarea> listarTareaById(Tarea tarea) {
         return tareaDao.findByIdTarea(tarea);
+    }
+
+    @Override
+    public boolean modificarTarea(Tarea tarea) {
+        return tareaDao.updateTarea(tarea);
+    }
+
+    @Override
+    public boolean eliminarTarea(Tarea tarea) {
+        return tareaDao.deleteTarea(tarea);
     }
     
 }

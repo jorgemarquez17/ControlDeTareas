@@ -19,6 +19,12 @@ public interface TareaService {
     
     public boolean ingresarTarea(Tarea tarea);
     
-    public List<Tarea> listarTarea(Tarea tarea);
+    public List<Tarea> listarTareas();
+    
+    public List<Tarea> listarTareaById(Tarea tarea);
+    
+    public boolean modificarTarea(Tarea tarea);
+    
+    public boolean eliminarTarea(Tarea tarea);
     
 }

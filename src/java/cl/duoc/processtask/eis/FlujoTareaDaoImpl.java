@@ -36,8 +36,8 @@ public class FlujoTareaDaoImpl implements FlujoTareaDao{
          spInsertFlujoTarea.registerStoredProcedureParameter(3, Long.class, ParameterMode.IN);
          spInsertFlujoTarea.registerStoredProcedureParameter(4, String.class, ParameterMode.IN);
          //spInsertFlujoTarea.registerStoredProcedureParameter(5, Date.class, ParameterMode.IN);
-         spInsertFlujoTarea.registerStoredProcedureParameter(5, java.sql.Timestamp.class, ParameterMode.IN);
-         spInsertFlujoTarea.registerStoredProcedureParameter(6, java.sql.Timestamp.class, ParameterMode.IN);
+         spInsertFlujoTarea.registerStoredProcedureParameter(5, Date.class, ParameterMode.IN);
+         spInsertFlujoTarea.registerStoredProcedureParameter(6, Date.class, ParameterMode.IN);
          spInsertFlujoTarea.registerStoredProcedureParameter(7, BigDecimal.class, ParameterMode.IN);
          spInsertFlujoTarea.registerStoredProcedureParameter(8, Short.class, ParameterMode.IN);
          spInsertFlujoTarea.registerStoredProcedureParameter(9, Short.class, ParameterMode.IN);
@@ -69,18 +69,18 @@ public class FlujoTareaDaoImpl implements FlujoTareaDao{
         spActualizarFlujo.registerStoredProcedureParameter(2, Long.class, ParameterMode.IN);
         spActualizarFlujo.registerStoredProcedureParameter(3, Long.class, ParameterMode.IN);
         spActualizarFlujo.registerStoredProcedureParameter(4, String.class, ParameterMode.IN);
+       // spActualizarFlujo.registerStoredProcedureParameter(5, Timestamp.class, ParameterMode.IN);
         spActualizarFlujo.registerStoredProcedureParameter(5, Date.class, ParameterMode.IN);
         spActualizarFlujo.registerStoredProcedureParameter(6, Date.class, ParameterMode.IN);
-        spActualizarFlujo.registerStoredProcedureParameter(7, Date.class, ParameterMode.IN);
-        spActualizarFlujo.registerStoredProcedureParameter(8, BigDecimal.class, ParameterMode.IN);
+        spActualizarFlujo.registerStoredProcedureParameter(7, BigDecimal.class, ParameterMode.IN);
+        spActualizarFlujo.registerStoredProcedureParameter(8, Short.class, ParameterMode.IN);
         spActualizarFlujo.registerStoredProcedureParameter(9, Short.class, ParameterMode.IN);
-        spActualizarFlujo.registerStoredProcedureParameter(10, Short.class, ParameterMode.IN);
         spActualizarFlujo.registerStoredProcedureParameter("C_FLUJOTAREA", Short.class, ParameterMode.OUT);
         
-        spActualizarFlujo.setParameter(2, flujotarea.getIdusuarioFlujotarea());
+        spActualizarFlujo.setParameter(1, flujotarea.getIdflujotarea());
+        spActualizarFlujo.setParameter(2, flujotarea.getIdusuarioFlujotarea().getIdusuario());
         spActualizarFlujo.setParameter(3, flujotarea.getIdreporteFlujotarea());
         spActualizarFlujo.setParameter(4, flujotarea.getGnombreflujotarea());
-        spActualizarFlujo.setParameter(4, flujotarea.getDcfechacreacion());
         spActualizarFlujo.setParameter(5, flujotarea.getDcfechaemision());
         spActualizarFlujo.setParameter(6, flujotarea.getDcfechatermino());
         spActualizarFlujo.setParameter(7, flujotarea.getDcporcentajeavance());

@@ -15,7 +15,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
-import oracle.sql.TIMESTAMP;
 
 /**
  *
@@ -69,12 +68,62 @@ public class TareaDaoImpl implements TareaDao{
     @Override
     public boolean updateTarea(Tarea tarea) {
         boolean bandera = false;
+        short var;
+        StoredProcedureQuery spUpdateTarea = em.createStoredProcedureQuery("P_ACTUALIZARTAREA",Tarea.class);
+        spUpdateTarea.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
+        spUpdateTarea.registerStoredProcedureParameter(2, Long.class, ParameterMode.IN);
+        spUpdateTarea.registerStoredProcedureParameter(3, Long.class, ParameterMode.IN);
+        spUpdateTarea.registerStoredProcedureParameter(4, String.class, ParameterMode.IN);
+        spUpdateTarea.registerStoredProcedureParameter(5, Long.class, ParameterMode.IN);        
+        //spInsertTarea.registerStoredProcedureParameter(6, Date.class, ParameterMode.IN);
+        spUpdateTarea.registerStoredProcedureParameter(6, Date.class, ParameterMode.IN);
+        spUpdateTarea.registerStoredProcedureParameter(7, Date.class, ParameterMode.IN);
+        spUpdateTarea.registerStoredProcedureParameter(8, String.class, ParameterMode.IN);
+        spUpdateTarea.registerStoredProcedureParameter(9, Short.class, ParameterMode.IN);
+        spUpdateTarea.registerStoredProcedureParameter(10, Short.class, ParameterMode.IN);
+        spUpdateTarea.registerStoredProcedureParameter(11, Short.class, ParameterMode.IN);
+        
+        spUpdateTarea.registerStoredProcedureParameter("C_TAREA", Short.class, ParameterMode.OUT);
+        
+        
+         spUpdateTarea.setParameter(1, tarea.getIdtarea());
+        spUpdateTarea.setParameter(2, tarea.getIdflujotareaTarea().getIdflujotarea());
+        spUpdateTarea.setParameter(3, tarea.getIdresponsabletareaUsuario().getIdusuario());
+        spUpdateTarea.setParameter(4, tarea.getDgnombretarea());
+        spUpdateTarea.setParameter(5, tarea.getDcporccompletado());
+        //spInsertTarea.setParameter(6, tarea.getDcfechacreacion());
+        spUpdateTarea.setParameter(6, tarea.getDcfechaemision());
+        spUpdateTarea.setParameter(7, tarea.getDcfechatermino());
+        spUpdateTarea.setParameter(8, tarea.getDgjustificacion());
+        spUpdateTarea.setParameter(9, tarea.getBlrechazado());
+        spUpdateTarea.setParameter(10, tarea.getBlestado());
+        spUpdateTarea.setParameter(11, tarea.getBlvigente());
+        
+        spUpdateTarea.execute();
+        var = (short) spUpdateTarea.getOutputParameterValue("C_TAREA");
+         if(var==1) bandera = true;
         return bandera;
     }
 
     @Override
     public boolean deleteTarea(Tarea tarea) {
         boolean bandera = false;
+        short var;
+        try{
+        StoredProcedureQuery spEliminarTaraea = em.createStoredProcedureQuery("P_ELIMINARTAREA",Tarea.class);
+        spEliminarTaraea.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
+        spEliminarTaraea.registerStoredProcedureParameter("C_IDTAREA", Short.class, ParameterMode.OUT);
+        
+        spEliminarTaraea.setParameter(1, tarea.getIdtarea());
+        
+        spEliminarTaraea.execute();
+        var = (short) spEliminarTaraea.getOutputParameterValue("C_IDTAREA");
+        if(var==1) bandera = true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            bandera = false;
+        }
         return bandera;
     }
 
@@ -87,13 +136,18 @@ public class TareaDaoImpl implements TareaDao{
          spListarTarea.registerStoredProcedureParameter("C_IDTAREA", void.class, ParameterMode.REF_CURSOR);
          
          spListarTarea.setParameter(1, tarea.getIdtarea());
+         r_cursor =spListarTarea.getResultList();
          
          return r_cursor;
     }
 
     @Override
     public List<Tarea> findAllTarea() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Tarea> r_cursor = new ArrayList<Tarea>();
+        StoredProcedureQuery spFindAllTarea = em.createStoredProcedureQuery("P_LISTARTAREAALL",Tarea.class);
+        spFindAllTarea.registerStoredProcedureParameter("C_IDTAREA",void.class,ParameterMode.REF_CURSOR);
+        r_cursor = spFindAllTarea.getResultList();
+        return r_cursor;
     }
     
 }

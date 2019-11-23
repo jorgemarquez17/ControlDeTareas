@@ -52,27 +52,32 @@ public class wsFlujoTarea {
         for(Usuario u : listUsu){
             objUsuario = u;
         }
-        
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+        try{
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
         Date parsedDate = dateFormat.parse(fechaEmision);
-        Timestamp timestamp1 = new java.sql.Timestamp(parsedDate.getTime());
+        Date date1 = new java.sql.Date(parsedDate.getTime());
         
         Date parsedDate2 = dateFormat.parse(fechaTermino);
-        Timestamp timestamp2 = new java.sql.Timestamp(parsedDate2.getTime());
+        Date date2 = new java.sql.Date(parsedDate2.getTime());
         
         
         flujito.setIdusuarioFlujotarea(objUsuario);
         flujito.setIdreporteFlujotarea(idReporte);
         flujito.setGnombreflujotarea(nombreflujo);
         //flujito.setDcfechacreacion(fechaCreacion);
-        flujito.setDcfechaemision(timestamp1);
-        flujito.setDcfechatermino(timestamp2);
+        flujito.setDcfechaemision(date1);
+        flujito.setDcfechatermino(date2);
         flujito.setDcporcentajeavance(porcentajeAvan.ZERO);
         flujito.setBlestadoavance(estadoAvance);
-        flujito.setBlvigente(vigente);
-        
-        
-        return ejbRef.ingresarFlujoTarea(flujito);
+        flujito.setBlvigente(vigente);       
+             return ejbRef.ingresarFlujoTarea(flujito);
+        }
+        catch(Exception e ){
+            System.out.println("###############################");
+            System.out.println(" ERROR" + e.getMessage());
+            return false;
+        }
+      
     }
 
     @WebMethod(operationName = "findAllFlujoTarea")
@@ -84,13 +89,16 @@ public class wsFlujoTarea {
      * Web service operation
      */
     @WebMethod(operationName = "modificarFlujoTarea")
-    public boolean modificarFlujoTarea(@WebParam(name = "idFlujoTarea") long idFlujoTarea, 
-            @WebParam(name = "idUsuario") long idUsuario, @WebParam(name = "idReporte") long idReporte, 
+    public boolean modificarFlujoTarea(
+            @WebParam(name = "idFlujoTarea") long idFlujoTarea, 
+            @WebParam(name = "idUsuario") long idUsuario, 
+            @WebParam(name = "idReporte") long idReporte, 
             @WebParam(name = "nombreFlujo") String nombreFlujo,
-            @WebParam(name = "fechaCreacion") Date fechaCreacion, 
-            @WebParam(name = "fechaEmision") Date fechaEmision, @WebParam(name = "fechaTermino") Date fechaTermino,
+            @WebParam(name = "fechaEmision") String fechaEmision,
+            @WebParam(name = "fechaTermino") String fechaTermino,
             @WebParam(name = "porcentajeAvance") BigDecimal porcentajeAvance, 
-            @WebParam(name = "habilitado") short habilitado, @WebParam(name = "vigente") short vigente) {
+            @WebParam(name = "habilitado") short habilitado, 
+            @WebParam(name = "vigente") short vigente) {
         //TODO write your implementation code here:
         Usuario objUsuario = new Usuario();
         List<Usuario> listUsu = new ArrayList<Usuario>();
@@ -100,16 +108,27 @@ public class wsFlujoTarea {
         for(Usuario us: listUsu){
             objUsuario = us;
         }
+        try{
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+        Date parsedDate = dateFormat.parse(fechaEmision);
+        Date date1 = new java.sql.Date(parsedDate.getTime());
+        
+        Date parsedDate2 = dateFormat.parse(fechaTermino);
+        Date date2 = new java.sql.Date(parsedDate2.getTime());
+        objFlujo.setIdflujotarea(idFlujoTarea);
         objFlujo.setIdusuarioFlujotarea(objUsuario);
         objFlujo.setIdreporteFlujotarea(idReporte);
         objFlujo.setGnombreflujotarea(nombreFlujo);
-        objFlujo.setDcfechacreacion(fechaCreacion);
-        objFlujo.setDcfechaemision(fechaEmision);
-        objFlujo.setDcfechatermino(fechaTermino);
+        //objFlujo.setDcfechacreacion(fechaCreacion);
+        objFlujo.setDcfechaemision(parsedDate);
+        objFlujo.setDcfechatermino(parsedDate2);
         objFlujo.setDcporcentajeavance(BigDecimal.ZERO);
         objFlujo.setBlestadoavance(habilitado);
         objFlujo.setBlvigente(vigente);
-        
+        }
+        catch(Exception e){
+          e.printStackTrace();
+        }
         
         return ejbRef.modificarFlujoTarea(objFlujo);
     }
@@ -125,6 +144,19 @@ public class wsFlujoTarea {
         flu.setIdflujotarea(idFlujoTarea);
         listaFlujo = ejbRef.findByIdFlujoTarea(flu);
         return listaFlujo;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "EliminarFlujoTarea")
+    public boolean EliminarFlujoTarea(@WebParam(name = "idFlujoTarea") Long idFlujoTarea) {
+        //TODO write your implementation code here:
+        boolean bandera = false;
+        Flujotarea ft = new Flujotarea();
+        ft.setIdflujotarea(idFlujoTarea);
+        bandera = ejbRef.eliminarFlujoTarea(ft);
+        return bandera;
     }
     
 }
