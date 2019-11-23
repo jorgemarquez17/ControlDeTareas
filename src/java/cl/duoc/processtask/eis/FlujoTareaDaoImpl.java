@@ -7,7 +7,6 @@
 package cl.duoc.processtask.eis;
 
 import cl.duoc.processtask.entity.Flujotarea;
-import com.sun.xml.wss.core.Timestamp;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,7 +34,6 @@ public class FlujoTareaDaoImpl implements FlujoTareaDao{
          spInsertFlujoTarea.registerStoredProcedureParameter(2, Long.class, ParameterMode.IN);
          spInsertFlujoTarea.registerStoredProcedureParameter(3, Long.class, ParameterMode.IN);
          spInsertFlujoTarea.registerStoredProcedureParameter(4, String.class, ParameterMode.IN);
-         //spInsertFlujoTarea.registerStoredProcedureParameter(5, Date.class, ParameterMode.IN);
          spInsertFlujoTarea.registerStoredProcedureParameter(5, Date.class, ParameterMode.IN);
          spInsertFlujoTarea.registerStoredProcedureParameter(6, Date.class, ParameterMode.IN);
          spInsertFlujoTarea.registerStoredProcedureParameter(7, BigDecimal.class, ParameterMode.IN);
@@ -46,7 +44,6 @@ public class FlujoTareaDaoImpl implements FlujoTareaDao{
          spInsertFlujoTarea.setParameter(2, flujotarea.getIdusuarioFlujotarea().getIdusuario());
          spInsertFlujoTarea.setParameter(3, flujotarea.getIdreporteFlujotarea());
          spInsertFlujoTarea.setParameter(4, flujotarea.getGnombreflujotarea());
-         //spInsertFlujoTarea.setParameter(5, flujotarea.getDcfechacreacion());
          spInsertFlujoTarea.setParameter(5, flujotarea.getDcfechaemision());
          spInsertFlujoTarea.setParameter(6, flujotarea.getDcfechatermino());
          spInsertFlujoTarea.setParameter(7, flujotarea.getDcporcentajeavance());
@@ -69,7 +66,6 @@ public class FlujoTareaDaoImpl implements FlujoTareaDao{
         spActualizarFlujo.registerStoredProcedureParameter(2, Long.class, ParameterMode.IN);
         spActualizarFlujo.registerStoredProcedureParameter(3, Long.class, ParameterMode.IN);
         spActualizarFlujo.registerStoredProcedureParameter(4, String.class, ParameterMode.IN);
-       // spActualizarFlujo.registerStoredProcedureParameter(5, Timestamp.class, ParameterMode.IN);
         spActualizarFlujo.registerStoredProcedureParameter(5, Date.class, ParameterMode.IN);
         spActualizarFlujo.registerStoredProcedureParameter(6, Date.class, ParameterMode.IN);
         spActualizarFlujo.registerStoredProcedureParameter(7, BigDecimal.class, ParameterMode.IN);

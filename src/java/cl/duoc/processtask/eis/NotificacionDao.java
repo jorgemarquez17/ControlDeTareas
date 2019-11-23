@@ -6,17 +6,10 @@
 
 package cl.duoc.processtask.eis;
 
-import cl.duoc.processtask.entity.Tipoperfil;
-import java.util.List;
-
 /**
  *
  * @author jorge
  */
-public interface TipoperfilDao {
-    
-    public List<Tipoperfil> findAllTipoperfil();
-    
-    public List<Tipoperfil> findByIdTipoPerfil(Tipoperfil tipoperfil);
+public interface NotificacionDao {
     
 }

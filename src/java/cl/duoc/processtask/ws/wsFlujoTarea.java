@@ -10,9 +10,7 @@ import cl.duoc.processtask.entity.Flujotarea;
 import cl.duoc.processtask.entity.Usuario;
 import cl.duoc.processtask.servicio.FlujoTareaService;
 import cl.duoc.processtask.servicio.UsuarioService;
-import com.oracle.jrockit.jfr.FlightRecorder;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -99,7 +97,6 @@ public class wsFlujoTarea {
             @WebParam(name = "porcentajeAvance") BigDecimal porcentajeAvance, 
             @WebParam(name = "habilitado") short habilitado, 
             @WebParam(name = "vigente") short vigente) {
-        //TODO write your implementation code here:
         Usuario objUsuario = new Usuario();
         List<Usuario> listUsu = new ArrayList<Usuario>();
         Flujotarea objFlujo = new Flujotarea();
@@ -108,26 +105,24 @@ public class wsFlujoTarea {
         for(Usuario us: listUsu){
             objUsuario = us;
         }
-        try{
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-        Date parsedDate = dateFormat.parse(fechaEmision);
-        Date date1 = new java.sql.Date(parsedDate.getTime());
-        
-        Date parsedDate2 = dateFormat.parse(fechaTermino);
-        Date date2 = new java.sql.Date(parsedDate2.getTime());
-        objFlujo.setIdflujotarea(idFlujoTarea);
-        objFlujo.setIdusuarioFlujotarea(objUsuario);
-        objFlujo.setIdreporteFlujotarea(idReporte);
-        objFlujo.setGnombreflujotarea(nombreFlujo);
-        //objFlujo.setDcfechacreacion(fechaCreacion);
-        objFlujo.setDcfechaemision(parsedDate);
-        objFlujo.setDcfechatermino(parsedDate2);
-        objFlujo.setDcporcentajeavance(BigDecimal.ZERO);
-        objFlujo.setBlestadoavance(habilitado);
-        objFlujo.setBlvigente(vigente);
-        }
-        catch(Exception e){
-          e.printStackTrace();
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+            Date parsedDate = dateFormat.parse(fechaEmision);
+            Date date1 = new java.sql.Date(parsedDate.getTime());
+
+            Date parsedDate2 = dateFormat.parse(fechaTermino);
+            Date date2 = new java.sql.Date(parsedDate2.getTime());
+            objFlujo.setIdflujotarea(idFlujoTarea);
+            objFlujo.setIdusuarioFlujotarea(objUsuario);
+            objFlujo.setIdreporteFlujotarea(idReporte);
+            objFlujo.setGnombreflujotarea(nombreFlujo);
+            objFlujo.setDcfechaemision(parsedDate);
+            objFlujo.setDcfechatermino(parsedDate2);
+            objFlujo.setDcporcentajeavance(BigDecimal.ZERO);
+            objFlujo.setBlestadoavance(habilitado);
+            objFlujo.setBlvigente(vigente);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         
         return ejbRef.modificarFlujoTarea(objFlujo);
@@ -151,7 +146,6 @@ public class wsFlujoTarea {
      */
     @WebMethod(operationName = "EliminarFlujoTarea")
     public boolean EliminarFlujoTarea(@WebParam(name = "idFlujoTarea") Long idFlujoTarea) {
-        //TODO write your implementation code here:
         boolean bandera = false;
         Flujotarea ft = new Flujotarea();
         ft.setIdflujotarea(idFlujoTarea);

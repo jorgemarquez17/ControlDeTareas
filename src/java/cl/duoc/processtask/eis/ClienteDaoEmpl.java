@@ -22,7 +22,7 @@ import javax.persistence.StoredProcedureQuery;
 @Stateless
 public class ClienteDaoEmpl implements ClienteDao{
     
-    @PersistenceContext(unitName = "ProcessTaskPU")//ProcessTaskPU
+    @PersistenceContext(unitName = "ProcessTaskPU")
     EntityManager em;
 
     
@@ -40,7 +40,6 @@ public class ClienteDaoEmpl implements ClienteDao{
         spInsertarCliente.registerStoredProcedureParameter(7, Short.class, ParameterMode.IN);
         spInsertarCliente.registerStoredProcedureParameter("C_CLIENTE", Short.class, ParameterMode.OUT);
         
-       
         spInsertarCliente.setParameter(2, cliente.getIdempresaCliente().getIdempresa());
         spInsertarCliente.setParameter(3, cliente.getDgnombre());
         spInsertarCliente.setParameter(4, cliente.getDgapellido());
@@ -48,7 +47,6 @@ public class ClienteDaoEmpl implements ClienteDao{
         spInsertarCliente.setParameter(6, cliente.getDgcorreo());
         spInsertarCliente.setParameter(7, cliente.getBlvigente());
         
-        //r_cursor = (ArrayList<Cliente>) spInsertarCliente.getResultList();
         spInsertarCliente.execute();
         var = (short) spInsertarCliente.getOutputParameterValue("C_CLIENTE");
         if(var==1){
@@ -90,7 +88,6 @@ public class ClienteDaoEmpl implements ClienteDao{
     public boolean updateCliente(Cliente cliente) {
         boolean bandera = false;
         short var;
-        //List<Cliente> r_cursor = new ArrayList<Cliente>();
         StoredProcedureQuery spActualizarCliente = em.createStoredProcedureQuery("P_ACTUALIZARCLIENTE",Cliente.class);
         spActualizarCliente.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
         spActualizarCliente.registerStoredProcedureParameter(2, Long.class, ParameterMode.IN);
@@ -108,8 +105,7 @@ public class ClienteDaoEmpl implements ClienteDao{
         spActualizarCliente.setParameter(5, cliente.getDgcontacto());
         spActualizarCliente.setParameter(6, cliente.getDgcorreo());
         spActualizarCliente.setParameter(7, cliente.getBlvigente());
-        
-        //r_cursor = spActualizarCliente.getResultList();    
+           
         spActualizarCliente.execute();
         var = (short) spActualizarCliente.getOutputParameterValue("C_CLIENTE");
         if(var==1) bandera = true;       

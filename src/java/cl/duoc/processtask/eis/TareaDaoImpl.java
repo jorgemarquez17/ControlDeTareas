@@ -36,7 +36,6 @@ public class TareaDaoImpl implements TareaDao{
         spInsertTarea.registerStoredProcedureParameter(3, Long.class, ParameterMode.IN);
         spInsertTarea.registerStoredProcedureParameter(4, String.class, ParameterMode.IN);
         spInsertTarea.registerStoredProcedureParameter(5, Long.class, ParameterMode.IN);        
-        //spInsertTarea.registerStoredProcedureParameter(6, Date.class, ParameterMode.IN);
         spInsertTarea.registerStoredProcedureParameter(6, Date.class, ParameterMode.IN);
         spInsertTarea.registerStoredProcedureParameter(7, Date.class, ParameterMode.IN);
         spInsertTarea.registerStoredProcedureParameter(8, String.class, ParameterMode.IN);
@@ -51,7 +50,6 @@ public class TareaDaoImpl implements TareaDao{
         spInsertTarea.setParameter(3, tarea.getIdresponsabletareaUsuario().getIdusuario());
         spInsertTarea.setParameter(4, tarea.getDgnombretarea());
         spInsertTarea.setParameter(5, tarea.getDcporccompletado());
-        //spInsertTarea.setParameter(6, tarea.getDcfechacreacion());
         spInsertTarea.setParameter(6, tarea.getDcfechaemision());
         spInsertTarea.setParameter(7, tarea.getDcfechatermino());
         spInsertTarea.setParameter(8, tarea.getDgjustificacion());
@@ -75,7 +73,6 @@ public class TareaDaoImpl implements TareaDao{
         spUpdateTarea.registerStoredProcedureParameter(3, Long.class, ParameterMode.IN);
         spUpdateTarea.registerStoredProcedureParameter(4, String.class, ParameterMode.IN);
         spUpdateTarea.registerStoredProcedureParameter(5, Long.class, ParameterMode.IN);        
-        //spInsertTarea.registerStoredProcedureParameter(6, Date.class, ParameterMode.IN);
         spUpdateTarea.registerStoredProcedureParameter(6, Date.class, ParameterMode.IN);
         spUpdateTarea.registerStoredProcedureParameter(7, Date.class, ParameterMode.IN);
         spUpdateTarea.registerStoredProcedureParameter(8, String.class, ParameterMode.IN);
@@ -91,7 +88,6 @@ public class TareaDaoImpl implements TareaDao{
         spUpdateTarea.setParameter(3, tarea.getIdresponsabletareaUsuario().getIdusuario());
         spUpdateTarea.setParameter(4, tarea.getDgnombretarea());
         spUpdateTarea.setParameter(5, tarea.getDcporccompletado());
-        //spInsertTarea.setParameter(6, tarea.getDcfechacreacion());
         spUpdateTarea.setParameter(6, tarea.getDcfechaemision());
         spUpdateTarea.setParameter(7, tarea.getDcfechatermino());
         spUpdateTarea.setParameter(8, tarea.getDgjustificacion());

@@ -4,19 +4,21 @@
  * and open the template in the editor.
  */
 
-package cl.duoc.processtask.eis;
+package cl.duoc.processtask.servicio;
 
 import cl.duoc.processtask.entity.Tipoperfil;
 import java.util.List;
+import javax.ejb.Remote;
 
 /**
  *
  * @author jorge
  */
-public interface TipoperfilDao {
+@Remote
+public interface TipoPerfilService {
     
-    public List<Tipoperfil> findAllTipoperfil();
+    public List<Tipoperfil> listarallTipoPerfil();
+    public List<Tipoperfil> listarbyIdTipoPerfil(Tipoperfil tipoperfil);
     
-    public List<Tipoperfil> findByIdTipoPerfil(Tipoperfil tipoperfil);
     
 }

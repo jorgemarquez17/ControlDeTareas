@@ -31,7 +31,6 @@ public class EmpresaDaoImpl implements EmpresaDao{
 
     @Override
     public boolean modifyEmpresa(Empresa empresa) {
-       //em.merge(empresa);
         boolean bandera ;
         short var;
         StoredProcedureQuery spUpdateEmpresa = em.createStoredProcedureQuery("P_ACTUALIZAREMPRESA",Empresa.class);
@@ -65,7 +64,6 @@ public class EmpresaDaoImpl implements EmpresaDao{
 
     @Override
     public List<Empresa> findIdEmpresa(Empresa empresa) {
-        //return em.find(Empresa.class, empresa.getIdempresa());
         List<Empresa> r_cursor =  new ArrayList<Empresa>();
         StoredProcedureQuery spfindByIdEmpresa = em.createStoredProcedureQuery("P_LISTAREMPRESA",Empresa.class);
         spfindByIdEmpresa.registerStoredProcedureParameter(1, Long.class , ParameterMode.IN);
@@ -73,7 +71,6 @@ public class EmpresaDaoImpl implements EmpresaDao{
         
          spfindByIdEmpresa.setParameter(1, empresa.getIdempresa());
          
-         //(ArrayList<Empresa>) para castear el resultado
          r_cursor =  spfindByIdEmpresa.getResultList();
         
         return r_cursor;
@@ -81,7 +78,6 @@ public class EmpresaDaoImpl implements EmpresaDao{
 
     @Override
     public List<Empresa> findAllEmpresa() {
-        //return em.createNamedQuery("Empresa.findAll").getResultList();
         List<Empresa> r_cursor =  new ArrayList<Empresa>();
          StoredProcedureQuery spfindByIdEmpresa = em.createStoredProcedureQuery("P_LISTAREMPRESAALL",Empresa.class);
          spfindByIdEmpresa.registerStoredProcedureParameter("C_IDEMPRESA", void.class, ParameterMode.REF_CURSOR);
@@ -98,7 +94,6 @@ public class EmpresaDaoImpl implements EmpresaDao{
         spEliminarEmpresa.registerStoredProcedureParameter("C_IDEMPRESA", Short.class, ParameterMode.OUT);
         
         spEliminarEmpresa.setParameter(1, empresa.getIdempresa());
-        //r_cursor = (ArrayList<Empresa>) spEliminarEmpresa.getResultList();
         spEliminarEmpresa.execute();
         var = (short) spEliminarEmpresa.getOutputParameterValue("C_IDEMPRESA");
         if(var == 1){
@@ -111,9 +106,7 @@ public class EmpresaDaoImpl implements EmpresaDao{
     }
 
     @Override
-    //public List<Empresa> insertEmpresa2(Empresa empresa) {
     public boolean insertEmpresa2(Empresa empresa) {
-        //List<Empresa> r_cursor =  new ArrayList<Empresa>();
         boolean bandera = false;
         short var ;
         StoredProcedureQuery spInsertarEmpresa= em.createStoredProcedureQuery("INGRESAREMPRESA",Empresa.class);
@@ -132,7 +125,6 @@ public class EmpresaDaoImpl implements EmpresaDao{
         spInsertarEmpresa.setParameter(6, empresa.getDgcorreo());
         spInsertarEmpresa.setParameter(7, empresa.getBlvigente());
         
-        //r_cursor = (ArrayList<Empresa>) spInsertarEmpresa.getResultList();
         spInsertarEmpresa.execute();
         var =  (short) spInsertarEmpresa.getOutputParameterValue("C_EMPRESA");
         if(var == 1) {
@@ -142,8 +134,5 @@ public class EmpresaDaoImpl implements EmpresaDao{
             bandera = false;
         }
        return bandera;
-       
     }
-    
-    
 }
